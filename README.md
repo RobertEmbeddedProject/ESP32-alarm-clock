@@ -18,18 +18,26 @@
 - DS3231   Clock Preservation Module
 
 ### IO Assignment
-GPIO 1  = Radar Snooze Consumed Data (UART)
-GPIO 4  = MP3 Module Power (Transistor Circuit)
-GPIO 17 = MP3 Module Produced Data   (UART)
-GPIO 21 = SSD1309 SDA (I2C)
-GPIO 22 = SSD1309 SCL (I2C)
-GPIO 23 = SSD1309 RESET
-GPIO 36 = Alarm SW (vp)
-GPIO 25 = Alarm CLK
-GPIO 26 = Alarm DATA
-GPIO 32 = Songs CLK
-GPIO 33 = Songs DATA
-GPIO 39 = Songs SW (vn)
+- GPIO 1  = Radar Snooze Consumed Data (UART)
+- GPIO 4  = MP3 Module Power (Transistor Circuit)
+- GPIO 17 = MP3 Module Produced Data   (UART)
+- GPIO 21 = SSD1309 SDA (I2C)
+- GPIO 22 = SSD1309 SCL (I2C)
+- GPIO 23 = SSD1309 RESET
+- GPIO 36 = Alarm SW (vp)
+- GPIO 25 = Alarm CLK
+- GPIO 26 = Alarm DATA
+- GPIO 32 = Songs CLK
+- GPIO 33 = Songs DATA
+- GPIO 39 = Songs SW (vn)
+
+**Reserved for Debugging**
+- JTAG TCK  -> ESP32 GPIO13
+- JTAG TMS  -> ESP32 GPIO14
+- JTAG TDI  -> ESP32 GPIO12
+- JTAG TDO  -> ESP32 GPIO15
+- JTAG GND  -> ESP32 GND
+- JTAG 3V3 sense/reference -> ESP32 3V3
 
 
 
