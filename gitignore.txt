@@ -1,0 +1,43 @@
+
+.gitignore
+
+# Ignore unwanted shares
+main/CMakeLists.txt
+main/inc/passwords.h
+
+# Ignore unused implementations
+main/src/range_sensor.c
+main/inc/range_sensor.h
+main/src/radar_ble_nimble.c
+main/inc/radar_ble.h
+
+# Ignore build output
+/build/
+/*.elf
+/*.bin
+/*.map
+#commented out-- sdkconfig shoul be available on github
+#sdkconfig
+#/sdkconfig.old
+
+# Ignore CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore logs and debugging output
+*.log
+
+# Ignore core dumps
+core.*
+
+# Ignore hidden system files (macOS, Windows)
+.DS_Store
+Thumbs.db
+
+# Ignore ESP-IDF managed python environments
+.python-env/

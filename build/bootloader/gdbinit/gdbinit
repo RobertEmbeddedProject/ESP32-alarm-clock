@@ -1,0 +1,2 @@
+source C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/bootloader/gdbinit/symbols
+source C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/bootloader/gdbinit/connect
