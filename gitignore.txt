@@ -2,7 +2,6 @@
 .gitignore
 
 # Ignore unwanted shares
-main/CMakeLists.txt
 main/inc/passwords.h
 
 # Ignore unused implementations

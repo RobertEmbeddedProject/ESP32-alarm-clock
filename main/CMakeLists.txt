@@ -1,19 +1,13 @@
 idf_component_register(
   SRCS
     "src/main.c"
-    #"src/NVS_storage.c"
-    #"src/display.c"
     "src/ssd1309.c"
-    #"src/mp3.c"
-    #"src/songs.c"
-    #"src/wifi.c"
     #"src/rotary.c"
-    #"src/radar_snooze.c"
     "src/graphics_smallfonts.c"
   INCLUDE_DIRS
     "."
     "src"
     "inc"
   REQUIRES
-    driver log esp_netif lwip esp_event esp_wifi esp_timer nvs_flash bt 
+    driver log esp_netif lwip esp_event esp_driver_pcnt esp_wifi esp_timer nvs_flash bt 
 )

@@ -1,0 +1,130 @@
+Command: C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:\esp\release-v5.5\esp-idf\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\Alarm_Clock_v3.elf C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe' 'C:\esp\release-v5.5\esp-idf\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3ff�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6280
+load:0x40078000,len:15864
+load:0x40080400,len:3920
+entry 0x40080644
+[0;32mI (27) boot: ESP-IDF -128-NOTFOUND 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 18 2026 11:54:34[0m
+[0;32mI (28) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v3.1[0m
+[0;32mI (32) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (36) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (39) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (43) boot: Enabling RNG early entropy source...[0m
+[0;32mI (47) boot: Partition Table:[0m
+[0;32mI (50) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (63) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (69) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (76) boot: End of partition table[0m
+[0;32mI (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0aae8h ( 43752) map[0m
+[0;32mI (102) esp_image: segment 1: paddr=0001ab10 vaddr=3ffb0000 size=02834h ( 10292) load[0m
+[0;32mI (106) esp_image: segment 2: paddr=0001d34c vaddr=40080000 size=02ccch ( 11468) load[0m
+[0;32mI (111) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=13ea8h ( 81576) map[0m
+[0;32mI (141) esp_image: segment 4: paddr=00033ed0 vaddr=40082ccc size=0a618h ( 42520) load[0m
+[0;32mI (158) esp_image: segment 5: paddr=0003e4f0 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (165) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (165) boot: Disabling RNG early entropy source...[0m
+[0;32mI (176) cpu_start: Multicore app[0m
+[0;32mI (184) cpu_start: GPIO 3 and 1 are used as console UART I/O pins[0m
+[0;32mI (185) cpu_start: Pro cpu start user code[0m
+[0;32mI (185) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (186) app_init: Application information:[0m
+[0;32mI (190) app_init: Project name:     Alarm_Clock_v3[0m
+[0;32mI (195) app_init: App version:      7930892-dirty[0m
+[0;32mI (199) app_init: Compile time:     May 18 2026 15:56:10[0m
+[0;32mI (204) app_init: ELF file SHA256:  7ee84ab67...[0m
+[0;32mI (209) app_init: ESP-IDF:          -128-NOTFOUND[0m
+[0;32mI (213) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (217) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (221) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (225) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (231) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (236) heap_init: At 3FFB3138 len 0002CEC8 (179 KiB): DRAM[0m
+[0;32mI (241) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (247) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (252) heap_init: At 4008D2E4 len 00012D1C (75 KiB): IRAM[0m
+[0;32mI (259) spi_flash: detected chip: generic[0m
+[0;32mI (261) spi_flash: flash io: dio[0m
+[0;32mI (265) main_task: Started on CPU0[0m
+[0;32mI (275) main_task: Calling app_main()[0m
+[0;32mI (275) example: install pcnt unit[0m
+[0;32mI (275) example: set glitch filter[0m
+[0;32mI (275) example: install pcnt channels[0m
+[0;32mI (275) example: set edge and level actions for pcnt channels[0m
+[0;32mI (285) example: add watch points and register callbacks[0m
+[0;32mI (285) example: enable pcnt unit[0m
+[0;32mI (295) example: clear pcnt unit[0m
+[0;32mI (295) example: start pcnt unit[0m
+[0;32mI (1295) example: Pulse count: 0[0m
+���������������������������������������������������������������� (2295) example: Pulse count: 0
+[0;32mI (2665) example: Watch point event, count: 0[0m
+[0;32mI (2775) example: Watch point event, count: 0[0m
+[0;32mI (3775) example: Pulse count: 0[0m
+[0;32mI (4775) example: Pulse count: 0[0m
+[0;32mI (5775) example: Pulse count: 0[0m
+[0;32mI (6105) example: Watch point event, count: 0[0m
+[0;32mI (6105) example: Watch point event, count: 0[0m
+[0;32mI (6105) example: Watch point event, count: 0[0m
+[0;32mI (7105) example: Pulse count: 22[0m
+[0;32mI (8105) example: Pulse count: 22[0m
+[0;32mI (9105) example: Pulse count: 22[0m
+[0;32mI (10105) example: Pulse count: 24[0m
+[0;32mI (11105) example: Pulse count: 28[0m
+[0;32mI (12105) example: Pulse count: 28[0m
+[0;32mI (13105) example: Pulse count: 32[0m
+[0;32mI (14105) example: Pulse count: 32[0m
+[0;32mI (15105) example: Pulse count: 36[0m
+[0;32mI (16105) example: Pulse count: 40[0m
+[0;32mI (17105) example: Pulse count: 41[0m
+[0;32mI (17925) example: Watch point event, count: 50[0m
+[0;32mI (18925) example: Pulse count: 96[0m
+[0;32mI (19925) example: Pulse count: 96[0m
+[0;32mI (20235) example: Watch point event, count: 100[0m
+[0;32mI (20235) example: Watch point event, count: 0[0m
+[0;32mI (21235) example: Pulse count: 0[0m
+[0;32mI (22235) example: Pulse count: 0[0m
+[0;32mI (22405) example: Watch point event, count: 0[0m
+[0;32mI (23405) example: Pulse count: 20[0m
+[0;32mI (24405) example: Pulse count: 1[0m
+[0;32mI (24405) example: Watch point event, count: 0[0m
+[0;32mI (24415) example: Watch point event, count: 0[0m
+[0;32mI (24415) example: Watch point event, count: 0[0m
+[0;32mI (24415) example: Watch point event, count: 0[0m
+[0;32mI (25415) example: Pulse count: -16[0m
+[0;32mI (26415) example: Pulse count: -32[0m
+[0;32mI (27415) example: Pulse count: -41[0m
+[0;32mI (28135) example: Watch point event, count: -50[0m
+[0;32mI (29135) example: Pulse count: -80[0m
+[0;32mI (29835) example: Watch point event, count: -100[0m
+[0;32mI (29835) example: Watch point event, count: 0[0m
+[0;32mI (30835) example: Pulse count: 0[0m
+[0;32mI (31435) example: Watch point event, count: 0[0m
+[0;32mI (31435) example: Watch point event, count: 0[0m
+[0;32mI (31435) example: Watch point event, count: 0[0m
+[0;32mI (32445) example: Pulse count: -8[0m
+[0;32mI (33445) example: Pulse count: -12[0m
+[0;32mI (34445) example: Pulse count: -12[0m
+[0;32mI (35445) example: Pulse count: -12[0m
+���������������������������������������������������������������� (36445) example: Pulse count: -12
+[0;32mI (37445) example: Pulse count: -12[0m
+[0;32mI (38445) example: Pulse count: -12[0m
+[0;32mI (39445) example: Pulse count: -12[0m
+[0;32mI (40445) example: Pulse count: -12[0m
+[0;32mI (41445) example: Pulse count: -12[0m
+[0;32mI (42445) example: Pulse count: -12[0m
+[0;32mI (43445) example: Pulse count: -12[0m
+[0;32mI (44445) example: Pulse count: -12[0m
+[0;32mI (45445) example: Pulse count: -12[0m

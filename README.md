@@ -23,12 +23,12 @@
 - GPIO 21 = SSD1309 SDA (I2C)
 - GPIO 22 = SSD1309 SCL (I2C)
 - GPIO 23 = SSD1309 RESET
-- GPIO 36 = Alarm SW (vp)
-- GPIO 25 = Alarm CLK
-- GPIO 26 = Alarm DATA
-- GPIO 32 = Songs CLK
-- GPIO 33 = Songs DATA
-- GPIO 39 = Songs SW (vn)
+- GPIO 36 = Alarm Rotary SW (vp)
+- GPIO 25 = Alarm Rotary CLK
+- GPIO 26 = Alarm Rotary DATA
+- GPIO 32 = Songs Rotary CLK
+- GPIO 33 = Songs Rotary DATA
+- GPIO 39 = Songs Rotary SW (vn)
 
 **Reserved for Debugging**
 - JTAG TCK  -> ESP32 GPIO13
