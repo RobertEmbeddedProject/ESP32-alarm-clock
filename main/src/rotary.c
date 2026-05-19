@@ -15,85 +15,106 @@ reference PCNT guide from ESP-IDF HAL
 https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/pcnt.html
 */
 
-extern const char *TAG;
 
-#define EXAMPLE_PCNT_HIGH_LIMIT 100
-#define EXAMPLE_PCNT_LOW_LIMIT  -100
+#define PCNT_HI_LIM 100
+#define PCNT_LO_LIM  -100
 
-#define EXAMPLE_CHAN_GPIO_A 32
-#define EXAMPLE_CHAN_GPIO_B 33
+#define ROTARY_SONGS_GPIO_A 32
+#define ROTARY_SONGS_GPIO_B 33
 
-pcnt_chan_config_t chan_config = {
-    .edge_gpio_num = EXAMPLE_CHAN_GPIO_A,
-    .level_gpio_num = EXAMPLE_CHAN_GPIO_B,
-};
-pcnt_unit_handle_t pcnt_unit = NULL;
+#define ROTARY_ALARM_GPIO_A 25
+#define ROTARY_ALARM_GPIO_B 26
 
 
-
-
-bool example_pcnt_on_reach(pcnt_unit_handle_t unit, const pcnt_watch_event_data_t *edata, void *user_ctx)
+/*
+static bool pcnt_on_reach(pcnt_unit_handle_t unit, const pcnt_watch_event_data_t *edata, void *user_ctx)
 {
-    BaseType_t high_task_wakeup;
-    QueueHandle_t queue = (QueueHandle_t)user_ctx;
+    BaseType_t high_task_wakeup = pdFALSE;
+    QueueHandle_t queue_rotary = (QueueHandle_t)user_ctx;
     // send event data to queue, from this interrupt callback
-    xQueueSendFromISR(queue, &(edata->watch_point_value), &high_task_wakeup);
+    xQueueSendFromISR(queue_rotary, &(edata->watch_point_value), &high_task_wakeup);
     return (high_task_wakeup == pdTRUE);
 }
 
-void rotary_init(pcnt_unit_handle_t *pcnt_unit_out, QueueHandle_t *queue_out){
-    ESP_ERROR_CHECK(pcnt_new_unit(&unit_config, &pcnt_unit));
-    ESP_LOGI(TAG, "install pcnt unit");
+*/
+void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out, QueueHandle_t *queue_out){
+
+    gpio_num_t GPIO_A;
+    gpio_num_t GPIO_B;
+    const char *tag = NULL;
+
+    switch(rotary_knob){
+        case ROTARY_KNOB_SONGS:
+            GPIO_A = ROTARY_SONGS_GPIO_A;
+            GPIO_B = ROTARY_SONGS_GPIO_B;
+            tag = "songs";
+            break;
+        case ROTARY_KNOB_ALARM:
+            GPIO_A = ROTARY_ALARM_GPIO_A;
+            GPIO_B = ROTARY_ALARM_GPIO_B;
+            tag = "alarm";
+            break;
+        default:
+            abort();
+    }
+
+    ESP_LOGI(tag, "install pcnt unit");
     pcnt_unit_config_t unit_config = {
-        .high_limit = EXAMPLE_PCNT_HIGH_LIMIT,
-        .low_limit = EXAMPLE_PCNT_LOW_LIMIT,
+        .high_limit = PCNT_HI_LIM,
+        .low_limit = PCNT_LO_LIM,
     };
+    pcnt_unit_handle_t pcnt_unit_in = NULL;
+    ESP_ERROR_CHECK(pcnt_new_unit(&unit_config, &pcnt_unit_in));
 
-    ESP_ERROR_CHECK(pcnt_new_unit(&unit_config, &pcnt_unit));
-
-    ESP_LOGI(TAG, "set glitch filter");
+    ESP_LOGI(tag, "set glitch filter");
     pcnt_glitch_filter_config_t filter_config = {
         .max_glitch_ns = 1000,
     };
-    ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit, &filter_config));
+    ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit_in, &filter_config));
 
-    ESP_LOGI(TAG, "install pcnt channels");
+    ESP_LOGI(tag, "install pcnt channels");
     pcnt_chan_config_t chan_a_config = {
-        .edge_gpio_num = EXAMPLE_CHAN_GPIO_A,
-        .level_gpio_num = EXAMPLE_CHAN_GPIO_B,
+        .edge_gpio_num = GPIO_A,
+        .level_gpio_num = GPIO_B,
     };
     pcnt_channel_handle_t pcnt_chan_a = NULL;
-    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit, &chan_a_config, &pcnt_chan_a));
+    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit_in, &chan_a_config, &pcnt_chan_a));
     pcnt_chan_config_t chan_b_config = {
-        .edge_gpio_num = EXAMPLE_CHAN_GPIO_B,
-        .level_gpio_num = EXAMPLE_CHAN_GPIO_A,
+        .edge_gpio_num = GPIO_B,
+        .level_gpio_num = GPIO_A,
     };
-    pcnt_channel_handle_t pcnt_chan_b = NULL;
-    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit, &chan_b_config, &pcnt_chan_b));
 
-    ESP_LOGI(TAG, "set edge and level actions for pcnt channels");
+    pcnt_channel_handle_t pcnt_chan_b = NULL;
+    ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit_in, &chan_b_config, &pcnt_chan_b));
+
+    ESP_LOGI(tag, "set edge and level actions for pcnt channels");
     ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan_a, PCNT_CHANNEL_EDGE_ACTION_DECREASE, PCNT_CHANNEL_EDGE_ACTION_INCREASE));
     ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan_a, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_INVERSE));
     ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan_b, PCNT_CHANNEL_EDGE_ACTION_INCREASE, PCNT_CHANNEL_EDGE_ACTION_DECREASE));
     ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan_b, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_INVERSE));
 
-    ESP_LOGI(TAG, "add watch points and register callbacks");
-    int watch_points[] = {EXAMPLE_PCNT_LOW_LIMIT, -50, 0, 50, EXAMPLE_PCNT_HIGH_LIMIT};
+    ESP_LOGI(tag, "add watch points and register callbacks");
+    int watch_points[] = {PCNT_LO_LIM, -50, 0, 50, PCNT_HI_LIM};
     for (size_t i = 0; i < sizeof(watch_points) / sizeof(watch_points[0]); i++) {
-        ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit, watch_points[i]));
+        ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit_in, watch_points[i]));
     }
+    
     pcnt_event_callbacks_t cbs = {
-        .on_reach = example_pcnt_on_reach,
+        .on_reach = pcnt_on_reach,
     };
-    QueueHandle_t queue = xQueueCreate(10, sizeof(int));
-    ESP_ERROR_CHECK(pcnt_unit_register_event_callbacks(pcnt_unit, &cbs, queue));
+    QueueHandle_t queue_rotary_songs_in = xQueueCreate(10, sizeof(int));
+    ESP_ERROR_CHECK(pcnt_unit_register_event_callbacks(pcnt_unit_in, &cbs, queue_rotary_songs_in));
 
-    ESP_LOGI(TAG, "enable pcnt unit");
-    ESP_ERROR_CHECK(pcnt_unit_enable(pcnt_unit));
-    ESP_LOGI(TAG, "clear pcnt unit");
-    ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit));
-    ESP_LOGI(TAG, "start pcnt unit");
-    ESP_ERROR_CHECK(pcnt_unit_start(pcnt_unit));
+    ESP_LOGI(tag, "enable pcnt unit");
+    ESP_ERROR_CHECK(pcnt_unit_enable(pcnt_unit_in));
+    ESP_LOGI(tag, "clear pcnt unit");
+    ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit_in));
+    ESP_LOGI(tag, "start pcnt unit");
+    ESP_ERROR_CHECK(pcnt_unit_start(pcnt_unit_in));
 
+    *pcnt_unit_out = pcnt_unit_in;
+    *queue_out = queue_rotary_songs_in;
 }
+
+
 

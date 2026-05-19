@@ -1,0 +1,375 @@
+Command: C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:\esp\release-v5.5\esp-idf\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\Alarm_Clock_v3.elf C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe' 'C:\esp\release-v5.5\esp-idf\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6280
+load:0x40078000,len:15864
+load:0x40080400,len:3920
+entry 0x40080644
+[0;32mI (27) boot: ESP-IDF -128-NOTFOUND 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 18 2026 11:54:34[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v3.1[0m
+[0;32mI (32) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (36) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (39) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (43) boot: Enabling RNG early entropy source...[0m
+[0;32mI (47) boot: Partition Table:[0m
+[0;32mI (50) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (63) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (69) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (76) boot: End of partition table[0m
+[0;32mI (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=09840h ( 38976) map[0m
+[0;32mI (100) esp_image: segment 1: paddr=00019868 vaddr=3ffb0000 size=02834h ( 10292) load[0m
+[0;32mI (104) esp_image: segment 2: paddr=0001c0a4 vaddr=40080000 size=03f74h ( 16244) load[0m
+[0;32mI (111) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=10ce8h ( 68840) map[0m
+[0;32mI (135) esp_image: segment 4: paddr=00030d10 vaddr=40083f74 size=0927ch ( 37500) load[0m
+[0;32mI (150) esp_image: segment 5: paddr=00039f94 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (157) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (157) boot: Disabling RNG early entropy source...[0m
+[0;32mI (168) cpu_start: Multicore app[0m
+[0;32mI (176) cpu_start: GPIO 3 and 1 are used as console UART I/O pins[0m
+[0;32mI (176) cpu_start: Pro cpu start user code[0m
+[0;32mI (177) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (178) app_init: Application information:[0m
+[0;32mI (182) app_init: Project name:     Alarm_Clock_v3[0m
+[0;32mI (187) app_init: App version:      7c2e9be-dirty[0m
+[0;32mI (191) app_init: Compile time:     May 19 2026 13:47:12[0m
+[0;32mI (196) app_init: ELF file SHA256:  f9a6aaec5...[0m
+[0;32mI (200) app_init: ESP-IDF:          -128-NOTFOUND[0m
+[0;32mI (205) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (209) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (213) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (217) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (223) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (228) heap_init: At 3FFB3110 len 0002CEF0 (179 KiB): DRAM[0m
+[0;32mI (233) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (239) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (244) heap_init: At 4008D1F0 len 00012E10 (75 KiB): IRAM[0m
+[0;32mI (251) spi_flash: detected chip: generic[0m
+[0;32mI (253) spi_flash: flash io: dio[0m
+[0;32mI (257) main_task: Started on CPU0[0m
+[0;32mI (267) main_task: Calling app_main()[0m
+[0;32mI (267) songs: install pcnt unit[0m
+[0;32mI (267) songs: set glitch filter[0m
+[0;32mI (267) songs: install pcnt channels[0m
+[0;32mI (267) songs: set edge and level actions for pcnt channels[0m
+[0;32mI (277) songs: add watch points and register callbacks[0m
+[0;32mI (277) songs: enable pcnt unit[0m
+[0;32mI (277) songs: clear pcnt unit[0m
+[0;32mI (287) songs: start pcnt unit[0m
+[0;32mI (287) alarm: install pcnt unit[0m
+[0;32mI (287) alarm: set glitch filter[0m
+[0;32mI (287) alarm: install pcnt channels[0m
+[0;32mI (297) alarm: set edge and level actions for pcnt channels[0m
+[0;32mI (297) alarm: add watch points and register callbacks[0m
+[0;32mI (307) alarm: enable pcnt unit[0m
+[0;32mI (307) alarm: clear pcnt unit[0m
+[0;32mI (307) alarm: start pcnt unit[0m
+[0;32mI (1317) songs: Pulse count: 0[0m
+[0;32mI (2317) alarm: Pulse count: 0[0m
+[0;32mI (3317) songs: Pulse count: 0[0m
+[0;32mI (4317) alarm: Pulse count: 0[0m
+[0;32mI (5317) songs: Pulse count: 17[0m
+[0;32mI (6317) alarm: Pulse count: 20[0m
+[0;32mI (7317) songs: Pulse count: 20[0m
+[0;32mI (8317) alarm: Pulse count: 20[0m
+[0;32mI (9317) songs: Pulse count: 20[0m
+[0;32mI (10317) alarm: Pulse count: 20[0m
+���������������������������������������������������������������� (11317) songs: Pulse count: 20
+[0;32mI (12317) alarm: Pulse count: 20[0m
+[0;32mI (13317) songs: Pulse count: 20[0m
+[0;32mI (14317) alarm: Pulse count: 20[0m
+[0;32mI (15317) songs: Pulse count: 20[0m
+[0;32mI (16317) alarm: Pulse count: 36[0m
+[0;32mI (17317) songs: Pulse count: 36[0m
+[0;32mI (18317) alarm: Pulse count: 36[0m
+[0;32mI (19317) songs: Pulse count: 36[0m
+[0;32mI (20317) alarm: Pulse count: 36[0m
+[0;32mI (21317) songs: Pulse count: 36[0m
+[0;32mI (22317) alarm: Pulse count: 36[0m
+[0;32mI (23317) songs: Pulse count: 36[0m
+[0;32mI (24317) alarm: Pulse count: 36[0m
+[0;32mI (25317) songs: Pulse count: 36[0m
+[0;32mI (26317) alarm: Pulse count: 36[0m
+[0;32mI (27317) songs: Pulse count: 36[0m
+[0;32mI (28317) alarm: Pulse count: 36[0m
+[0;32mI (29317) songs: Pulse count: 36[0m
+[0;32mI (30317) alarm: Pulse count: 36[0m
+[0;32mI (31317) songs: Pulse count: 36[0m
+[0;32mI (32317) alarm: Pulse count: 36[0m
+[0;32mI (33317) songs: Pulse count: 36[0m
+[0;32mI (34317) alarm: Pulse count: 36[0m
+[0;32mI (35317) songs: Pulse count: 36[0m
+[0;32mI (36317) alarm: Pulse count: 36[0m
+[0;32mI (37317) songs: Pulse count: 36[0m
+[0;32mI (38317) alarm: Pulse count: 36[0m
+[0;32mI (39317) songs: Pulse count: 36[0m
+[0;32mI (40317) alarm: Pulse count: 36[0m
+[0;32mI (41317) songs: Pulse count: 36[0m
+[0;32mI (42317) alarm: Pulse count: 36[0m
+[0;32mI (43317) songs: Pulse count: 36[0m
+[0;32mI (44317) alarm: Pulse count: 36[0m
+[0;32mI (45317) songs: Pulse count: 36[0m
+[0;32mI (46317) alarm: Pulse count: 36[0m
+[0;32mI (47317) songs: Pulse count: 36[0m
+[0;32mI (48317) alarm: Pulse count: 36[0m
+[0;32mI (49317) songs: Pulse count: 36[0m
+[0;32mI (50317) alarm: Pulse count: 36[0m
+[0;32mI (51317) songs: Pulse count: 36[0m
+[0;32mI (52317) alarm: Pulse count: 36[0m
+[0;32mI (53317) songs: Pulse count: 36[0m
+[0;32mI (54317) alarm: Pulse count: 36[0m
+[0;32mI (55317) songs: Pulse count: 36[0m
+[0;32mI (56317) alarm: Pulse count: 36[0m
+[0;32mI (57317) songs: Pulse count: 36[0m
+[0;32mI (58317) alarm: Pulse count: 36[0m
+[0;32mI (59317) songs: Pulse count: 36[0m
+[0;32mI (60317) alarm: Pulse count: 36[0m
+[0;32mI (61317) songs: Pulse count: 36[0m
+[0;32mI (62317) alarm: Pulse count: 36[0m
+[0;32mI (63317) songs: Pulse count: 36[0m
+[0;32mI (64317) alarm: Pulse count: 36[0m
+[0;32mI (65317) songs: Pulse count: 36[0m
+[0;32mI (66317) alarm: Pulse count: 36[0m
+[0;32mI (67317) songs: Pulse count: 36[0m
+[0;32mI (68317) alarm: Pulse count: 36[0m
+����������������������������������������������������������������(69317) songs: Pulse count: 36
+[0;32mI (70317) alarm: Pulse count: 36[0m
+[0;32mI (71317) songs: Pulse count: 36[0m
+[0;32mI (72317) alarm: Pulse count: 36[0m
+���������������������������������������������������������������� (73317) songs: Pulse count: 36
+[0;32mI (74317) alarm: Pulse count: 36[0m
+[0;32mI (75317) songs: Pulse count: 36[0m
+[0;32mI (76317) alarm: Pulse count: 36[0m
+[0;32mI (77317) songs: Pulse count: 36[0m
+[0;32mI (78317) alarm: Pulse count: 36[0m
+[0;32mI (79317) songs: Pulse count: 36[0m
+[0;32mI (80317) alarm: Pulse count: 36[0m
+[0;32mI (81317) songs: Pulse count: 36[0m
+[0;32mI (82317) alarm: Pulse count: 36[0m
+[0;32mI (83317) songs: Pulse count: 36[0m
+[0;32mI (84317) alarm: Pulse count: 36[0m
+[0;32mI (85317) songs: Pulse count: 36[0m
+[0;32mI (86317) alarm: Pulse count: 36[0m
+[0;32mI (87317) songs: Pulse count: 36[0m
+[0;32mI (88317) alarm: Pulse count: 36[0m
+[0;32mI (89317) songs: Pulse count: 36[0m
+[0;32mI (90317) alarm: Pulse count: 36[0m
+[0;32mI (91317) songs: Pulse count: 36[0m
+[0;32mI (92317) alarm: Pulse count: 36[0m
+[0;32mI (93317) songs: Pulse count: 36[0m
+[0;32mI (94317) alarm: Pulse count: 36[0m
+[0;32mI (95317) songs: Pulse count: 36[0m
+[0;32mI (96317) alarm: Pulse count: 36[0m
+[0;32mI (97317) songs: Pulse count: 36[0m
+[0;32mI (98317) alarm: Pulse count: 36[0m
+[0;32mI (99317) songs: Pulse count: 36[0m
+[0;32mI (100317) alarm: Pulse count: 36[0m
+[0;32mI (101317) songs: Pulse count: 36[0m
+[0;32mI (102317) alarm: Pulse count: 36[0m
+[0;32mI (103317) songs: Pulse count: 36[0m
+[0;32mI (104317) alarm: Pulse count: 36[0m
+[0;32mI (105317) songs: Pulse count: 36[0m
+[0;32mI (106317) alarm: Pulse count: 36[0m
+[0;32mI (107317) songs: Pulse count: 36[0m
+[0;32mI (108317) alarm: Pulse count: 36[0m
+[0;32mI (109317) songs: Pulse count: 36[0m
+[0;32mI (110317) alarm: Pulse count: 36[0m
+[0;32mI (111317) songs: Pulse count: 36[0m
+[0;32mI (112317) alarm: Pulse count: 36[0m
+[0;32mI (113317) songs: Pulse count: 36[0m
+[0;32mI (114317) alarm: Pulse count: 36[0m
+[0;32mI (115317) songs: Pulse count: 36[0m
+[0;32mI (116317) alarm: Pulse count: 36[0m
+[0;32mI (117317) songs: Pulse count: 36[0m
+[0;32mI (118317) alarm: Pulse count: 36[0m
+[0;32mI (119317) songs: Pulse count: 36[0m
+[0;32mI (120317) alarm: Pulse count: 36[0m
+[0;32mI (121317) songs: Pulse count: 36[0m
+[0;32mI (122317) alarm: Pulse count: 36[0m
+[0;32mI (123317) songs: Pulse count: 36[0m
+[0;32mI (124317) alarm: Pulse count: 36[0m
+���������������������������������������������������������������� (125317) songs: Pulse count: 36
+[0;32mI (126317) alarm: Pulse count: 36[0m
+[0;32mI (127317) songs: Pulse count: 36[0m
+[0;32mI (128317) alarm: Pulse count: 36[0m
+[0;32mI (129317) songs: Pulse count: 36[0m
+[0;32mI (130317) alarm: Pulse count: 36[0m
+[0;32mI (131317) songs: Pulse count: 36[0m
+[0;32mI (132317) alarm: Pulse count: 36[0m
+[0;32mI (133317) songs: Pulse count: 36[0m
+[0;32mI (134317) alarm: Pulse count: 36[0m
+[0;32mI (135317) songs: Pulse count: 36[0m
+[0;32mI (136317) alarm: Pulse count: 36[0m
+[0;32mI (137317) songs: Pulse count: 36[0m
+[0;32mI (138317) alarm: Pulse count: 36[0m
+[0;32mI (139317) songs: Pulse count: 36[0m
+[0;32mI (140317) alarm: Pulse count: 36[0m
+[0;32mI (141317) songs: Pulse count: 36[0m
+[0;32mI (142317) alarm: Pulse count: 36[0m
+[0;32mI (143317) songs: Pulse count: 36[0m
+[0;32mI (144317) alarm: Pulse count: 36[0m
+[0;32mI (145317) songs: Pulse count: 36[0m
+[0;32mI (146317) alarm: Pulse count: 36[0m
+[0;32mI (147317) songs: Pulse count: 36[0m
+[0;32mI (148317) alarm: Pulse count: 36[0m
+[0;32mI (149317) songs: Pulse count: 36[0m
+[0;32mI (150317) alarm: Pulse count: 36[0m
+[0;32mI (151317) songs: Pulse count: 36[0m
+[0;32mI (152317) alarm: Pulse count: 36[0m
+[0;32mI (153317) songs: Pulse count: 36[0m
+[0;32mI (154317) alarm: Pulse count: 36[0m
+[0;32mI (155317) songs: Pulse count: 36[0m
+[0;32mI (156317) alarm: Pulse count: 36[0m
+[0;32mI (157317) songs: Pulse count: 36[0m
+[0;32mI (158317) alarm: Pulse count: 36[0m
+[0;32mI (159317) songs: Pulse count: 36[0m
+[0;32mI (160317) alarm: Pulse count: 36[0m
+[0;32mI (161317) songs: Pulse count: 36[0m
+[0;32mI (162317) alarm: Pulse count: 36[0m
+[0;32mI (163317) songs: Pulse count: 36[0m
+[0;32mI (164317) alarm: Pulse count: 36[0m
+[0;32mI (165317) songs: Pulse count: 36[0m
+[0;32mI (166317) alarm: Pulse count: 36[0m
+[0;32mI (167317) songs: Pulse count: 36[0m
+[0;32mI (168317) alarm: Pulse count: 36[0m
+[0;32mI (169317) songs: Pulse count: 36[0m
+[0;32mI (170317) alarm: Pulse count: 36[0m
+[0;32mI (171317) songs: Pulse count: 36[0m
+[0;32mI (172317) alarm: Pulse count: 36[0m
+���������������������������������������������������������������� (173317) songs: Pulse count: 36
+[0;32mI (174317) alarm: Pulse count: 36[0m
+[0;32mI (175317) songs: Pulse count: 36[0m
+[0;32mI (176317) alarm: Pulse count: 36[0m
+[0;32mI (177317) songs: Pulse count: 36[0m
+[0;32mI (178317) alarm: Pulse count: 36[0m
+[0;32mI (179317) songs: Pulse count: 36[0m
+[0;32mI (180317) alarm: Pulse count: 36[0m
+[0;32mI (181317) songs: Pulse count: 36[0m
+[0;32mI (182317) alarm: Pulse count: 36[0m
+[0;32mI (183317) songs: Pulse count: 36[0m
+[0;32mI (184317) alarm: Pulse count: 36[0m
+[0;32mI (185317) songs: Pulse count: 36[0m
+[0;32mI (186317) alarm: Pulse count: 36[0m
+[0;32mI (187317) songs: Pulse count: 36[0m
+[0;32mI (188317) alarm: Pulse count: 36[0m
+[0;32mI (189317) songs: Pulse count: 36[0m
+���������������������������������������������������������������� (190317) alarm: Pulse count: 36
+[0;32mI (191317) songs: Pulse count: 36[0m
+[0;32mI (192317) alarm: Pulse count: 36[0m
+[0;32mI (193317) songs: Pulse count: 36[0m
+[0;32mI (194317) alarm: Pulse count: 36[0m
+[0;32mI (195317) songs: Pulse count: 36[0m
+[0;32mI (196317) alarm: Pulse count: 36[0m
+[0;32mI (197317) songs: Pulse count: 36[0m
+[0;32mI (198317) alarm: Pulse count: 36[0m
+[0;32mI (199317) songs: Pulse count: 36[0m
+[0;32mI (200317) alarm: Pulse count: 36[0m
+[0;32mI (201317) songs: Pulse count: 36[0m
+[0;32mI (202317) alarm: Pulse count: 36[0m
+[0;32mI (203317) songs: Pulse count: 36[0m
+[0;32mI (204317) alarm: Pulse count: 36[0m
+[0;32mI (205317) songs: Pulse count: 36[0m
+[0;32mI (206317) alarm: Pulse count: 36[0m
+[0;32mI (207317) songs: Pulse count: 36[0m
+[0;32mI (208317) alarm: Pulse count: 36[0m
+[0;32mI (209317) songs: Pulse count: 36[0m
+[0;32mI (210317) alarm: Pulse count: 36[0m
+[0;32mI (211317) songs: Pulse count: 36[0m
+[0;32mI (212317) alarm: Pulse count: 36[0m
+[0;32mI (213317) songs: Pulse count: 36[0m
+[0;32mI (214317) alarm: Pulse count: 36[0m
+[0;32mI (215317) songs: Pulse count: 36[0m
+[0;32mI (216317) alarm: Pulse count: 36[0m
+[0;32mI (217317) songs: Pulse count: 36[0m
+[0;32mI (218317) alarm: Pulse count: 36[0m
+[0;32mI (219317) songs: Pulse count: 36[0m
+[0;32mI (220317) alarm: Pulse count: 36[0m
+[0;32mI (221317) songs: Pulse count: 36[0m
+[0;32mI (222317) alarm: Pulse count: 36[0m
+[0;32mI (223317) songs: Pulse count: 36[0m
+[0;32mI (224317) alarm: Pulse count: 36[0m
+[0;32mI (225317) songs: Pulse count: 36[0m
+[0;32mI (226317) alarm: Pulse count: 36[0m
+[0;32mI (227317) songs: Pulse count: 36[0m
+[0;32mI (228317) alarm: Pulse count: 36[0m
+[0;32mI (229317) songs: Pulse count: 36[0m
+[0;32mI (230317) alarm: Pulse count: 36[0m
+[0;32mI (231317) songs: Pulse count: 36[0m
+[0;32mI (232317) alarm: Pulse count: 36[0m
+[0;32mI (233317) songs: Pulse count: 36[0m
+[0;32mI (234317) alarm: Pulse count: 36[0m
+                                                                 (235317) songs: Pulse count: 36
+[0;32mI (236317) alarm: Pulse count: 36[0m
+[0;32mI (237317) songs: Pulse count: 36[0m
+[0;32mI (238317) alarm: Pulse count: 36[0m
+[0;32mI (239317) songs: Pulse count: 36[0m
+[0;32mI (240317) alarm: Pulse count: 36[0m
+[0;32mI (241317) songs: Pulse count: 36[0m
+[0;32mI (242317) alarm: Pulse count: 36[0m
+[0;32mI (243317) songs: Pulse count: 36[0m
+[0;32mI (244317) alarm: Pulse count: 36[0m
+[0;32mI (245317) songs: Pulse count: 36[0m
+[0;32mI (246317) alarm: Pulse count: 36[0m
+[0;32mI (247317) songs: Pulse count: 36[0m
+[0;32mI (248317) alarm: Pulse count: 36[0m
+[0;32mI (249317) songs: Pulse count: 36[0m
+[0;32mI (250317) alarm: Pulse count: 36[0m
+[0;32mI (251317) songs: Pulse count: 36[0m
+[0;32mI (252317) alarm: Pulse count: 36[0m
+[0;32mI (253317) songs: Pulse count: 36[0m
+[0;32mI (254317) alarm: Pulse count: 36[0m
+[0;32mI (255317) songs: Pulse count: 36[0m
+[0;32mI (256317) alarm: Pulse count: 36[0m
+[0;32mI (257317) songs: Pulse count: 36[0m
+[0;32mI (258317) alarm: Pulse count: 36[0m
+[0;32mI (259317) songs: Pulse count: 36[0m
+[0;32mI (260317) alarm: Pulse count: 36[0m
+[0;32mI (261317) songs: Pulse count: 36[0m
+[0;32mI (262317) alarm: Pulse count: 36[0m
+[0;32mI (263317) songs: Pulse count: 36[0m
+[0;32mI (264317) alarm: Pulse count: 36[0m
+[0;32mI (265317) songs: Pulse count: 36[0m
+[0;32mI (266317) alarm: Pulse count: 36[0m
+[0;32mI (267317) songs: Pulse count: 36[0m
+[0;32mI (268317) alarm: Pulse count: 36[0m
+[0;32mI (269317) songs: Pulse count: 36[0m
+[0;32mI (270317) alarm: Pulse count: 36[0m
+[0;32mI (271317) songs: Pulse count: 36[0m
+[0;32mI (272317) alarm: Pulse count: 36[0m
+[0;32mI (273317) songs: Pulse count: 36[0m
+[0;32mI (274317) alarm: Pulse count: 36[0m
+[0;32mI (275317) songs: Pulse count: 36[0m
+[0;32mI (276317) alarm: Pulse count: 36[0m
+[0;32mI (277317) songs: Pulse count: 36[0m
+[0;32mI (278317) alarm: Pulse count: 36[0m
+[0;32mI (279317) songs: Pulse count: 36[0m
+���������������������������������������������������������������� (280317) alarm: Pulse count: 36
+[0;32mI (281317) songs: Pulse count: 36[0m
+[0;32mI (282317) alarm: Pulse count: 36[0m
+[0;32mI (283317) songs: Pulse count: 36[0m
+[0;32mI (284317) alarm: Pulse count: 36[0m
+[0;32mI (285317) songs: Pulse count: 36[0m
+[0;32mI (286317) alarm: Pulse count: 36[0m
+[0;32mI (287317) songs: Pulse count: 36[0m
+[0;32mI (288317) alarm: Pulse count: 36[0m
+[0;32mI (289317) songs: Pulse count: 36[0m
+[0;32mI (290317) alarm: Pulse count: 36[0m
+[0;32mI (291317) songs: Pulse count: 36[0m
+[0;32mI (292317) alarm: Pulse count: 36[0m
+[0;32mI (293317) songs: Pulse count: 36[0m
+[0;32mI (294317) alarm: Pulse count: 36[0m
+[0;32mI (295317) songs: Pulse count: 36[0m
+[0;32mI (296317) alarm: Pulse count: 36[0m
+[0;32mI (297317) songs: Pulse count: 36[0m
+[0;32mI (298317) alarm: Pulse count: 36[0m
+[0;32mI (299317) songs: Pulse count: 36[0m

@@ -9,5 +9,10 @@
 #include "driver/gpio.h"
 #include "esp_sleep.h"
 
-void rotary_init(pcnt_unit_handle_t *pcnt_unit_out, QueueHandle_t *queue_out);
-extern bool example_pcnt_on_reach(pcnt_unit_handle_t unit, const pcnt_watch_event_data_t *edata, void *user_ctx);
+//enumerate for GPIO cases
+typedef enum {
+    ROTARY_KNOB_SONGS,
+    ROTARY_KNOB_ALARM,
+} rotary_knob_t;
+
+void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out, QueueHandle_t *queue_out);

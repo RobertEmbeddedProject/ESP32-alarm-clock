@@ -23,9 +23,9 @@
 - GPIO 21 = SSD1309 SDA (I2C)
 - GPIO 22 = SSD1309 SCL (I2C)
 - GPIO 23 = SSD1309 RESET
-- GPIO 36 = Alarm Rotary SW (vp)
 - GPIO 25 = Alarm Rotary CLK
 - GPIO 26 = Alarm Rotary DATA
+- GPIO 36 = Alarm Rotary SW (vp)
 - GPIO 32 = Songs Rotary CLK
 - GPIO 33 = Songs Rotary DATA
 - GPIO 39 = Songs Rotary SW (vn)

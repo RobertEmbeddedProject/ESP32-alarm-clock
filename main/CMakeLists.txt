@@ -2,7 +2,7 @@ idf_component_register(
   SRCS
     "src/main.c"
     "src/ssd1309.c"
-    #"src/rotary.c"
+    "src/rotary.c"
     "src/graphics_smallfonts.c"
   INCLUDE_DIRS
     "."
