@@ -1,3 +1,15 @@
+/*
+KY-040 Rotary Encoder User Inputs, 4x quadrature decoding.
+A B
+0 0
+1 0
+1 1
+0 1
+0 0
+reference PCNT guide from ESP-IDF HAL
+https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/pcnt.html
+*/
+
 #include "rotary.h"
 
 #include "sdkconfig.h"
@@ -8,23 +20,16 @@
 #include "driver/pulse_cnt.h"
 #include "driver/gpio.h"
 #include "esp_sleep.h"
+#include <math.h>
 
-/*
-KY-040 Rotary Encoder User Inputs
-reference PCNT guide from ESP-IDF HAL
-https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/pcnt.html
-*/
-
-
-#define PCNT_HI_LIM 100
-#define PCNT_LO_LIM  -100
+#define PCNT_HI_LIM 1000
+#define PCNT_LO_LIM -1000
 
 #define ROTARY_SONGS_GPIO_A 32
 #define ROTARY_SONGS_GPIO_B 33
 
 #define ROTARY_ALARM_GPIO_A 25
 #define ROTARY_ALARM_GPIO_B 26
-
 
 /*
 static bool pcnt_on_reach(pcnt_unit_handle_t unit, const pcnt_watch_event_data_t *edata, void *user_ctx)
@@ -35,27 +40,29 @@ static bool pcnt_on_reach(pcnt_unit_handle_t unit, const pcnt_watch_event_data_t
     xQueueSendFromISR(queue_rotary, &(edata->watch_point_value), &high_task_wakeup);
     return (high_task_wakeup == pdTRUE);
 }
-
 */
-void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out, QueueHandle_t *queue_out){
+
+void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
+{
 
     gpio_num_t GPIO_A;
     gpio_num_t GPIO_B;
     const char *tag = NULL;
 
-    switch(rotary_knob){
-        case ROTARY_KNOB_SONGS:
-            GPIO_A = ROTARY_SONGS_GPIO_A;
-            GPIO_B = ROTARY_SONGS_GPIO_B;
-            tag = "songs";
-            break;
-        case ROTARY_KNOB_ALARM:
-            GPIO_A = ROTARY_ALARM_GPIO_A;
-            GPIO_B = ROTARY_ALARM_GPIO_B;
-            tag = "alarm";
-            break;
-        default:
-            abort();
+    switch (rotary_knob)
+    {
+    case ROTARY_KNOB_SONGS:
+        GPIO_A = ROTARY_SONGS_GPIO_A;
+        GPIO_B = ROTARY_SONGS_GPIO_B;
+        tag = "songs";
+        break;
+    case ROTARY_KNOB_ALARM:
+        GPIO_A = ROTARY_ALARM_GPIO_A;
+        GPIO_B = ROTARY_ALARM_GPIO_B;
+        tag = "alarm";
+        break;
+    default:
+        abort();
     }
 
     ESP_LOGI(tag, "install pcnt unit");
@@ -93,18 +100,6 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out, Q
     ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan_b, PCNT_CHANNEL_EDGE_ACTION_INCREASE, PCNT_CHANNEL_EDGE_ACTION_DECREASE));
     ESP_ERROR_CHECK(pcnt_channel_set_level_action(pcnt_chan_b, PCNT_CHANNEL_LEVEL_ACTION_KEEP, PCNT_CHANNEL_LEVEL_ACTION_INVERSE));
 
-    ESP_LOGI(tag, "add watch points and register callbacks");
-    int watch_points[] = {PCNT_LO_LIM, -50, 0, 50, PCNT_HI_LIM};
-    for (size_t i = 0; i < sizeof(watch_points) / sizeof(watch_points[0]); i++) {
-        ESP_ERROR_CHECK(pcnt_unit_add_watch_point(pcnt_unit_in, watch_points[i]));
-    }
-    
-    pcnt_event_callbacks_t cbs = {
-        .on_reach = pcnt_on_reach,
-    };
-    QueueHandle_t queue_rotary_songs_in = xQueueCreate(10, sizeof(int));
-    ESP_ERROR_CHECK(pcnt_unit_register_event_callbacks(pcnt_unit_in, &cbs, queue_rotary_songs_in));
-
     ESP_LOGI(tag, "enable pcnt unit");
     ESP_ERROR_CHECK(pcnt_unit_enable(pcnt_unit_in));
     ESP_LOGI(tag, "clear pcnt unit");
@@ -113,8 +108,18 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out, Q
     ESP_ERROR_CHECK(pcnt_unit_start(pcnt_unit_in));
 
     *pcnt_unit_out = pcnt_unit_in;
-    *queue_out = queue_rotary_songs_in;
 }
 
+void rotary_index(int pulse_count_prev, int pulse_count_now, int *index_out)
+{
 
+    int pulse_prev = pulse_count_prev / 4;
+    int pulse_now = pulse_count_now / 4;
+    int delta = pulse_now - pulse_prev;
 
+    if (delta == 0)
+    {
+        return;
+    }
+    *index_out += delta;
+}

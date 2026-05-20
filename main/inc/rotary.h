@@ -9,10 +9,12 @@
 #include "driver/gpio.h"
 #include "esp_sleep.h"
 
-//enumerate for GPIO cases
-typedef enum {
+// enumerate for GPIO cases
+typedef enum
+{
     ROTARY_KNOB_SONGS,
     ROTARY_KNOB_ALARM,
 } rotary_knob_t;
 
-void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out, QueueHandle_t *queue_out);
+void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out);
+void rotary_index(int pulse_count_prev, int pulse_count_now, int *index_out);
