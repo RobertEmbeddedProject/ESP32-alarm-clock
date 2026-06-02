@@ -292,3 +292,168 @@ Error: [esp32.cpu0] Polling failed, trying to reexamine
 Info : [esp32.cpu0] Examination succeed
 Info : [esp32.cpu0] Target halted, PC=0x4000921A, debug_reason=00000000
 Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x4000874A, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40008778, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x4000921A, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009447, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009399, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x400093DD, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009418, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009420, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009394, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009394, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x400093BA, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)

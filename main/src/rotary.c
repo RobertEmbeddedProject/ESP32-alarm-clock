@@ -111,14 +111,15 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
     *pcnt_unit_out = pcnt_unit_in;
 }
 
-void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev, int *pulse_now, int array[], int *index_out, int array_size)
+void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev, int *pulse_now, int *index_out, int array_size)
 {
-    int delta = (*pulse_now / 4) - (*pulse_prev / 4);
     int pulse_raw = 0;
 
     *pulse_prev = *pulse_now;
     ESP_ERROR_CHECK(pcnt_unit_get_count(pcnt_unit_out, &pulse_raw));
     *pulse_now = pulse_raw;
+
+    int delta = (*pulse_now / 4) - (*pulse_prev / 4);
 
     if (delta == 0) {
         return;
@@ -126,19 +127,18 @@ void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev, int *pulse_
 
     *index_out += delta;
 
-    if (*index_out >= array_size) {
-        *index_out = 0;
+    while (*index_out >= array_size) {
+        *index_out -= array_size;
     }
-    else if (*index_out < 0) {
-        *index_out = array_size - 1;
-    }   
 
-    //clear all PCNT counts
-    if(abs(pulse_raw)>100){
-            ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit_out));
-            pulse_raw = 0;
-            *pulse_prev = 0;
-            *pulse_now = 0;
-        }
+    while (*index_out < 0) {
+        *index_out += array_size;
+    }
+
+    if (abs(pulse_raw) > 1000) {
+        ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit_out));
+        *pulse_prev = 0;
+        *pulse_now = 0;
+    }
 }
     
