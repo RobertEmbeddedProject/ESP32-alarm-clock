@@ -28,9 +28,11 @@ https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/periph
 
 #define ROTARY_SONGS_GPIO_A 32
 #define ROTARY_SONGS_GPIO_B 33
+#define ROTARY_SONGS_SW 39
 
 #define ROTARY_ALARM_GPIO_A 25
 #define ROTARY_ALARM_GPIO_B 26
+#define ROTARY_ALARM_SW 36
 
 /*
 static bool pcnt_on_reach(pcnt_unit_handle_t unit, const pcnt_watch_event_data_t *edata, void *user_ctx)
@@ -48,6 +50,7 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
 
     gpio_num_t GPIO_A;
     gpio_num_t GPIO_B;
+    gpio_num_t GPIO_SW;
     const char *tag = NULL;
 
     switch (rotary_knob)
@@ -55,11 +58,13 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
     case ROTARY_KNOB_SONGS:
         GPIO_A = ROTARY_SONGS_GPIO_A;
         GPIO_B = ROTARY_SONGS_GPIO_B;
+        GPIO_SW = ROTARY_SONGS_SW;
         tag = "songs";
         break;
     case ROTARY_KNOB_ALARM:
         GPIO_A = ROTARY_ALARM_GPIO_A;
         GPIO_B = ROTARY_ALARM_GPIO_B;
+        GPIO_SW = ROTARY_ALARM_SW;
         tag = "alarm";
         break;
     default:
@@ -81,19 +86,33 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
     ESP_ERROR_CHECK(pcnt_unit_set_glitch_filter(pcnt_unit_in, &filter_config));
 
     ESP_LOGI(tag, "install pcnt channels");
+
+    //channel A
     pcnt_chan_config_t chan_a_config = {
         .edge_gpio_num = GPIO_A,
         .level_gpio_num = GPIO_B,
     };
     pcnt_channel_handle_t pcnt_chan_a = NULL;
     ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit_in, &chan_a_config, &pcnt_chan_a));
+    
+    //channel B
     pcnt_chan_config_t chan_b_config = {
         .edge_gpio_num = GPIO_B,
         .level_gpio_num = GPIO_A,
     };
-
     pcnt_channel_handle_t pcnt_chan_b = NULL;
     ESP_ERROR_CHECK(pcnt_new_channel(pcnt_unit_in, &chan_b_config, &pcnt_chan_b));
+
+    //from HAL
+    gpio_config_t rotary_pb = {
+        .intr_type = GPIO_INTR_DISABLE,
+        .mode = GPIO_MODE_INPUT,
+        .pin_bit_mask = (1ULL << GPIO_SW),
+        .pull_down_en = 0,
+        .pull_up_en = 0
+    };
+    gpio_config(&rotary_pb);
+
 
     ESP_LOGI(tag, "set edge and level actions for pcnt channels");
     ESP_ERROR_CHECK(pcnt_channel_set_edge_action(pcnt_chan_a, PCNT_CHANNEL_EDGE_ACTION_DECREASE, PCNT_CHANNEL_EDGE_ACTION_INCREASE));
@@ -111,7 +130,8 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
     *pcnt_unit_out = pcnt_unit_in;
 }
 
-void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev, int *pulse_now, int *index_out, int array_size)
+void rotary_index(gpio_config_t rotary_pb, pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
+                    int *pulse_now, int *index_out, int array_size)
 {
     int pulse_raw = 0;
 
@@ -140,5 +160,7 @@ void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev, int *pulse_
         *pulse_prev = 0;
         *pulse_now = 0;
     }
+
+
 }
     

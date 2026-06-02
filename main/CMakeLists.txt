@@ -4,6 +4,7 @@ idf_component_register(
     "src/ssd1309.c"
     "src/rotary.c"
     "src/songs.c"
+    "src/mp3.c"
     "src/graphics_smallfonts.c"
   INCLUDE_DIRS
     "."

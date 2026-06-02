@@ -1,0 +1,1148 @@
+Command: C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:\esp\release-v5.5\esp-idf\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\Alarm_Clock_v3.elf C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe' 'C:\esp\release-v5.5\esp-idf\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fffets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6280
+load:0x40078000,len:15864
+load:0x40080400,len:3920
+entry 0x40080644
+[0;32mI (27) boot: ESP-IDF -128-NOTFOUND 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time May 18 2026 11:54:34[0m
+[0;32mI (28) boot: Multicore bootloader[0m
+[0;32mI (29) boot: chip revision: v3.1[0m
+[0;32mI (32) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (36) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (39) boot.esp32: SPI Flash Size : 4MB[0m
+[0;32mI (43) boot: Enabling RNG early entropy source...[0m
+[0;32mI (47) boot: Partition Table:[0m
+[0;32mI (50) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (56) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (63) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (69) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (76) boot: End of partition table[0m
+[0;32mI (79) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=0c278h ( 49784) map[0m
+[0;32mI (104) esp_image: segment 1: paddr=0001c2a0 vaddr=3ffb0000 size=02954h ( 10580) load[0m
+[0;32mI (108) esp_image: segment 2: paddr=0001ebfc vaddr=40080000 size=0141ch (  5148) load[0m
+[0;32mI (110) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=19d28h (105768) map[0m
+[0;32mI (151) esp_image: segment 4: paddr=00039d50 vaddr=4008141c size=0cd04h ( 52484) load[0m
+[0;32mI (172) esp_image: segment 5: paddr=00046a5c vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (179) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (179) boot: Disabling RNG early entropy source...[0m
+[0;32mI (190) cpu_start: Multicore app[0m
+[0;32mI (198) cpu_start: GPIO 3 and 1 are used as console UART I/O pins[0m
+[0;32mI (199) cpu_start: Pro cpu start user code[0m
+[0;32mI (199) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (201) app_init: Application information:[0m
+[0;32mI (204) app_init: Project name:     Alarm_Clock_v3[0m
+[0;32mI (209) app_init: App version:      49803f2-dirty[0m
+[0;32mI (213) app_init: Compile time:     Jun  2 2026 11:34:12[0m
+[0;32mI (218) app_init: ELF file SHA256:  6a69a7864...[0m
+[0;32mI (223) app_init: ESP-IDF:          -128-NOTFOUND[0m
+[0;32mI (227) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (231) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (235) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (239) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (245) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (250) heap_init: At 3FFB37C0 len 0002C840 (178 KiB): DRAM[0m
+[0;32mI (255) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (261) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (266) heap_init: At 4008E120 len 00011EE0 (71 KiB): IRAM[0m
+[0;32mI (273) spi_flash: detected chip: generic[0m
+[0;32mI (275) spi_flash: flash io: dio[0m
+[0;32mI (279) main_task: Started on CPU0[0m
+[0;32mI (289) main_task: Calling app_main()[0m
+[0;32mI (319) songs: install pcnt unit[0m
+[0;32mI (319) songs: set glitch filter[0m
+[0;32mI (319) songs: install pcnt channels[0m
+[0;32mI (319) songs: set edge and level actions for pcnt channels[0m
+[0;32mI (329) songs: enable pcnt unit[0m
+[0;32mI (329) songs: clear pcnt unit[0m
+[0;32mI (329) songs: start pcnt unit[0m
+[0;32mI (329) alarm: install pcnt unit[0m
+[0;32mI (339) alarm: set glitch filter[0m
+[0;32mI (339) alarm: install pcnt channels[0m
+[0;32mI (339) alarm: set edge and level actions for pcnt channels[0m
+[0;32mI (349) alarm: enable pcnt unit[0m
+[0;32mI (349) alarm: clear pcnt unit[0m
+[0;32mI (349) alarm: start pcnt unit[0m
+[0;32mI (1419) test: Button Value = 1[0m
+[0;32mI (1419) test: Button Value = 1[0m
+[0;32mI (1719) test: Button Value = 1[0m
+[0;32mI (1719) test: Button Value = 1[0m
+[0;32mI (2019) test: Button Value = 1[0m
+[0;32mI (2019) test: Button Value = 1[0m
+[0;32mI (2319) test: Button Value = 1[0m
+[0;32mI (2319) test: Button Value = 1[0m
+[0;32mI (2619) test: Button Value = 1[0m
+[0;32mI (2619) test: Button Value = 1[0m
+[0;32mI (2919) test: Button Value = 1[0m
+[0;32mI (2919) test: Button Value = 1[0m
+[0;32mI (3219) test: Button Value = 1[0m
+[0;32mI (3219) test: Button Value = 1[0m
+[0;32mI (3519) test: Button Value = 1[0m
+[0;32mI (3519) test: Button Value = 1[0m
+[0;32mI (3819) test: Button Value = 0[0m
+[0;32mI (3819) test: Button Value = 1[0m
+[0;32mI (4119) test: Button Value = 1[0m
+[0;32mI (4119) test: Button Value = 1[0m
+[0;32mI (4419) test: Button Value = 1[0m
+[0;32mI (4419) test: Button Value = 1[0m
+[0;32mI (4719) test: Button Value = 1[0m
+[0;32mI (4719) test: Button Value = 1[0m
+[0;32mI (5019) test: Button Value = 0[0m
+[0;32mI (5019) test: Button Value = 1[0m
+[0;32mI (5319) test: Button Value = 1[0m
+[0;32mI (5319) test: Button Value = 1[0m
+[0;32mI (5619) test: Button Value = 1[0m
+[0;32mI (5619) test: Button Value = 0[0m
+[0;32mI (5919) test: Button Value = 1[0m
+[0;32mI (5919) test: Button Value = 1[0m
+[0;32mI (6219) test: Button Value = 1[0m
+[0;32mI (6219) test: Button Value = 0[0m
+[1;31mE (6409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (6409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (6409) task_wdt: Tasks currently running:[0m
+[1;31mE (6409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (6409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (6409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (6519) test: Button Value = 1[0m
+[0;32mI (6519) test: Button Value = 1[0m
+[0;32mI (6819) test: Button Value = 1[0m
+[0;32mI (6819) test: Button Value = 1[0m
+[0;32mI (7119) test: Button Value = 1[0m
+[0;32mI (7119) test: Button Value = 1[0m
+[0;32mI (7419) test: Button Value = 1[0m
+[0;32mI (7419) test: Button Value = 1[0m
+[0;32mI (7719) test: Button Value = 1[0m
+[0;32mI (7719) test: Button Value = 0[0m
+[0;32mI (8019) test: Button Value = 1[0m
+[0;32mI (8019) test: Button Value = 1[0m
+[0;32mI (8319) test: Button Value = 1[0m
+[0;32mI (8319) test: Button Value = 1[0m
+[0;32mI (8619) test: Button Value = 1[0m
+[0;32mI (8619) test: Button Value = 1[0m
+[0;32mI (8919) test: Button Value = 1[0m
+[0;32mI (8919) test: Button Value = 1[0m
+[0;32mI (9219) test: Button Value = 0[0m
+[0;32mI (9219) test: Button Value = 1[0m
+[0;32mI (9519) test: Button Value = 1[0m
+[0;32mI (9519) test: Button Value = 1[0m
+[0;32mI (9819) test: Button Value = 1[0m
+[0;32mI (9819) test: Button Value = 1[0m
+[0;32mI (10119) test: Button Value = 0[0m
+[0;32mI (10119) test: Button Value = 1[0m
+[0;32mI (10419) test: Button Value = 0[0m
+[0;32mI (10419) test: Button Value = 1[0m
+[0;32mI (10719) test: Button Value = 1[0m
+[0;32mI (10719) test: Button Value = 1[0m
+[0;32mI (11019) test: Button Value = 1[0m
+[0;32mI (11019) test: Button Value = 1[0m
+[0;32mI (11319) test: Button Value = 1[0m
+[0;32mI (11319) test: Button Value = 1[0m
+[1;31mE (11409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (11409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (11409) task_wdt: Tasks currently running:[0m
+[1;31mE (11409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (11409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (11409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x400D9B3C:0x3FFBA820 0x400D9066:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (11619) test: Button Value = 1[0m
+[0;32mI (11619) test: Button Value = 1[0m
+[0;32mI (11919) test: Button Value = 1[0m
+[0;32mI (11919) test: Button Value = 1[0m
+[0;32mI (12219) test: Button Value = 1[0m
+[0;32mI (12219) test: Button Value = 1[0m
+[0;32mI (12519) test: Button Value = 1[0m
+[0;32mI (12519) test: Button Value = 1[0m
+[0;32mI (12819) test: Button Value = 1[0m
+[0;32mI (12819) test: Button Value = 1[0m
+[0;32mI (13119) test: Button Value = 1[0m
+[0;32mI (13119) test: Button Value = 1[0m
+[0;32mI (13419) test: Button Value = 1[0m
+[0;32mI (13419) test: Button Value = 1[0m
+[0;32mI (13719) test: Button Value = 1[0m
+[0;32mI (13719) test: Button Value = 1[0m
+[0;32mI (14019) test: Button Value = 1[0m
+[0;32mI (14019) test: Button Value = 1[0m
+[0;32mI (14319) test: Button Value = 1[0m
+[0;32mI (14319) test: Button Value = 1[0m
+[0;32mI (14619) test: Button Value = 0[0m
+[0;32mI (14619) test: Button Value = 1[0m
+[0;32mI (14919) test: Button Value = 0[0m
+[0;32mI (14919) test: Button Value = 1[0m
+[0;32mI (15219) test: Button Value = 0[0m
+[0;32mI (15219) test: Button Value = 1[0m
+[0;32mI (15519) test: Button Value = 0[0m
+[0;32mI (15519) test: Button Value = 1[0m
+[0;32mI (15819) test: Button Value = 0[0m
+[0;32mI (15819) test: Button Value = 1[0m
+[0;32mI (16119) test: Button Value = 0[0m
+[0;32mI (16119) test: Button Value = 1[0m
+[1;31mE (16409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (16409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (16409) task_wdt: Tasks currently running:[0m
+[1;31mE (16409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (16409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (16409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x400D9066:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (16439) test: Button Value = 0[0m
+[0;32mI (16439) test: Button Value = 1[0m
+[0;32mI (16739) test: Button Value = 0[0m
+[0;32mI (16739) test: Button Value = 1[0m
+[0;32mI (17039) test: Button Value = 0[0m
+[0;32mI (17039) test: Button Value = 1[0m
+[0;32mI (17339) test: Button Value = 0[0m
+[0;32mI (17339) test: Button Value = 1[0m
+[0;32mI (17639) test: Button Value = 0[0m
+[0;32mI (17639) test: Button Value = 1[0m
+[0;32mI (17939) test: Button Value = 0[0m
+[0;32mI (17939) test: Button Value = 1[0m
+[0;32mI (18239) test: Button Value = 0[0m
+[0;32mI (18239) test: Button Value = 1[0m
+[0;32mI (18539) test: Button Value = 0[0m
+[0;32mI (18539) test: Button Value = 1[0m
+[0;32mI (18839) test: Button Value = 0[0m
+[0;32mI (18839) test: Button Value = 1[0m
+[0;32mI (19139) test: Button Value = 0[0m
+[0;32mI (19139) test: Button Value = 1[0m
+[0;32mI (19439) test: Button Value = 0[0m
+[0;32mI (19439) test: Button Value = 1[0m
+[0;32mI (19739) test: Button Value = 0[0m
+[0;32mI (19739) test: Button Value = 1[0m
+[0;32mI (20039) test: Button Value = 0[0m
+[0;32mI (20039) test: Button Value = 1[0m
+[0;32mI (20339) test: Button Value = 1[0m
+[0;32mI (20339) test: Button Value = 1[0m
+[0;32mI (20639) test: Button Value = 1[0m
+[0;32mI (20639) test: Button Value = 1[0m
+[0;32mI (20939) test: Button Value = 1[0m
+[0;32mI (20939) test: Button Value = 1[0m
+[0;32mI (21239) test: Button Value = 1[0m
+[0;32mI (21239) test: Button Value = 1[0m
+[1;31mE (21409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (21409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (21409) task_wdt: Tasks currently running:[0m
+[1;31mE (21409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (21409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (21409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x400D9B57:0x3FFBA820 0x400D9066:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (21539) test: Button Value = 1[0m
+[0;32mI (21539) test: Button Value = 1[0m
+[0;32mI (21839) test: Button Value = 1[0m
+[0;32mI (21839) test: Button Value = 1[0m
+[0;32mI (22139) test: Button Value = 1[0m
+[0;32mI (22139) test: Button Value = 1[0m
+[0;32mI (22439) test: Button Value = 1[0m
+[0;32mI (22439) test: Button Value = 1[0m
+[0;32mI (22739) test: Button Value = 1[0m
+[0;32mI (22739) test: Button Value = 1[0m
+[0;32mI (23039) test: Button Value = 1[0m
+[0;32mI (23039) test: Button Value = 1[0m
+[0;32mI (23339) test: Button Value = 1[0m
+[0;32mI (23339) test: Button Value = 1[0m
+[0;32mI (23639) test: Button Value = 1[0m
+[0;32mI (23639) test: Button Value = 1[0m
+[0;32mI (23939) test: Button Value = 1[0m
+[0;32mI (23939) test: Button Value = 1[0m
+[0;32mI (24239) test: Button Value = 1[0m
+[0;32mI (24239) test: Button Value = 1[0m
+[0;32mI (24539) test: Button Value = 1[0m
+[0;32mI (24539) test: Button Value = 1[0m
+[0;32mI (24839) test: Button Value = 1[0m
+[0;32mI (24839) test: Button Value = 1[0m
+[0;32mI (25139) test: Button Value = 1[0m
+[0;32mI (25139) test: Button Value = 0[0m
+[0;32mI (25439) test: Button Value = 1[0m
+[0;32mI (25439) test: Button Value = 0[0m
+[0;32mI (25739) test: Button Value = 1[0m
+[0;32mI (25739) test: Button Value = 1[0m
+[0;32mI (26039) test: Button Value = 1[0m
+[0;32mI (26039) test: Button Value = 1[0m
+[0;32mI (26339) test: Button Value = 0[0m
+[0;32mI (26339) test: Button Value = 1[0m
+[1;31mE (26409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (26409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (26409) task_wdt: Tasks currently running:[0m
+[1;31mE (26409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (26409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (26409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (26639) test: Button Value = 0[0m
+[0;32mI (26639) test: Button Value = 1[0m
+[0;32mI (26939) test: Button Value = 0[0m
+[0;32mI (26939) test: Button Value = 1[0m
+[0;32mI (27239) test: Button Value = 1[0m
+[0;32mI (27239) test: Button Value = 1[0m
+[0;32mI (27539) test: Button Value = 1[0m
+[0;32mI (27539) test: Button Value = 1[0m
+[0;32mI (27839) test: Button Value = 1[0m
+[0;32mI (27839) test: Button Value = 1[0m
+[0;32mI (28139) test: Button Value = 1[0m
+[0;32mI (28139) test: Button Value = 1[0m
+[0;32mI (28439) test: Button Value = 1[0m
+[0;32mI (28439) test: Button Value = 1[0m
+[0;32mI (28739) test: Button Value = 1[0m
+[0;32mI (28739) test: Button Value = 1[0m
+[0;32mI (29039) test: Button Value = 1[0m
+[0;32mI (29039) test: Button Value = 1[0m
+[0;32mI (29339) test: Button Value = 1[0m
+[0;32mI (29339) test: Button Value = 1[0m
+[0;32mI (29639) test: Button Value = 1[0m
+[0;32mI (29639) test: Button Value = 1[0m
+[0;32mI (29939) test: Button Value = 1[0m
+[0;32mI (29939) test: Button Value = 1[0m
+[0;32mI (30239) test: Button Value = 1[0m
+[0;32mI (30239) test: Button Value = 1[0m
+[0;32mI (30539) test: Button Value = 1[0m
+[0;32mI (30539) test: Button Value = 1[0m
+[0;32mI (30839) test: Button Value = 1[0m
+[0;32mI (30839) test: Button Value = 1[0m
+[0;32mI (31139) test: Button Value = 1[0m
+[0;32mI (31139) test: Button Value = 1[0m
+[1;31mE (31409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (31409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (31409) task_wdt: Tasks currently running:[0m
+[1;31mE (31409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (31409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (31409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x4000BFED:0x3FFBA810 0x40087176:0x3FFBA820 0x40083E52:0x3FFBA840 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (31439) test: Button Value = 1[0m
+[0;32mI (31449) test: Button Value = 1[0m
+[0;32mI (31749) test: Button Value = 1[0m
+[0;32mI (31749) test: Button Value = 1[0m
+[0;32mI (32049) test: Button Value = 1[0m
+[0;32mI (32049) test: Button Value = 1[0m
+[0;32mI (32349) test: Button Value = 1[0m
+[0;32mI (32349) test: Button Value = 1[0m
+[0;32mI (32649) test: Button Value = 1[0m
+[0;32mI (32649) test: Button Value = 1[0m
+[0;32mI (32949) test: Button Value = 1[0m
+[0;32mI (32949) test: Button Value = 1[0m
+[0;32mI (33249) test: Button Value = 1[0m
+[0;32mI (33249) test: Button Value = 1[0m
+[0;32mI (33549) test: Button Value = 1[0m
+[0;32mI (33549) test: Button Value = 1[0m
+[0;32mI (33849) test: Button Value = 1[0m
+[0;32mI (33849) test: Button Value = 1[0m
+[0;32mI (34149) test: Button Value = 1[0m
+[0;32mI (34149) test: Button Value = 1[0m
+[0;32mI (34449) test: Button Value = 1[0m
+[0;32mI (34449) test: Button Value = 1[0m
+[0;32mI (34749) test: Button Value = 1[0m
+[0;32mI (34749) test: Button Value = 1[0m
+[0;32mI (35049) test: Button Value = 1[0m
+[0;32mI (35049) test: Button Value = 1[0m
+[0;32mI (35349) test: Button Value = 1[0m
+[0;32mI (35349) test: Button Value = 1[0m
+[0;32mI (35649) test: Button Value = 1[0m
+[0;32mI (35649) test: Button Value = 1[0m
+[0;32mI (35949) test: Button Value = 1[0m
+[0;32mI (35949) test: Button Value = 1[0m
+[0;32mI (36249) test: Button Value = 1[0m
+[0;32mI (36249) test: Button Value = 1[0m
+[1;31mE (36409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (36409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (36409) task_wdt: Tasks currently running:[0m
+[1;31mE (36409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (36409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (36409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x400D9B45:0x3FFBA820 0x400D9066:0x3FFBA850 0x400D8AE4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (36549) test: Button Value = 1[0m
+[0;32mI (36549) test: Button Value = 1[0m
+[0;32mI (36849) test: Button Value = 1[0m
+[0;32mI (36849) test: Button Value = 1[0m
+[0;32mI (37149) test: Button Value = 1[0m
+[0;32mI (37149) test: Button Value = 1[0m
+[0;32mI (37449) test: Button Value = 1[0m
+[0;32mI (37449) test: Button Value = 1[0m
+[0;32mI (37749) test: Button Value = 1[0m
+[0;32mI (37749) test: Button Value = 1[0m
+[0;32mI (38049) test: Button Value = 1[0m
+[0;32mI (38049) test: Button Value = 1[0m
+[0;32mI (38349) test: Button Value = 1[0m
+[0;32mI (38349) test: Button Value = 1[0m
+[0;32mI (38649) test: Button Value = 1[0m
+[0;32mI (38649) test: Button Value = 1[0m
+���������������������������������������������������������������� (38949) test: Button Value = 1
+[0;32mI (38949) test: Button Value = 1[0m
+[0;32mI (39249) test: Button Value = 1[0m
+[0;32mI (39249) test: Button Value = 1[0m
+[0;32mI (39549) test: Button Value = 1[0m
+[0;32mI (39549) test: Button Value = 1[0m
+[0;32mI (39849) test: Button Value = 1[0m
+[0;32mI (39849) test: Button Value = 1[0m
+[0;32mI (40149) test: Button Value = 1[0m
+[0;32mI (40149) test: Button Value = 1[0m
+[0;32mI (40449) test: Button Value = 1[0m
+[0;32mI (40449) test: Button Value = 1[0m
+[0;32mI (40749) test: Button Value = 1[0m
+[0;32mI (40749) test: Button Value = 1[0m
+[0;32mI (41049) test: Button Value = 1[0m
+[0;32mI (41049) test: Button Value = 1[0m
+[0;32mI (41349) test: Button Value = 1[0m
+[0;32mI (41349) test: Button Value = 1[0m
+[1;31mE (41409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (41409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (41409) task_wdt: Tasks currently running:[0m
+[1;31mE (41409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (41409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (41409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (41649) test: Button Value = 1[0m
+[0;32mI (41649) test: Button Value = 1[0m
+[0;32mI (41949) test: Button Value = 1[0m
+[0;32mI (41949) test: Button Value = 1[0m
+[0;32mI (42249) test: Button Value = 1[0m
+[0;32mI (42249) test: Button Value = 1[0m
+[0;32mI (42549) test: Button Value = 1[0m
+[0;32mI (42549) test: Button Value = 1[0m
+[0;32mI (42849) test: Button Value = 1[0m
+[0;32mI (42849) test: Button Value = 1[0m
+[0;32mI (43149) test: Button Value = 1[0m
+[0;32mI (43149) test: Button Value = 1[0m
+[0;32mI (43449) test: Button Value = 1[0m
+[0;32mI (43449) test: Button Value = 1[0m
+[0;32mI (43749) test: Button Value = 1[0m
+[0;32mI (43749) test: Button Value = 1[0m
+[0;32mI (44049) test: Button Value = 1[0m
+[0;32mI (44049) test: Button Value = 1[0m
+[0;32mI (44349) test: Button Value = 1[0m
+[0;32mI (44349) test: Button Value = 1[0m
+[0;32mI (44649) test: Button Value = 1[0m
+[0;32mI (44649) test: Button Value = 1[0m
+[0;32mI (44949) test: Button Value = 1[0m
+[0;32mI (44949) test: Button Value = 1[0m
+[0;32mI (45249) test: Button Value = 1[0m
+[0;32mI (45249) test: Button Value = 1[0m
+[0;32mI (45549) test: Button Value = 1[0m
+[0;32mI (45549) test: Button Value = 1[0m
+[0;32mI (45849) test: Button Value = 1[0m
+[0;32mI (45849) test: Button Value = 1[0m
+[0;32mI (46149) test: Button Value = 1[0m
+[0;32mI (46149) test: Button Value = 1[0m
+[1;31mE (46409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (46409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (46409) task_wdt: Tasks currently running:[0m
+[1;31mE (46409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (46409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (46409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x4000BFED:0x3FFBA7F0 0x40087176:0x3FFBA800 0x400D9BDA:0x3FFBA820 0x400D9066:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (46449) test: Button Value = 1[0m
+[0;32mI (46449) test: Button Value = 1[0m
+[0;32mI (46749) test: Button Value = 1[0m
+[0;32mI (46749) test: Button Value = 1[0m
+[0;32mI (47049) test: Button Value = 1[0m
+[0;32mI (47049) test: Button Value = 1[0m
+[0;32mI (47349) test: Button Value = 1[0m
+[0;32mI (47349) test: Button Value = 1[0m
+[0;32mI (47649) test: Button Value = 1[0m
+[0;32mI (47649) test: Button Value = 1[0m
+[0;32mI (47949) test: Button Value = 1[0m
+[0;32mI (47949) test: Button Value = 1[0m
+[0;32mI (48249) test: Button Value = 1[0m
+[0;32mI (48249) test: Button Value = 1[0m
+[0;32mI (48549) test: Button Value = 1[0m
+[0;32mI (48549) test: Button Value = 1[0m
+[0;32mI (48849) test: Button Value = 1[0m
+[0;32mI (48849) test: Button Value = 1[0m
+[0;32mI (49149) test: Button Value = 1[0m
+[0;32mI (49149) test: Button Value = 1[0m
+[0;32mI (49449) test: Button Value = 1[0m
+[0;32mI (49449) test: Button Value = 1[0m
+[0;32mI (49749) test: Button Value = 1[0m
+[0;32mI (49749) test: Button Value = 1[0m
+[0;32mI (50049) test: Button Value = 1[0m
+[0;32mI (50049) test: Button Value = 1[0m
+[0;32mI (50349) test: Button Value = 1[0m
+[0;32mI (50349) test: Button Value = 1[0m
+[0;32mI (50649) test: Button Value = 1[0m
+[0;32mI (50649) test: Button Value = 1[0m
+[0;32mI (50949) test: Button Value = 1[0m
+[0;32mI (50949) test: Button Value = 1[0m
+[0;32mI (51249) test: Button Value = 1[0m
+[0;32mI (51249) test: Button Value = 1[0m
+[1;31mE (51409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (51409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (51409) task_wdt: Tasks currently running:[0m
+[1;31mE (51409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (51409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (51409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x4000BFED:0x3FFBA7F0 0x40087176:0x3FFBA800 0x400D9BDA:0x3FFBA820 0x400D9066:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (51549) test: Button Value = 1[0m
+[0;32mI (51549) test: Button Value = 1[0m
+[0;32mI (51849) test: Button Value = 1[0m
+[0;32mI (51849) test: Button Value = 1[0m
+[0;32mI (52149) test: Button Value = 1[0m
+[0;32mI (52149) test: Button Value = 1[0m
+[0;32mI (52449) test: Button Value = 1[0m
+[0;32mI (52449) test: Button Value = 1[0m
+[0;32mI (52749) test: Button Value = 1[0m
+[0;32mI (52749) test: Button Value = 1[0m
+[0;32mI (53049) test: Button Value = 1[0m
+[0;32mI (53049) test: Button Value = 1[0m
+[0;32mI (53349) test: Button Value = 1[0m
+[0;32mI (53349) test: Button Value = 1[0m
+[0;32mI (53649) test: Button Value = 1[0m
+[0;32mI (53649) test: Button Value = 1[0m
+[0;32mI (53949) test: Button Value = 1[0m
+[0;32mI (53949) test: Button Value = 1[0m
+[0;32mI (54249) test: Button Value = 1[0m
+[0;32mI (54249) test: Button Value = 1[0m
+[0;32mI (54549) test: Button Value = 1[0m
+[0;32mI (54549) test: Button Value = 1[0m
+[0;32mI (54849) test: Button Value = 1[0m
+[0;32mI (54849) test: Button Value = 1[0m
+[0;32mI (55149) test: Button Value = 1[0m
+[0;32mI (55149) test: Button Value = 1[0m
+[0;32mI (55449) test: Button Value = 1[0m
+[0;32mI (55449) test: Button Value = 1[0m
+[0;32mI (55749) test: Button Value = 1[0m
+[0;32mI (55749) test: Button Value = 1[0m
+[0;32mI (56049) test: Button Value = 1[0m
+[0;32mI (56049) test: Button Value = 1[0m
+[0;32mI (56349) test: Button Value = 1[0m
+[0;32mI (56349) test: Button Value = 1[0m
+[1;31mE (56409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (56409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (56409) task_wdt: Tasks currently running:[0m
+[1;31mE (56409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (56409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (56409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (56649) test: Button Value = 1[0m
+[0;32mI (56649) test: Button Value = 1[0m
+[0;32mI (56949) test: Button Value = 1[0m
+[0;32mI (56949) test: Button Value = 1[0m
+[0;32mI (57249) test: Button Value = 1[0m
+[0;32mI (57249) test: Button Value = 1[0m
+[0;32mI (57549) test: Button Value = 1[0m
+[0;32mI (57549) test: Button Value = 1[0m
+[0;32mI (57849) test: Button Value = 1[0m
+[0;32mI (57849) test: Button Value = 1[0m
+[0;32mI (58149) test: Button Value = 1[0m
+[0;32mI (58149) test: Button Value = 1[0m
+[0;32mI (58449) test: Button Value = 1[0m
+[0;32mI (58449) test: Button Value = 1[0m
+[0;32mI (58749) test: Button Value = 1[0m
+[0;32mI (58749) test: Button Value = 1[0m
+[0;32mI (59049) test: Button Value = 1[0m
+[0;32mI (59049) test: Button Value = 1[0m
+[0;32mI (59349) test: Button Value = 1[0m
+[0;32mI (59349) test: Button Value = 1[0m
+[0;32mI (59649) test: Button Value = 1[0m
+[0;32mI (59649) test: Button Value = 1[0m
+[0;32mI (59949) test: Button Value = 1[0m
+[0;32mI (59949) test: Button Value = 1[0m
+[0;32mI (60249) test: Button Value = 1[0m
+[0;32mI (60249) test: Button Value = 1[0m
+[0;32mI (60549) test: Button Value = 1[0m
+[0;32mI (60549) test: Button Value = 1[0m
+[0;32mI (60849) test: Button Value = 1[0m
+[0;32mI (60849) test: Button Value = 1[0m
+[0;32mI (61149) test: Button Value = 1[0m
+[0;32mI (61149) test: Button Value = 1[0m
+[1;31mE (61409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (61409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (61409) task_wdt: Tasks currently running:[0m
+[1;31mE (61409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (61409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (61409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (61449) test: Button Value = 1[0m
+[0;32mI (61449) test: Button Value = 1[0m
+[0;32mI (61749) test: Button Value = 1[0m
+[0;32mI (61749) test: Button Value = 1[0m
+[0;32mI (62049) test: Button Value = 1[0m
+[0;32mI (62049) test: Button Value = 1[0m
+[0;32mI (62349) test: Button Value = 1[0m
+[0;32mI (62349) test: Button Value = 1[0m
+[0;32mI (62649) test: Button Value = 1[0m
+[0;32mI (62649) test: Button Value = 1[0m
+[0;32mI (62949) test: Button Value = 1[0m
+[0;32mI (62949) test: Button Value = 1[0m
+[0;32mI (63249) test: Button Value = 1[0m
+[0;32mI (63249) test: Button Value = 1[0m
+[0;32mI (63549) test: Button Value = 1[0m
+[0;32mI (63549) test: Button Value = 1[0m
+[0;32mI (63849) test: Button Value = 1[0m
+[0;32mI (63849) test: Button Value = 1[0m
+[0;32mI (64149) test: Button Value = 1[0m
+[0;32mI (64149) test: Button Value = 1[0m
+[0;32mI (64449) test: Button Value = 1[0m
+[0;32mI (64449) test: Button Value = 1[0m
+[0;32mI (64749) test: Button Value = 1[0m
+[0;32mI (64749) test: Button Value = 1[0m
+[0;32mI (65049) test: Button Value = 1[0m
+[0;32mI (65049) test: Button Value = 1[0m
+[0;32mI (65349) test: Button Value = 1[0m
+[0;32mI (65349) test: Button Value = 1[0m
+[0;32mI (65649) test: Button Value = 1[0m
+[0;32mI (65649) test: Button Value = 1[0m
+[0;32mI (65949) test: Button Value = 1[0m
+[0;32mI (65949) test: Button Value = 1[0m
+[0;32mI (66249) test: Button Value = 1[0m
+[0;32mI (66249) test: Button Value = 1[0m
+[1;31mE (66409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (66409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (66409) task_wdt: Tasks currently running:[0m
+[1;31mE (66409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (66409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (66409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (66549) test: Button Value = 1[0m
+[0;32mI (66549) test: Button Value = 1[0m
+[0;32mI (66849) test: Button Value = 1[0m
+[0;32mI (66849) test: Button Value = 1[0m
+[0;32mI (67149) test: Button Value = 1[0m
+[0;32mI (67149) test: Button Value = 1[0m
+[0;32mI (67449) test: Button Value = 1[0m
+[0;32mI (67449) test: Button Value = 1[0m
+[0;32mI (67749) test: Button Value = 1[0m
+[0;32mI (67749) test: Button Value = 1[0m
+[0;32mI (68049) test: Button Value = 1[0m
+[0;32mI (68049) test: Button Value = 1[0m
+[0;32mI (68349) test: Button Value = 1[0m
+[0;32mI (68349) test: Button Value = 1[0m
+[0;32mI (68649) test: Button Value = 1[0m
+[0;32mI (68649) test: Button Value = 1[0m
+[0;32mI (68949) test: Button Value = 1[0m
+[0;32mI (68949) test: Button Value = 1[0m
+[0;32mI (69249) test: Button Value = 1[0m
+[0;32mI (69249) test: Button Value = 1[0m
+[0;32mI (69549) test: Button Value = 1[0m
+[0;32mI (69549) test: Button Value = 1[0m
+[0;32mI (69849) test: Button Value = 1[0m
+[0;32mI (69849) test: Button Value = 1[0m
+[0;32mI (70149) test: Button Value = 1[0m
+[0;32mI (70149) test: Button Value = 1[0m
+[0;32mI (70449) test: Button Value = 1[0m
+[0;32mI (70449) test: Button Value = 1[0m
+[0;32mI (70749) test: Button Value = 1[0m
+[0;32mI (70749) test: Button Value = 1[0m
+[0;32mI (71049) test: Button Value = 1[0m
+[0;32mI (71049) test: Button Value = 1[0m
+[0;32mI (71349) test: Button Value = 1[0m
+[0;32mI (71349) test: Button Value = 1[0m
+[1;31mE (71409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (71409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (71409) task_wdt: Tasks currently running:[0m
+[1;31mE (71409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (71409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (71409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x4000BFED:0x3FFBA7F0 0x40087176:0x3FFBA800 0x400D9BDA:0x3FFBA820 0x400D9066:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (71649) test: Button Value = 1[0m
+[0;32mI (71649) test: Button Value = 1[0m
+[0;32mI (71949) test: Button Value = 1[0m
+[0;32mI (71949) test: Button Value = 1[0m
+[0;32mI (72249) test: Button Value = 1[0m
+[0;32mI (72249) test: Button Value = 1[0m
+[0;32mI (72549) test: Button Value = 1[0m
+[0;32mI (72549) test: Button Value = 1[0m
+[0;32mI (72849) test: Button Value = 1[0m
+[0;32mI (72849) test: Button Value = 1[0m
+[0;32mI (73149) test: Button Value = 1[0m
+[0;32mI (73149) test: Button Value = 1[0m
+[0;32mI (73449) test: Button Value = 1[0m
+[0;32mI (73449) test: Button Value = 1[0m
+[0;32mI (73749) test: Button Value = 1[0m
+[0;32mI (73749) test: Button Value = 1[0m
+[0;32mI (74049) test: Button Value = 1[0m
+[0;32mI (74049) test: Button Value = 1[0m
+[0;32mI (74349) test: Button Value = 1[0m
+[0;32mI (74349) test: Button Value = 1[0m
+[0;32mI (74649) test: Button Value = 1[0m
+[0;32mI (74649) test: Button Value = 1[0m
+[0;32mI (74949) test: Button Value = 1[0m
+[0;32mI (74949) test: Button Value = 1[0m
+[0;32mI (75249) test: Button Value = 1[0m
+[0;32mI (75249) test: Button Value = 1[0m
+[0;32mI (75549) test: Button Value = 1[0m
+[0;32mI (75549) test: Button Value = 1[0m
+[0;32mI (75849) test: Button Value = 1[0m
+[0;32mI (75849) test: Button Value = 1[0m
+[0;32mI (76149) test: Button Value = 1[0m
+[0;32mI (76149) test: Button Value = 1[0m
+[1;31mE (76409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (76409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (76409) task_wdt: Tasks currently running:[0m
+[1;31mE (76409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (76409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (76409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (76449) test: Button Value = 1[0m
+[0;32mI (76449) test: Button Value = 1[0m
+[0;32mI (76749) test: Button Value = 1[0m
+[0;32mI (76749) test: Button Value = 1[0m
+[0;32mI (77049) test: Button Value = 1[0m
+[0;32mI (77049) test: Button Value = 1[0m
+[0;32mI (77349) test: Button Value = 1[0m
+[0;32mI (77349) test: Button Value = 1[0m
+[0;32mI (77649) test: Button Value = 1[0m
+[0;32mI (77649) test: Button Value = 1[0m
+[0;32mI (77949) test: Button Value = 1[0m
+[0;32mI (77949) test: Button Value = 1[0m
+[0;32mI (78249) test: Button Value = 1[0m
+[0;32mI (78249) test: Button Value = 1[0m
+[0;32mI (78549) test: Button Value = 1[0m
+[0;32mI (78549) test: Button Value = 1[0m
+[0;32mI (78849) test: Button Value = 1[0m
+[0;32mI (78849) test: Button Value = 1[0m
+[0;32mI (79149) test: Button Value = 1[0m
+[0;32mI (79149) test: Button Value = 1[0m
+[0;32mI (79449) test: Button Value = 1[0m
+[0;32mI (79449) test: Button Value = 1[0m
+[0;32mI (79749) test: Button Value = 1[0m
+[0;32mI (79749) test: Button Value = 1[0m
+[0;32mI (80049) test: Button Value = 1[0m
+[0;32mI (80049) test: Button Value = 1[0m
+[0;32mI (80349) test: Button Value = 1[0m
+[0;32mI (80349) test: Button Value = 1[0m
+[0;32mI (80649) test: Button Value = 1[0m
+[0;32mI (80649) test: Button Value = 1[0m
+[0;32mI (80949) test: Button Value = 1[0m
+[0;32mI (80949) test: Button Value = 1[0m
+[0;32mI (81249) test: Button Value = 1[0m
+[0;32mI (81249) test: Button Value = 1[0m
+[1;31mE (81409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (81409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (81409) task_wdt: Tasks currently running:[0m
+[1;31mE (81409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (81409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (81409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (81549) test: Button Value = 1[0m
+[0;32mI (81549) test: Button Value = 1[0m
+[0;32mI (81849) test: Button Value = 1[0m
+[0;32mI (81849) test: Button Value = 1[0m
+[0;32mI (82149) test: Button Value = 1[0m
+[0;32mI (82149) test: Button Value = 1[0m
+[0;32mI (82449) test: Button Value = 1[0m
+[0;32mI (82449) test: Button Value = 1[0m
+[0;32mI (82749) test: Button Value = 1[0m
+[0;32mI (82749) test: Button Value = 1[0m
+[0;32mI (83049) test: Button Value = 1[0m
+[0;32mI (83049) test: Button Value = 1[0m
+[0;32mI (83349) test: Button Value = 1[0m
+[0;32mI (83349) test: Button Value = 1[0m
+[0;32mI (83649) test: Button Value = 1[0m
+[0;32mI (83649) test: Button Value = 1[0m
+[0;32mI (83949) test: Button Value = 1[0m
+[0;32mI (83949) test: Button Value = 1[0m
+[0;32mI (84249) test: Button Value = 1[0m
+[0;32mI (84249) test: Button Value = 1[0m
+[0;32mI (84549) test: Button Value = 1[0m
+[0;32mI (84549) test: Button Value = 1[0m
+[0;32mI (84849) test: Button Value = 1[0m
+[0;32mI (84849) test: Button Value = 1[0m
+[0;32mI (85149) test: Button Value = 1[0m
+[0;32mI (85149) test: Button Value = 1[0m
+[0;32mI (85449) test: Button Value = 1[0m
+[0;32mI (85449) test: Button Value = 1[0m
+[0;32mI (85749) test: Button Value = 1[0m
+[0;32mI (85749) test: Button Value = 1[0m
+[0;32mI (86049) test: Button Value = 1[0m
+[0;32mI (86049) test: Button Value = 1[0m
+[0;32mI (86349) test: Button Value = 1[0m
+[0;32mI (86349) test: Button Value = 1[0m
+[1;31mE (86409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (86409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (86409) task_wdt: Tasks currently running:[0m
+[1;31mE (86409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (86409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (86409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (86649) test: Button Value = 1[0m
+[0;32mI (86649) test: Button Value = 1[0m
+[0;32mI (86949) test: Button Value = 1[0m
+[0;32mI (86949) test: Button Value = 1[0m
+[0;32mI (87249) test: Button Value = 1[0m
+[0;32mI (87249) test: Button Value = 1[0m
+[0;32mI (87549) test: Button Value = 1[0m
+[0;32mI (87549) test: Button Value = 1[0m
+[0;32mI (87849) test: Button Value = 1[0m
+[0;32mI (87849) test: Button Value = 1[0m
+[0;32mI (88149) test: Button Value = 1[0m
+[0;32mI (88149) test: Button Value = 1[0m
+[0;32mI (88449) test: Button Value = 1[0m
+[0;32mI (88449) test: Button Value = 1[0m
+[0;32mI (88749) test: Button Value = 1[0m
+[0;32mI (88749) test: Button Value = 1[0m
+[0;32mI (89049) test: Button Value = 1[0m
+[0;32mI (89049) test: Button Value = 1[0m
+[0;32mI (89349) test: Button Value = 1[0m
+[0;32mI (89349) test: Button Value = 1[0m
+[0;32mI (89649) test: Button Value = 1[0m
+[0;32mI (89649) test: Button Value = 1[0m
+[0;32mI (89949) test: Button Value = 1[0m
+[0;32mI (89949) test: Button Value = 1[0m
+[0;32mI (90249) test: Button Value = 1[0m
+[0;32mI (90249) test: Button Value = 1[0m
+[0;32mI (90549) test: Button Value = 1[0m
+[0;32mI (90549) test: Button Value = 1[0m
+[0;32mI (90849) test: Button Value = 1[0m
+[0;32mI (90849) test: Button Value = 1[0m
+[0;32mI (91149) test: Button Value = 1[0m
+[0;32mI (91149) test: Button Value = 1[0m
+[1;31mE (91409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (91409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (91409) task_wdt: Tasks currently running:[0m
+[1;31mE (91409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (91409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (91409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (91449) test: Button Value = 1[0m
+[0;32mI (91449) test: Button Value = 1[0m
+[0;32mI (91749) test: Button Value = 1[0m
+[0;32mI (91749) test: Button Value = 1[0m
+[0;32mI (92049) test: Button Value = 1[0m
+[0;32mI (92049) test: Button Value = 1[0m
+[0;32mI (92349) test: Button Value = 1[0m
+[0;32mI (92349) test: Button Value = 1[0m
+[0;32mI (92649) test: Button Value = 1[0m
+[0;32mI (92649) test: Button Value = 1[0m
+[0;32mI (92949) test: Button Value = 1[0m
+[0;32mI (92949) test: Button Value = 1[0m
+[0;32mI (93249) test: Button Value = 1[0m
+[0;32mI (93249) test: Button Value = 1[0m
+[0;32mI (93549) test: Button Value = 1[0m
+[0;32mI (93549) test: Button Value = 1[0m
+[0;32mI (93849) test: Button Value = 1[0m
+[0;32mI (93849) test: Button Value = 1[0m
+[0;32mI (94149) test: Button Value = 1[0m
+[0;32mI (94149) test: Button Value = 1[0m
+[0;32mI (94449) test: Button Value = 1[0m
+[0;32mI (94449) test: Button Value = 1[0m
+[0;32mI (94749) test: Button Value = 1[0m
+[0;32mI (94749) test: Button Value = 1[0m
+[0;32mI (95049) test: Button Value = 1[0m
+[0;32mI (95049) test: Button Value = 1[0m
+[0;32mI (95349) test: Button Value = 1[0m
+[0;32mI (95349) test: Button Value = 1[0m
+[0;32mI (95649) test: Button Value = 1[0m
+[0;32mI (95649) test: Button Value = 1[0m
+[0;32mI (95949) test: Button Value = 1[0m
+[0;32mI (95949) test: Button Value = 1[0m
+[0;32mI (96249) test: Button Value = 1[0m
+[0;32mI (96249) test: Button Value = 1[0m
+[1;31mE (96409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (96409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (96409) task_wdt: Tasks currently running:[0m
+[1;31mE (96409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (96409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (96409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x400D908A:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (96549) test: Button Value = 1[0m
+[0;32mI (96549) test: Button Value = 1[0m
+[0;32mI (96849) test: Button Value = 1[0m
+[0;32mI (96849) test: Button Value = 1[0m
+[0;32mI (97149) test: Button Value = 1[0m
+[0;32mI (97149) test: Button Value = 1[0m
+[0;32mI (97449) test: Button Value = 1[0m
+[0;32mI (97449) test: Button Value = 1[0m
+[0;32mI (97749) test: Button Value = 1[0m
+[0;32mI (97749) test: Button Value = 1[0m
+[0;32mI (98049) test: Button Value = 1[0m
+[0;32mI (98049) test: Button Value = 1[0m
+[0;32mI (98349) test: Button Value = 1[0m
+[0;32mI (98349) test: Button Value = 1[0m
+[0;32mI (98649) test: Button Value = 1[0m
+[0;32mI (98649) test: Button Value = 1[0m
+[0;32mI (98949) test: Button Value = 1[0m
+[0;32mI (98949) test: Button Value = 1[0m
+[0;32mI (99249) test: Button Value = 1[0m
+[0;32mI (99249) test: Button Value = 1[0m
+[0;32mI (99549) test: Button Value = 1[0m
+[0;32mI (99549) test: Button Value = 1[0m
+[0;32mI (99849) test: Button Value = 1[0m
+[0;32mI (99849) test: Button Value = 1[0m
+[0;32mI (100149) test: Button Value = 1[0m
+[0;32mI (100149) test: Button Value = 1[0m
+[0;32mI (100449) test: Button Value = 1[0m
+[0;32mI (100449) test: Button Value = 1[0m
+[0;32mI (100749) test: Button Value = 1[0m
+[0;32mI (100749) test: Button Value = 1[0m
+[0;32mI (101049) test: Button Value = 1[0m
+[0;32mI (101049) test: Button Value = 1[0m
+[0;32mI (101349) test: Button Value = 1[0m
+[0;32mI (101349) test: Button Value = 1[0m
+[1;31mE (101409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (101409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (101409) task_wdt: Tasks currently running:[0m
+[1;31mE (101409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (101409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (101409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x400D8AAF:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (101649) test: Button Value = 1[0m
+[0;32mI (101649) test: Button Value = 1[0m
+[0;32mI (101949) test: Button Value = 1[0m
+[0;32mI (101949) test: Button Value = 1[0m
+[0;32mI (102249) test: Button Value = 1[0m
+[0;32mI (102249) test: Button Value = 1[0m
+[0;32mI (102549) test: Button Value = 1[0m
+[0;32mI (102549) test: Button Value = 1[0m
+[0;32mI (102849) test: Button Value = 1[0m
+[0;32mI (102849) test: Button Value = 1[0m
+[0;32mI (103149) test: Button Value = 1[0m
+[0;32mI (103149) test: Button Value = 1[0m
+[0;32mI (103449) test: Button Value = 1[0m
+[0;32mI (103449) test: Button Value = 1[0m
+[0;32mI (103749) test: Button Value = 1[0m
+[0;32mI (103749) test: Button Value = 1[0m
+[0;32mI (104049) test: Button Value = 1[0m
+[0;32mI (104049) test: Button Value = 1[0m
+[0;32mI (104349) test: Button Value = 1[0m
+[0;32mI (104349) test: Button Value = 1[0m
+[0;32mI (104649) test: Button Value = 1[0m
+[0;32mI (104649) test: Button Value = 1[0m
+[0;32mI (104949) test: Button Value = 1[0m
+[0;32mI (104949) test: Button Value = 1[0m
+[0;32mI (105249) test: Button Value = 1[0m
+[0;32mI (105249) test: Button Value = 1[0m
+[0;32mI (105549) test: Button Value = 1[0m
+[0;32mI (105549) test: Button Value = 1[0m
+[0;32mI (105849) test: Button Value = 1[0m
+[0;32mI (105849) test: Button Value = 1[0m
+[0;32mI (106149) test: Button Value = 1[0m
+[0;32mI (106149) test: Button Value = 1[0m
+[1;31mE (106409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (106409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (106409) task_wdt: Tasks currently running:[0m
+[1;31mE (106409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (106409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (106409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (106449) test: Button Value = 1[0m
+[0;32mI (106449) test: Button Value = 1[0m
+[0;32mI (106749) test: Button Value = 1[0m
+[0;32mI (106749) test: Button Value = 1[0m
+[0;32mI (107049) test: Button Value = 1[0m
+[0;32mI (107049) test: Button Value = 1[0m
+[0;32mI (107349) test: Button Value = 1[0m
+[0;32mI (107349) test: Button Value = 1[0m
+[0;32mI (107649) test: Button Value = 1[0m
+[0;32mI (107649) test: Button Value = 1[0m
+[0;32mI (107949) test: Button Value = 1[0m
+[0;32mI (107949) test: Button Value = 1[0m
+[0;32mI (108249) test: Button Value = 1[0m
+[0;32mI (108249) test: Button Value = 1[0m
+[0;32mI (108549) test: Button Value = 1[0m
+[0;32mI (108549) test: Button Value = 1[0m
+[0;32mI (108849) test: Button Value = 1[0m
+[0;32mI (108849) test: Button Value = 1[0m
+[0;32mI (109149) test: Button Value = 1[0m
+[0;32mI (109149) test: Button Value = 1[0m
+[0;32mI (109449) test: Button Value = 1[0m
+[0;32mI (109449) test: Button Value = 1[0m
+[0;32mI (109749) test: Button Value = 1[0m
+[0;32mI (109749) test: Button Value = 1[0m
+[0;32mI (110049) test: Button Value = 1[0m
+[0;32mI (110049) test: Button Value = 1[0m
+[0;32mI (110349) test: Button Value = 1[0m
+[0;32mI (110349) test: Button Value = 1[0m
+[0;32mI (110649) test: Button Value = 1[0m
+[0;32mI (110649) test: Button Value = 1[0m
+[0;32mI (110949) test: Button Value = 1[0m
+[0;32mI (110949) test: Button Value = 1[0m
+[0;32mI (111249) test: Button Value = 1[0m
+[0;32mI (111249) test: Button Value = 1[0m
+[1;31mE (111409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (111409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (111409) task_wdt: Tasks currently running:[0m
+[1;31mE (111409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (111409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (111409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (111549) test: Button Value = 1[0m
+[0;32mI (111549) test: Button Value = 1[0m
+[0;32mI (111849) test: Button Value = 1[0m
+[0;32mI (111849) test: Button Value = 1[0m
+[0;32mI (112149) test: Button Value = 1[0m
+[0;32mI (112149) test: Button Value = 1[0m
+[0;32mI (112449) test: Button Value = 1[0m
+[0;32mI (112449) test: Button Value = 1[0m
+[0;32mI (112749) test: Button Value = 1[0m
+[0;32mI (112749) test: Button Value = 1[0m
+[0;32mI (113049) test: Button Value = 1[0m
+[0;32mI (113049) test: Button Value = 1[0m
+[0;32mI (113349) test: Button Value = 1[0m
+[0;32mI (113349) test: Button Value = 1[0m
+[0;32mI (113649) test: Button Value = 1[0m
+[0;32mI (113649) test: Button Value = 1[0m
+[0;32mI (113949) test: Button Value = 1[0m
+[0;32mI (113949) test: Button Value = 1[0m
+[0;32mI (114249) test: Button Value = 1[0m
+[0;32mI (114249) test: Button Value = 1[0m
+[0;32mI (114549) test: Button Value = 1[0m
+[0;32mI (114549) test: Button Value = 1[0m
+[0;32mI (114849) test: Button Value = 1[0m
+[0;32mI (114849) test: Button Value = 1[0m
+[0;32mI (115149) test: Button Value = 1[0m
+[0;32mI (115149) test: Button Value = 1[0m
+[0;32mI (115449) test: Button Value = 1[0m
+[0;32mI (115449) test: Button Value = 1[0m
+[0;32mI (115749) test: Button Value = 1[0m
+[0;32mI (115749) test: Button Value = 1[0m
+[0;32mI (116049) test: Button Value = 1[0m
+[0;32mI (116049) test: Button Value = 1[0m
+[0;32mI (116349) test: Button Value = 1[0m
+[0;32mI (116349) test: Button Value = 1[0m
+[1;31mE (116409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (116409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (116409) task_wdt: Tasks currently running:[0m
+[1;31mE (116409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (116409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (116409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x40083E79:0x3FFBA860 0x40088892:0x3FFBA880 0x400D8AE9:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (116649) test: Button Value = 1[0m
+[0;32mI (116649) test: Button Value = 1[0m
+[0;32mI (116949) test: Button Value = 1[0m
+[0;32mI (116949) test: Button Value = 1[0m
+[0;32mI (117249) test: Button Value = 1[0m
+[0;32mI (117249) test: Button Value = 1[0m
+[0;32mI (117549) test: Button Value = 1[0m
+[0;32mI (117549) test: Button Value = 1[0m
+[0;32mI (117849) test: Button Value = 1[0m
+[0;32mI (117849) test: Button Value = 1[0m
+[0;32mI (118149) test: Button Value = 1[0m
+[0;32mI (118149) test: Button Value = 1[0m
+[0;32mI (118449) test: Button Value = 1[0m
+[0;32mI (118449) test: Button Value = 1[0m
+[0;32mI (118749) test: Button Value = 1[0m
+[0;32mI (118749) test: Button Value = 1[0m
+[0;32mI (119049) test: Button Value = 1[0m
+[0;32mI (119049) test: Button Value = 1[0m
+[0;32mI (119349) test: Button Value = 1[0m
+[0;32mI (119349) test: Button Value = 1[0m
+[0;32mI (119649) test: Button Value = 1[0m
+[0;32mI (119649) test: Button Value = 1[0m
+[0;32mI (119949) test: Button Value = 1[0m
+[0;32mI (119949) test: Button Value = 1[0m
+[0;32mI (120249) test: Button Value = 1[0m
+[0;32mI (120249) test: Button Value = 1[0m
+[0;32mI (120549) test: Button Value = 1[0m
+[0;32mI (120549) test: Button Value = 1[0m
+[0;32mI (120849) test: Button Value = 1[0m
+[0;32mI (120849) test: Button Value = 1[0m
+[0;32mI (121149) test: Button Value = 1[0m
+[0;32mI (121149) test: Button Value = 1[0m
+[1;31mE (121409) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (121409) task_wdt:  - IDLE0 (CPU 0)[0m
+[1;31mE (121409) task_wdt: Tasks currently running:[0m
+[1;31mE (121409) task_wdt: CPU 0: rotary_task[0m
+[1;31mE (121409) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (121409) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE5AE:0x3FFB1190 0x400DE970:0x3FFB11B0 0x40082D15:0x3FFB11E0 0x4000BFED:0x3FFBA7F0 0x40087176:0x3FFBA800 0x400D9BDA:0x3FFBA820 0x400D9066:0x3FFBA850 0x400D8AB4:0x3FFBA8A0 0x40086E19:0x3FFBA8E0
+
+[0;32mI (121449) test: Button Value = 1[0m
+[0;32mI (121449) test: Button Value = 1[0m
+[0;32mI (121749) test: Button Value = 1[0m
+[0;32mI (121749) test: Button Value = 1[0m
+[0;32mI (122049) test: Button Value = 1[0m
+[0;32mI (122049) test: Button Value = 1[0m
+[0;32mI (122349) test: Button Value = 1[0m
+[0;32mI (122349) test: Button Value = 1[0m
+[0;32mI (122649) test: Button Value = 1[0m
+[0;32mI (122649) test: Button Value = 1[0m
+[0;32mI (122949) test: Button Value = 1[0m
+[0;32mI (122949) test: Button Value = 1[0m
+[0;32mI (123249) test: Button Value = 1[0m
+[0;32mI (123249) test: Button Value = 1[0m
+[0;32mI (123549) test: Button Value = 1[0m
+[0;32mI (123549) test: Button Value = 1[0m
+[0;32mI (123849) test: Button Value = 1[0m
+[0;32mI (123849) test: Button Value = 1[0m
+[0;32mI (124149) test: Button Value = 1[0m
+[0;32mI (124149) test: Button Value = 1[0m
+[0;32mI (124449) test: Button Value = 1[0m
+[0;32mI (124449) test: Button Value = 1[0m
+[0;32mI (124749) test: Button Value = 1[0m
+[0;32mI (124749) test: Button Value = 1[0m
+[0;32mI (125049) test: Button Value = 1[0m
+[0;32mI (125049) test: Button Value = 1[0m
+[0;32mI (125349) test: Button Value = 1[0m
+[0;32mI (125349) test: Button Value = 1[0m
+[0;32mI (125649) test: Button Value = 1[0m
+[0;32mI (125649) test: Button Value = 1[0m
+[0;32mI (125949) test: Button Value = 1[0m
+[0;32mI (125949) test: Button Value = 1[0m

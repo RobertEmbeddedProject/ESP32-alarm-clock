@@ -1,0 +1,100 @@
+Command: C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:\esp\release-v5.5\esp-idf\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\Alarm_Clock_v3.elf C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe' 'C:\esp\release-v5.5\esp-idf\tools\idf.py'
+[0;33m--- Warning: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM8 instead...[0m
+[0;33m--- esp-idf-monitor 1.9.0 on \\.\COM8 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40080400: [0;33m_invalid_pc_placeholder[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m2235[0m
+[0m--- 0x40080644: [0;33mcall_start_cpu0[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is c59c4c7c084c4bb8ce2b87b3d40e026e0fb540a1e8a34281641b4a66fc15d325[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4000bfed: [0;33m_xtos_set_intlevel[0m[0m in [0;32mROM[0m
+[0m--- 0x4008633a: [0;33mvPortClearInterruptMaskFromISR[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h[0m[0m:[1;31m560[0m
+[0m--- (inlined by) [0;33mvPortExitCritical[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m514[0m
+[0m--- 0x400d7ad6: [0;33mpcnt_unit_get_count[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c[0m[0m:[1;31m543[0m
+[0m--- 0x400d705a: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m139[0m
+[0m--- 0x400d6b3c: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m55[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4000bfed: [0;33m_xtos_set_intlevel[0m[0m in [0;32mROM[0m
+[0m--- 0x4008633a: [0;33mvPortClearInterruptMaskFromISR[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h[0m[0m:[1;31m560[0m
+[0m--- (inlined by) [0;33mvPortExitCritical[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m514[0m
+[0m--- 0x400d7ad6: [0;33mpcnt_unit_get_count[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c[0m[0m:[1;31m543[0m
+[0m--- 0x400d705a: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m139[0m
+[0m--- 0x400d6b3c: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m55[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x40083d85: [0;33mesp_crosscore_int_send_yield[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m125[0m
+[0m--- 0x40087a56: [0;33mvTaskDelay[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m1611[0m
+[0m--- 0x400d6b71: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m59[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4000bfed: [0;33m_xtos_set_intlevel[0m[0m in [0;32mROM[0m
+[0m--- 0x4008633a: [0;33mvPortClearInterruptMaskFromISR[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h[0m[0m:[1;31m560[0m
+[0m--- (inlined by) [0;33mvPortExitCritical[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m514[0m
+[0m--- 0x400d7ad6: [0;33mpcnt_unit_get_count[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c[0m[0m:[1;31m543[0m
+[0m--- 0x400d705a: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m139[0m
+[0m--- 0x400d6b3c: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m55[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x40083d85: [0;33mesp_crosscore_int_send_yield[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m125[0m
+[0m--- 0x40087a56: [0;33mvTaskDelay[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m1611[0m
+[0m--- 0x400d6b71: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m59[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4000bfed: [0;33m_xtos_set_intlevel[0m[0m in [0;32mROM[0m
+[0m--- 0x4008633a: [0;33mvPortClearInterruptMaskFromISR[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h[0m[0m:[1;31m560[0m
+[0m--- (inlined by) [0;33mvPortExitCritical[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m514[0m
+[0m--- 0x400d7ad6: [0;33mpcnt_unit_get_count[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c[0m[0m:[1;31m543[0m
+[0m--- 0x400d705a: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m139[0m
+[0m--- 0x400d6b3c: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m55[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x40083d85: [0;33mesp_crosscore_int_send_yield[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m125[0m
+[0m--- 0x40087a56: [0;33mvTaskDelay[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m1611[0m
+[0m--- 0x400d6b71: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m59[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4000bfed: [0;33m_xtos_set_intlevel[0m[0m in [0;32mROM[0m
+[0m--- 0x4008633a: [0;33mvPortClearInterruptMaskFromISR[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h[0m[0m:[1;31m560[0m
+[0m--- (inlined by) [0;33mvPortExitCritical[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m514[0m
+[0m--- 0x400d7ad6: [0;33mpcnt_unit_get_count[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c[0m[0m:[1;31m543[0m
+[0m--- 0x400d705a: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m139[0m
+[0m--- 0x400d6b6c: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m57[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4000bff0: [0;33m_xtos_set_intlevel[0m[0m in [0;32mROM[0m
+[0m--- 0x4008633a: [0;33mvPortClearInterruptMaskFromISR[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h[0m[0m:[1;31m560[0m
+[0m--- (inlined by) [0;33mvPortExitCritical[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m514[0m
+[0m--- 0x400d7ad6: [0;33mpcnt_unit_get_count[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c[0m[0m:[1;31m543[0m
+[0m--- 0x400d705a: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m139[0m
+[0m--- 0x400d6b6c: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m57[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc3ae: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m439[0m
+[0m--- 0x400dc770: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m510[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4000bfed: [0;33m_xtos_set_intlevel[0m[0m in [0;32mROM[0m
+[0m--- 0x4008633a: [0;33mvPortClearInterruptMaskFromISR[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h[0m[0m:[1;31m560[0m
+[0m--- (inlined by) [0;33mvPortExitCritical[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m514[0m
+[0m--- 0x400d7ad6: [0;33mpcnt_unit_get_count[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/src/pulse_cnt.c[0m[0m:[1;31m543[0m
+[0m--- 0x400d705a: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m139[0m
+[0m--- 0x400d6b3c: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m55[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m

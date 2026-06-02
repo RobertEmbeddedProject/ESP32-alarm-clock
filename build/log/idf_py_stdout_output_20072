@@ -1,0 +1,213 @@
+Command: C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:\esp\release-v5.5\esp-idf\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\Alarm_Clock_v3.elf C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe' 'C:\esp\release-v5.5\esp-idf\tools\idf.py'
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00�ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:5180
+ho 0 tail 12 room 4
+load:0x40078000,len:15272
+ho 0 tail 12 room 4
+load:0x40080400,len:3160
+entry 0x4008059c
+[0;32mI (113) cpu_start: Multicore app[0m
+[0;32mI (121) cpu_start: GPIO 3 and 1 are used as console UART I/O pins[0m
+[0;32mI (121) cpu_start: Pro cpu start user code[0m
+[0;32mI (121) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (126) app_init: Application information:[0m
+[0;32mI (131) app_init: Project name:     Alarm_Clock_v3[0m
+[0;32mI (136) app_init: App version:      49803f2-dirty[0m
+[0;32mI (141) app_init: Compile time:     Jun  2 2026 17:46:49[0m
+[0;32mI (147) app_init: ELF file SHA256:  6ef5bc71d...[0m
+[0;32mI (153) app_init: ESP-IDF:          -128-NOTFOUND[0m
+[0;32mI (158) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (163) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (168) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (173) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (180) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (186) heap_init: At 3FFB3900 len 0002C700 (177 KiB): DRAM[0m
+[0;32mI (192) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (198) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (205) heap_init: At 4008E220 len 00011DE0 (71 KiB): IRAM[0m
+[0;32mI (212) spi_flash: detected chip: generic[0m
+[0;32mI (216) spi_flash: flash io: dio[0m
+[0;32mI (00:00:00.099) main_task: Started on CPU0[0m
+[0;32mI (00:00:00.110) main_task: Calling app_main()[0m
+[0;32mI (00:00:00.146) songs: install pcnt unit[0m
+[0;32mI (00:00:00.146) songs: set glitch filter[0m
+[0;32mI (00:00:00.147) songs: install pcnt channels[0m
+[0;32mI (00:00:00.150) songs: set edge and level actions for pcnt channels[0m
+[0;32mI (00:00:00.157) songs: enable pcnt unit[0m
+[0;32mI (00:00:00.161) songs: clear pcnt unit[0m
+[0;32mI (00:00:00.166) songs: start pcnt unit[0m
+[0;32mI (00:00:00.170) alarm: install pcnt unit[0m
+[0;32mI (00:00:00.175) alarm: set glitch filter[0m
+[0;32mI (00:00:00.180) alarm: install pcnt channels[0m
+[0;32mI (00:00:00.185) alarm: set edge and level actions for pcnt channels[0m
+[0;32mI (00:00:00.192) alarm: enable pcnt unit[0m
+[0;32mI (00:00:00.196) alarm: clear pcnt unit[0m
+[0;32mI (00:00:00.201) alarm: start pcnt unit[0m
+[0;32mI (00:00:01.260) SONG: song_task started[0m
+[0;32mI (00:00:01.261) test: Button Value = 1[0m
+[0;32mI (00:00:01.261) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:01.262) test: Button Value = 1[0m
+[0;32mI (00:00:01.570) test: Button Value = 1[0m
+[0;32mI (00:00:01.570) test: Button Value = 1[0m
+[0;32mI (00:00:01.870) test: Button Value = 1[0m
+[0;32mI (00:00:01.870) test: Button Value = 1[0m
+[0;32mI (00:00:02.170) test: Button Value = 1[0m
+[0;32mI (00:00:02.170) test: Button Value = 1[0m
+[0;32mI (00:00:02.290) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:02.470) test: Button Value = 1[0m
+[0;32mI (00:00:02.470) test: Button Value = 1[0m
+[0;32mI (00:00:02.770) test: Button Value = 1[0m
+[0;32mI (00:00:02.770) test: Button Value = 1[0m
+[0;32mI (00:00:03.070) test: Button Value = 1[0m
+[0;32mI (00:00:03.070) test: Button Value = 1[0m
+[0;32mI (00:00:03.320) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:03.370) test: Button Value = 1[0m
+[0;32mI (00:00:03.370) test: Button Value = 1[0m
+[0;32mI (00:00:03.670) test: Button Value = 1[0m
+[0;32mI (00:00:03.670) test: Button Value = 1[0m
+[0;32mI (00:00:03.970) test: Button Value = 1[0m
+[0;32mI (00:00:03.970) test: Button Value = 1[0m
+[0;32mI (00:00:04.270) test: Button Value = 1[0m
+[0;32mI (00:00:04.270) test: Button Value = 1[0m
+[0;32mI (00:00:04.350) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:04.570) test: Button Value = 1[0m
+[0;32mI (00:00:04.570) test: Button Value = 1[0m
+[0;32mI (00:00:04.870) test: Button Value = 1[0m
+[0;32mI (00:00:04.870) test: Button Value = 1[0m
+[0;32mI (00:00:05.170) test: Button Value = 1[0m
+[0;32mI (00:00:05.170) test: Button Value = 1[0m
+[0;32mI (00:00:05.380) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:05.470) test: Button Value = 1[0m
+[0;32mI (00:00:05.470) test: Button Value = 1[0m
+[0;32mI (00:00:05.770) test: Button Value = 1[0m
+[0;32mI (00:00:05.770) test: Button Value = 1[0m
+[0;32mI (00:00:06.070) test: Button Value = 1[0m
+[0;32mI (00:00:06.070) test: Button Value = 1[0m
+[0;31mE (12520) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[0;31mE (12520) task_wdt:  - IDLE0 (CPU 0)[0m
+[0;31mE (12520) task_wdt: Tasks currently running:[0m
+[0;31mE (12520) task_wdt: CPU 0: rotary_task[0m
+[0;31mE (12520) task_wdt: CPU 1: IDLE1[0m
+[0;31mE (12520) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE676:0x3FFB11F0 0x400DEA38:0x3FFB1210 0x40082D51:0x3FFB1240 0x4000BFED:0x3FFBABA0 0x40086FA9:0x3FFBABB0 0x400D9C0D:0x3FFBABD0 0x400D912E:0x3FFBAC00 0x400D8B84:0x3FFBAC50 0x40086E39:0x3FFBAC90
+
+[0;32mI (00:00:06.370) test: Button Value = 1[0m
+[0;32mI (00:00:06.370) test: Button Value = 1[0m
+[0;32mI (00:00:06.410) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:06.670) test: Button Value = 1[0m
+[0;32mI (00:00:06.670) test: Button Value = 1[0m
+[0;32mI (00:00:06.970) test: Button Value = 1[0m
+[0;32mI (00:00:06.970) test: Button Value = 1[0m
+[0;32mI (00:00:07.270) test: Button Value = 1[0m
+[0;32mI (00:00:07.270) test: Button Value = 1[0m
+[0;32mI (00:00:07.440) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:07.570) test: Button Value = 1[0m
+[0;32mI (00:00:07.570) test: Button Value = 1[0m
+[0;32mI (00:00:07.870) test: Button Value = 1[0m
+[0;32mI (00:00:07.870) test: Button Value = 1[0m
+[0;32mI (00:00:08.170) test: Button Value = 1[0m
+[0;32mI (00:00:08.170) test: Button Value = 1[0m
+[0;32mI (00:00:08.470) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:08.470) test: Button Value = 1[0m
+[0;32mI (00:00:08.470) test: Button Value = 1[0m
+[0;32mI (00:00:08.770) test: Button Value = 1[0m
+[0;32mI (00:00:08.770) test: Button Value = 1[0m
+[0;32mI (00:00:09.070) test: Button Value = 1[0m
+[0;32mI (00:00:09.070) test: Button Value = 1[0m
+[0;32mI (00:00:09.370) test: Button Value = 1[0m
+[0;32mI (00:00:09.370) test: Button Value = 1[0m
+[0;32mI (00:00:09.500) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:09.670) test: Button Value = 0[0m
+[0;32mI (00:00:09.670) test: Button Value = 1[0m
+[0;32mI (00:00:09.970) test: Button Value = 0[0m
+[0;32mI (00:00:09.970) test: Button Value = 1[0m
+[0;32mI (00:00:10.270) test: Button Value = 0[0m
+[0;32mI (00:00:10.270) test: Button Value = 1[0m
+[0;32mI (00:00:10.570) test: Button Value = 0[0m
+[0;32mI (00:00:10.570) test: Button Value = 1[0m
+[0;32mI (00:00:10.870) test: Button Value = 0[0m
+[0;32mI (00:00:10.870) test: Button Value = 1[0m
+[0;32mI (00:00:11.170) test: Button Value = 0[0m
+[0;32mI (00:00:11.170) test: Button Value = 1[0m
+[0;31mE (17520) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[0;31mE (17520) task_wdt:  - IDLE0 (CPU 0)[0m
+[0;31mE (17520) task_wdt: Tasks currently running:[0m
+[0;31mE (17520) task_wdt: CPU 0: rotary_task[0m
+[0;31mE (17520) task_wdt: CPU 1: IDLE1[0m
+[0;31mE (17520) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE676:0x3FFB11F0 0x400DEA38:0x3FFB1210 0x40082D51:0x3FFB1240 0x40083EB5:0x3FFBAC10 0x400888B2:0x3FFBAC30 0x400D8BB9:0x3FFBAC50 0x40086E39:0x3FFBAC90
+
+[0;32mI (00:00:11.470) test: Button Value = 0[0m
+[0;32mI (00:00:11.470) test: Button Value = 1[0m
+[0;32mI (00:00:11.770) test: Button Value = 0[0m
+[0;32mI (00:00:11.770) test: Button Value = 1[0m
+[0;32mI (00:00:12.070) test: Button Value = 0[0m
+[0;32mI (00:00:12.070) test: Button Value = 1[0m
+[0;32mI (00:00:12.370) test: Button Value = 0[0m
+[0;32mI (00:00:12.371) test: Button Value = 1[0m
+[0;32mI (00:00:12.670) test: Button Value = 0[0m
+[0;32mI (00:00:12.670) test: Button Value = 1[0m
+[0;32mI (00:00:12.970) test: Button Value = 0[0m
+[0;32mI (00:00:12.970) test: Button Value = 1[0m
+[0;32mI (00:00:13.270) test: Button Value = 0[0m
+[0;32mI (00:00:13.270) test: Button Value = 1[0m
+[0;32mI (00:00:13.570) test: Button Value = 0[0m
+[0;32mI (00:00:13.571) test: Button Value = 1[0m
+[0;32mI (00:00:13.590) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:13.870) test: Button Value = 1[0m
+[0;32mI (00:00:13.870) test: Button Value = 1[0m
+[0;32mI (00:00:14.170) test: Button Value = 1[0m
+[0;32mI (00:00:14.170) test: Button Value = 1[0m
+[0;32mI (00:00:14.470) test: Button Value = 1[0m
+[0;32mI (00:00:14.470) test: Button Value = 1[0m
+[0;32mI (00:00:14.620) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:14.770) test: Button Value = 1[0m
+[0;32mI (00:00:14.771) test: Button Value = 1[0m
+[0;32mI (00:00:15.070) test: Button Value = 1[0m
+[0;32mI (00:00:15.070) test: Button Value = 1[0m
+[0;32mI (00:00:15.370) test: Button Value = 1[0m
+[0;32mI (00:00:15.370) test: Button Value = 1[0m
+[0;32mI (00:00:15.650) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:15.670) test: Button Value = 1[0m
+[0;32mI (00:00:15.670) test: Button Value = 1[0m
+[0;32mI (00:00:15.970) test: Button Value = 1[0m
+[0;32mI (00:00:15.971) test: Button Value = 1[0m
+[0;31mE (22520) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[0;31mE (22520) task_wdt:  - IDLE0 (CPU 0)[0m
+[0;31mE (22520) task_wdt: Tasks currently running:[0m
+[0;31mE (22520) task_wdt: CPU 0: rotary_task[0m
+[0;31mE (22520) task_wdt: CPU 1: IDLE1[0m
+[0;31mE (22520) task_wdt: Print CPU 0 (current core) backtrace[0m
+
+
+Backtrace: 0x400DE676:0x3FFB11F0 0x400DEA38:0x3FFB1210 0x40082D51:0x3FFB1240 0x400888A9:0x3FFBAC30 0x400D8BB9:0x3FFBAC50 0x40086E39:0x3FFBAC90
+
+[0;32mI (00:00:16.290) test: Button Value = 1[0m
+[0;32mI (00:00:16.291) test: Button Value = 1[0m
+[0;32mI (00:00:16.590) test: Button Value = 1[0m
+[0;32mI (00:00:16.590) test: Button Value = 1[0m
+[0;32mI (00:00:16.680) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:16.890) test: Button Value = 1[0m
+[0;32mI (00:00:16.890) test: Button Value = 1[0m
+[0;32mI (00:00:17.190) test: Button Value = 1[0m
+[0;32mI (00:00:17.190) test: Button Value = 1[0m
+[0;32mI (00:00:17.490) test: Button Value = 1[0m
+[0;32mI (00:00:17.491) test: Button Value = 1[0m
+[0;32mI (00:00:17.710) SONG: Button is LOW. Sending play command.[0m
+[0;32mI (00:00:17.790) test: Button Value = 1[0m
+[0;32mI (00:00:17.790) test: Button Value = 1[0m
+[0;32mI (00:00:18.090) test: Button Value = 1[0m
+[0;32mI (00:00:18.090) test: Button Value = 1[0m

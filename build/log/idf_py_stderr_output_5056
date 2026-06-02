@@ -1,1 +1,135 @@
-Command: ninja flash
+Command: C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:\esp\release-v5.5\esp-idf\tools/idf_monitor.py -p COM8 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\Alarm_Clock_v3.elf C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe' 'C:\esp\release-v5.5\esp-idf\tools\idf.py'
+[0;33m--- Warning: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM8 instead...[0m
+[0;33m--- esp-idf-monitor 1.9.0 on \\.\COM8 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40080400: [0;33m_invalid_pc_placeholder[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m2235[0m
+[0m--- 0x40080644: [0;33mcall_start_cpu0[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x400dc37e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x400dc740: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x400d49db: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/hal/esp32/include/hal/uart_ll.h[0m[0m:[1;31m443[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x400d50e8: [0;33muart_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000182a: [0;33mwrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400d5a65: [0;33mconsole_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000117d: [0;33m__swrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400592fe: [0;33m__sflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4005937a: [0;33m_fflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x400dd8d9: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x400e40e7: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x400e3fde: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x400dd9c9: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4008b3b3: [0;33mesp_log_va[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x400d7020: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m137[0m
+[0m--- 0x400d6b64: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m60[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc37e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x400dc740: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x400d49e3: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/hal/esp32/include/hal/uart_ll.h[0m[0m:[1;31m443[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x400d50e8: [0;33muart_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000182a: [0;33mwrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400d5a65: [0;33mconsole_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000117d: [0;33m__swrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400592fe: [0;33m__sflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4005937a: [0;33m_fflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x400dd8d9: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x400e40e7: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x400e3fde: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x400dd9c9: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4008b3b3: [0;33mesp_log_va[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x400d7020: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m137[0m
+[0m--- 0x400d6b34: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m58[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x400dc37e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x400dc740: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x400d49e9: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/hal/esp32/include/hal/uart_ll.h[0m[0m:[1;31m443[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x400d50e8: [0;33muart_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000182a: [0;33mwrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400d5a65: [0;33mconsole_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000117d: [0;33m__swrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400592fe: [0;33m__sflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4005937a: [0;33m_fflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x400dd8d9: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x400e40e7: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x400e3fde: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x400dd9c9: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4008b3b3: [0;33mesp_log_va[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x400d7020: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m137[0m
+[0m--- 0x400d6b34: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m58[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0;33m--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m--- To exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0m--- 0x400dc37e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x400dc740: [0;33mtask_wdt_isr[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x40082c21: [0;33m_xt_lowint1[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x400d49d9: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/hal/esp32/include/hal/uart_ll.h[0m[0m:[1;31m443[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x400d50e8: [0;33muart_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000182a: [0;33mwrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400d5a65: [0;33mconsole_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x400d6042: [0;33mesp_vfs_write[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4000bd83: [0;33m_write_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4000117d: [0;33m__swrite[0m[0m in [0;32mROM[0m
+[0m--- 0x400592fe: [0;33m__sflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x4005937a: [0;33m_fflush_r[0m[0m in [0;32mROM[0m
+[0m--- 0x400dd8d9: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x400e40e7: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x400e3fde: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x400dd9c9: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4008b3b3: [0;33mesp_log_va[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x400d7020: [0;33mrotary_index[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c[0m[0m:[1;31m137[0m
+[0m--- 0x400d6b64: [0;33mrotary_task[0m[0m at [0;32mC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c[0m[0m:[1;31m60[0m
+[0m--- 0x40085fdd: [0;33mvPortTaskWrapper[0m[0m at [0;32mC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m
+Exception ignored in: <function Console.__del__ at 0x0000015B1B3B9580>
+Traceback (most recent call last):
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\serial\tools\miniterm.py", line 159, in __del__
+AttributeError: 'NoneType' object has no attribute 'windll'
+Traceback (most recent call last):
+  File "C:\esp\release-v5.5\esp-idf\tools/idf_monitor.py", line 11, in <module>
+    sys.exit(subprocess.run([sys.executable, '-m', 'esp_idf_monitor'] + sys.argv[1:]).returncode)
+             ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rfink\scoop\apps\python313\current\Lib\subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rfink\scoop\apps\python313\current\Lib\subprocess.py", line 1214, in communicate
+    self.wait()
+    ~~~~~~~~~^^
+  File "C:\Users\rfink\scoop\apps\python313\current\Lib\subprocess.py", line 1280, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\rfink\scoop\apps\python313\current\Lib\subprocess.py", line 1606, in _wait
+    result = _winapi.WaitForSingleObject(self._handle,
+                                         timeout_millis)
+KeyboardInterrupt
