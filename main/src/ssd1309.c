@@ -1,4 +1,5 @@
 #include "ssd1309.h"
+#include "globals.h"
 #include "driver/gpio.h"
 #include "graphics_smallfonts.h"
 

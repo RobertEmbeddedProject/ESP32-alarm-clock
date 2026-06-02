@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "Alarm_Clock_v3",
-    "project_version":    "51b9eec-dirty",
+    "project_version":    "642b2dc-dirty",
     "project_path":       "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3",
     "idf_path":           "C:/esp/release-v5.5/esp-idf",
     "build_dir":          "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build",

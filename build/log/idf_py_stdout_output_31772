@@ -1,0 +1,18 @@
+Command: ninja all
+[1/9] Performing build step for 'bootloader'
+[1/1] C:\windows\system32\cmd.exe /C "cd /D C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\esp-idf\esptool_py && C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:/esp/release-v5.5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6630 bytes. 0x9d0 bytes (9%) free.
+[2/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/src/rotary.c.obj
+[3/9] No install step for 'bootloader'
+[4/9] Completed 'bootloader'
+[5/9] Linking C static library esp-idf\main\libmain.a
+[6/9] Generating esp-idf/esp_system/ld/sections.ld
+[7/9] Linking CXX executable Alarm_Clock_v3.elf
+[8/9] Generating binary image from built executable
+esptool.py v4.12.dev1
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/Alarm_Clock_v3.bin
+[9/9] C:\windows\system32\cmd.exe /C "cd /D C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\esp-idf\esptool_py && C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:/esp/release-v5.5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/partition_table/partition-table.bin C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/Alarm_Clock_v3.bin"
+Alarm_Clock_v3.bin binary size 0x2e0e0 bytes. Smallest app partition is 0x100000 bytes. 0xd1f20 bytes (82%) free.

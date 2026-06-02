@@ -11,6 +11,7 @@ https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/periph
 */
 
 #include "rotary.h"
+#include "globals.h"
 
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -110,16 +111,34 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
     *pcnt_unit_out = pcnt_unit_in;
 }
 
-void rotary_index(int pulse_count_prev, int pulse_count_now, int *index_out)
+void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev, int *pulse_now, int array[], int *index_out, int array_size)
 {
+    int delta = (*pulse_now / 4) - (*pulse_prev / 4);
+    int pulse_raw = 0;
 
-    int pulse_prev = pulse_count_prev / 4;
-    int pulse_now = pulse_count_now / 4;
-    int delta = pulse_now - pulse_prev;
+    *pulse_prev = *pulse_now;
+    ESP_ERROR_CHECK(pcnt_unit_get_count(pcnt_unit_out, &pulse_raw));
+    *pulse_now = pulse_raw;
 
-    if (delta == 0)
-    {
+    if (delta == 0) {
         return;
     }
+
     *index_out += delta;
+
+    if (*index_out >= array_size) {
+        *index_out = 0;
+    }
+    else if (*index_out < 0) {
+        *index_out = array_size - 1;
+    }   
+
+    //clear all PCNT counts
+    if(abs(pulse_raw)>100){
+            ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit_out));
+            pulse_raw = 0;
+            *pulse_prev = 0;
+            *pulse_now = 0;
+        }
 }
+    

@@ -20,27 +20,27 @@ Info : [esp32.cpu0] Debug controller was reset.
 Info : [esp32.cpu0] Core was reset.
 Info : [esp32.cpu1] Debug controller was reset.
 Info : [esp32.cpu1] Core was reset.
-Info : [esp32.cpu0] Target halted, PC=0x40083DBA, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
 Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
+Info : [esp32.cpu1] Target halted, PC=0x400861E9, debug_reason=00000000
 Info : [esp32.cpu1] Reset cause (14) - (CPU1 reset by CPU0)
 Info : accepting 'gdb' connection on tcp/3333
-Info : [esp32.cpu0] Target halted, PC=0x40082A16, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
 Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
+Info : [esp32.cpu1] Target halted, PC=0x40086A87, debug_reason=00000000
 Warn : No symbols for FreeRTOS!
 Info : [esp32.cpu0] Target halted, PC=0x400BC8B6, debug_reason=00000001
-Info : Flash mapping 0: 0x10020 -> 0x3f400020, 40 KB
-Info : Flash mapping 1: 0x20020 -> 0x400d0020, 74 KB
+Info : Flash mapping 0: 0x10020 -> 0x3f400020, 43 KB
+Info : Flash mapping 1: 0x20020 -> 0x400d0020, 91 KB
 Info : Auto-detected flash bank 'esp32.cpu0.flash' size 4096 KB
 Info : Using flash bank 'esp32.cpu0.flash' size 4096 KB
 Info : [esp32.cpu0] Target halted, PC=0x400BC8B6, debug_reason=00000001
-Info : Flash mapping 0: 0x10020 -> 0x3f400020, 40 KB
-Info : Flash mapping 1: 0x20020 -> 0x400d0020, 74 KB
-Info : Using flash bank 'esp32.cpu0.irom' size 76 KB
+Info : Flash mapping 0: 0x10020 -> 0x3f400020, 43 KB
+Info : Flash mapping 1: 0x20020 -> 0x400d0020, 91 KB
+Info : Using flash bank 'esp32.cpu0.irom' size 92 KB
 Info : [esp32.cpu0] Target halted, PC=0x400BC8B6, debug_reason=00000001
-Info : Flash mapping 0: 0x10020 -> 0x3f400020, 40 KB
-Info : Flash mapping 1: 0x20020 -> 0x400d0020, 74 KB
+Info : Flash mapping 0: 0x10020 -> 0x3f400020, 43 KB
+Info : Flash mapping 1: 0x20020 -> 0x400d0020, 91 KB
 Info : Using flash bank 'esp32.cpu0.drom' size 44 KB
 Info : New GDB Connection: 1, Target esp32.cpu0, state: halted
 Warn : Prefer GDB command "target extended-remote :3333" instead of "target remote :3333"
@@ -55,35 +55,15 @@ FLASH   0x3f400000  0x0000b000  0x00001000
 R/W     0x3f40b000  0x00bf5000  0x00000000
 ROM     0x40000000  0x00070000  0x00000000
 R/W     0x40070000  0x00060000  0x00000000
-FLASH   0x400d0000  0x00013000  0x00001000
-R/W     0x400e3000  0xbff1d000  0x00000000
+FLASH   0x400d0000  0x00017000  0x00001000
+R/W     0x400e7000  0xbff19000  0x00000000
 ----------------------------------------
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D6898, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
 Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D689E, debug_reason=00000001
+Info : [esp32.cpu1] Target halted, PC=0x40083EA1, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
 Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D68A1, debug_reason=00000001
-Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D6898, debug_reason=00000001
-Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D68A1, debug_reason=00000001
-Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
+Info : [esp32.cpu1] Target halted, PC=0x40086175, debug_reason=00000000
 Info : dropped 'gdb' connection
 Info : accepting 'gdb' connection on tcp/3333
 Info : New GDB Connection: 2, Target esp32.cpu0, state: halted
@@ -97,17 +77,58 @@ FLASH   0x3f400000  0x0000b000  0x00001000
 R/W     0x3f40b000  0x00bf5000  0x00000000
 ROM     0x40000000  0x00070000  0x00000000
 R/W     0x40070000  0x00060000  0x00000000
-FLASH   0x400d0000  0x00013000  0x00001000
-R/W     0x400e3000  0xbff1d000  0x00000000
+FLASH   0x400d0000  0x00017000  0x00001000
+R/W     0x400e7000  0xbff19000  0x00000000
 ----------------------------------------
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D6898, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
 Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
+Info : [esp32.cpu1] Target halted, PC=0x4008D189, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x400D6A43, debug_reason=00000001
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x4008642C, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x400D6A43, debug_reason=00000001
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x40082BC7, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x400D6A43, debug_reason=00000001
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x4008640B, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x40083EA7, debug_reason=00000000
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x400D6A43, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x400D6A43, debug_reason=00000001
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x40086405, debug_reason=00000000
+Info : [esp32.cpu0] Target halted, PC=0x400D6A46, debug_reason=00000000
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
 Info : dropped 'gdb' connection
 Info : accepting 'gdb' connection on tcp/3333
-Info : New GDB Connection: 3, Target esp32.cpu0, state: halted
+Info : [esp32.cpu0] Target halted, PC=0x400BC8B6, debug_reason=00000001
+Info : Flash mapping 0: 0x10020 -> 0x3f400020, 43 KB
+Info : Flash mapping 1: 0x20020 -> 0x400d0020, 91 KB
+Info : Auto-detected flash bank 'esp32.cpu1.flash' size 4096 KB
+Info : Using flash bank 'esp32.cpu1.flash' size 4096 KB
+Info : [esp32.cpu0] Target halted, PC=0x400BC8B6, debug_reason=00000001
+Info : Flash mapping 0: 0x10020 -> 0x3f400020, 43 KB
+Info : Flash mapping 1: 0x20020 -> 0x400d0020, 91 KB
+Info : Using flash bank 'esp32.cpu1.irom' size 92 KB
+Info : [esp32.cpu0] Target halted, PC=0x400BC8B6, debug_reason=00000001
+Info : Flash mapping 0: 0x10020 -> 0x3f400020, 43 KB
+Info : Flash mapping 1: 0x20020 -> 0x400d0020, 91 KB
+Info : Using flash bank 'esp32.cpu1.drom' size 44 KB
+Info : New GDB Connection: 3, Target esp32.cpu1, state: halted
 Memory Map (8 regions):
 ----------------------------------------
 Type    Start Addr    Length    BlockSize
@@ -118,95 +139,156 @@ FLASH   0x3f400000  0x0000b000  0x00001000
 R/W     0x3f40b000  0x00bf5000  0x00000000
 ROM     0x40000000  0x00070000  0x00000000
 R/W     0x40070000  0x00060000  0x00000000
-FLASH   0x400d0000  0x00013000  0x00001000
-R/W     0x400e3000  0xbff1d000  0x00000000
+FLASH   0x400d0000  0x00017000  0x00001000
+R/W     0x400e7000  0xbff19000  0x00000000
 ----------------------------------------
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D68A1, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
 Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
-Info : [esp32.cpu0] Debug controller was reset.
-Info : [esp32.cpu0] Core was reset.
-Error: [esp32.cpu0] Failed to read core status!
-Error: [esp32.cpu0] Polling failed, trying to reexamine
-Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
-Error: [esp32.cpu0] Examination failed
-Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
-Info : [esp32.cpu1] Debug controller was reset.
-Info : [esp32.cpu1] Core was reset.
-Error: [esp32.cpu1] Failed to read core status!
-Error: [esp32.cpu1] Polling failed, trying to reexamine
-Warn : [esp32.cpu1] Unexpected OCD_ID = ffffffff
-Error: [esp32.cpu1] Examination failed
-Error: [esp32.cpu1] Examination failed, GDB will be halted. Polling again in 100ms
-Error: [esp32.cpu0] Polling failed, trying to reexamine
-Info : [esp32.cpu0] Examination succeed
-Info : [esp32.cpu0] Target halted, PC=0x4000926C, debug_reason=00000000
-Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
-Error: [esp32.cpu1] Polling failed, trying to reexamine
-Info : [esp32.cpu1] Examination succeed
-Info : [esp32.cpu1] Debug controller was reset.
-Info : [esp32.cpu1] Core was reset.
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu1] Reset cause (14) - (CPU1 reset by CPU0)
-Info : [esp32.cpu0] Debug controller was reset.
-Info : [esp32.cpu0] Core was reset.
-Error: [esp32.cpu0] Failed to read core status!
-Error: [esp32.cpu0] Polling failed, trying to reexamine
-Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
-Error: [esp32.cpu0] Examination failed
-Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
-Info : [esp32.cpu1] Debug controller was reset.
-Info : [esp32.cpu1] Core was reset.
-Error: [esp32.cpu1] Failed to read core status!
-Error: [esp32.cpu1] Polling failed, trying to reexamine
-Warn : [esp32.cpu1] Unexpected OCD_ID = ffffffff
-Error: [esp32.cpu1] Examination failed
-Error: [esp32.cpu1] Examination failed, GDB will be halted. Polling again in 100ms
-Error: [esp32.cpu0] Polling failed, trying to reexamine
-Info : [esp32.cpu0] Examination succeed
-Info : [esp32.cpu0] Target halted, PC=0x4000D00C, debug_reason=00000000
-Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
-Error: [esp32.cpu1] Polling failed, trying to reexamine
-Warn : [esp32.cpu1] Unexpected OCD_ID = 00000000
-Error: [esp32.cpu1] Examination failed
-Error: [esp32.cpu1] Examination failed, GDB will be halted. Polling again in 100ms
-Info : [esp32.cpu1] Debug controller was reset.
-Info : [esp32.cpu1] Core was reset.
-Error: [esp32.cpu1] Polling failed, trying to reexamine
-Info : [esp32.cpu1] Examination succeed
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu1] Reset cause (14) - (CPU1 reset by CPU0)
-Info : [esp32.cpu0] Target halted, PC=0x400D6898, debug_reason=00000001
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : JTAG tap: esp32.tap0 tap/device found: 0x120034e5 (mfg: 0x272 (Tensilica), part: 0x2003, ver: 0x1)
-Info : JTAG tap: esp32.tap1 tap/device found: 0x120034e5 (mfg: 0x272 (Tensilica), part: 0x2003, ver: 0x1)
-Info : [esp32.cpu0] requesting target halt and executing a soft reset
-Info : [esp32.cpu0] Debug controller was reset.
-Info : [esp32.cpu0] Core was reset.
-Info : [esp32.cpu0] Target halted, PC=0x500000CF, debug_reason=00000000
-Info : [esp32.cpu0] Reset cause (3) - (Software core reset)
-Info : [esp32.cpu0] Core was reset.
-Info : [esp32.cpu0] Target halted, PC=0x40000400, debug_reason=00000000
-Info : [esp32.cpu1] Debug controller was reset.
-Info : [esp32.cpu1] Core was reset.
-Info : [esp32.cpu1] Target halted, PC=0x40000400, debug_reason=00000000
-Info : [esp32.cpu1] Reset cause (14) - (CPU1 reset by CPU0)
-Info : [esp32.cpu0] Reset cause (3) - (Software core reset)
-Info : Detected FreeRTOS version: (10.5.1)
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D688F, debug_reason=00000001
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x400D9A5A, debug_reason=00000000
 Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x400D8553, debug_reason=00000000
+Info : Set GDB target to 'esp32.cpu0'
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
 Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
 Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D6895, debug_reason=00000001
+Info : [esp32.cpu0] Target halted, PC=0x400D826F, debug_reason=00000000
 Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
-Info : [esp32.cpu0] Target halted, PC=0x400BC9B6, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400BC9EE, debug_reason=00000001
-Info : [esp32.cpu0] Target halted, PC=0x400D6898, debug_reason=00000001
-Info : Set GDB target to 'esp32.cpu0'
-Info : [esp32.cpu1] Target halted, PC=0x40083DBA, debug_reason=00000000
+Info : [esp32.cpu1] Target halted, PC=0x400D6A67, debug_reason=00000001
 Info : dropped 'gdb' connection
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Info : [esp32.cpu1] Debug controller was reset.
+Info : [esp32.cpu1] Core was reset.
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x4000AE32, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x400087FA, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009544, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x400093BA, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x400D48F0, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009394, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x400093C0, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40083F96, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009445, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x40009445, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)
+Info : [esp32.cpu0] Debug controller was reset.
+Info : [esp32.cpu0] Core was reset.
+Error: [esp32.cpu0] Failed to read core status!
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Warn : [esp32.cpu0] Unexpected OCD_ID = ffffffff
+Error: [esp32.cpu0] Examination failed
+Error: [esp32.cpu0] Examination failed, GDB will be halted. Polling again in 100ms
+Error: [esp32.cpu0] Polling failed, trying to reexamine
+Info : [esp32.cpu0] Examination succeed
+Info : [esp32.cpu0] Target halted, PC=0x4000921A, debug_reason=00000000
+Info : [esp32.cpu0] Reset cause (1) - (Power on reset)

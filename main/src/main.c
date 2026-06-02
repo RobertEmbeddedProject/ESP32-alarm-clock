@@ -9,57 +9,54 @@
 #include "main.h"
 #include "ssd1309.h"
 #include "rotary.h"
+#include "globals.h"
 
 #define testdelay 500 // milliseconds
 
+pcnt_unit_handle_t pcnt_unit_songs = NULL;
+int index_songs = 0;
+int pulse_count_songs_prev = 0;
+int pulse_count_songs_now = 0;
+int array_songs[11] = {};
+int array_songs_max = sizeof(array_songs) / sizeof(array_songs[0]);
+
+
+void display_task(void *arg){
+    char index_text[32];
+
+    while(1){
+        snprintf(index_text, sizeof(index_text), "%d", index_songs);
+        ssd1309_clear();
+        ssd1309_draw_text(20, 3, "index:");
+        ssd1309_draw_text(70, 3, index_text);
+        ssd1309_display();
+        vTaskDelay(pdMS_TO_TICKS(100));
+    }
+}
+
+void rotary_task(void *arg){
+    while(1){
+        rotary_index(pcnt_unit_songs, &pulse_count_songs_prev, &pulse_count_songs_now, array_songs, &index_songs, array_songs_max);
+        vTaskDelay(pdMS_TO_TICKS(5));
+    }
+}
+
+
 void app_main(void)
 {
-    pcnt_unit_handle_t pcnt_unit_songs = NULL;
-    const char *songs_knob = "songs";
-    int pulse_count_raw_songs = 0;
-    int pulse_count_prev_songs = 0;
-    int pulse_count_now_songs = 0;
-    int index_songs = 0;
-    int array_songs[64] = {};
-    int array_songs_min = 0;
-    int array_songs_max = 63; //use sizeof()
-    for(int i=0; i<64; i++){
+    
+    OLED_init();
+    ssd1309_clear();
+    ssd1309_display();
+
+    rotary_init(ROTARY_KNOB_SONGS, &pcnt_unit_songs);
+
+    for(int i=0; i<11; i++){
         array_songs[i] = i*100;
     }
 
-    pcnt_unit_handle_t pcnt_unit_alarm = NULL;
-    const char *alarm_knob = "alarm";
-    int pulse_count_raw_alarm = 0;
-
-    OLED_init();
-    rotary_init(ROTARY_KNOB_SONGS, &pcnt_unit_songs);
-    rotary_init(ROTARY_KNOB_ALARM, &pcnt_unit_alarm);
-
-    while (1)
-    {
-
-        pulse_count_prev_songs = pulse_count_now_songs;
-        // gets PCNT count by simple polling:
-        ESP_ERROR_CHECK(pcnt_unit_get_count(pcnt_unit_songs, &pulse_count_raw_songs));
-        ESP_ERROR_CHECK(pcnt_unit_get_count(pcnt_unit_alarm, &pulse_count_raw_alarm));
-        pulse_count_now_songs = pulse_count_raw_songs;
-        rotary_index(pulse_count_prev_songs, pulse_count_now_songs, &index_songs);
-        if(abs(pulse_count_raw_songs)>100){
-            pulse_count_raw_songs = 0;
-            pulse_count_prev_songs = 0;
-            pulse_count_now_songs = 0;
-        }
-
-
-
-
-
-        ESP_LOGI(songs_knob, "Pulse count: %d index: %d array[]: %d", 
-                        pulse_count_raw_songs, index_songs, array_songs[index_songs]);
-        vTaskDelay(pdMS_TO_TICKS(300));
-        // ESP_LOGI(alarm_knob, "Pulse count: %d", pulse_count_alarm);
-        // vTaskDelay(pdMS_TO_TICKS(300));
-    }
+    xTaskCreate(display_task, "display_task", 8192, NULL, 8, NULL);
+    xTaskCreate(rotary_task, "rotary_task", 4096, NULL, 9, NULL);
 }
 
 /*SSD1309 Test:
@@ -70,3 +67,5 @@ void app_main(void)
         ssd1309_draw_text(20, 2, "test");
         ssd1309_display();
         */
+
+
