@@ -22,7 +22,9 @@
 static void df_send_packet(uint8_t cmd, uint16_t param)
 {
     uint8_t pkt[10];
+    //this has to be calculated, because the DFplayer expects a different checksum per command
     uint16_t checksum = 0 - (0xFF + 0x06 + cmd + 0x00 + (param >> 8) + (param & 0xFF));
+
     pkt[0] = 0x7E;
     pkt[1] = 0xFF;
     pkt[2] = 0x06;
@@ -71,12 +73,11 @@ void mp3_init(void){
     uart_set_pin(UART_PORT_NUM, UART_TX_PIN, UART_RX_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
     uart_driver_install(UART_PORT_NUM, UART_BUF_SIZE, 0, 0, NULL, 0);
 
-
-    // DFPlayer startup
+    // DFPlayer setup
     mp3_cmd(CMD_SEL_DEV, DEV_TF); //tell DFplayer to use SD card
     vTaskDelay(pdMS_TO_TICKS(50));
-    mp3_cmd(CMD_SET_VOLUME, 8); // start at low volume
-
+    mp3_cmd(CMD_SET_VOLUME, 30); // start at low volume
+    mp3_cmd(CMD_SET_PRESET, 2);
 }
 
 
