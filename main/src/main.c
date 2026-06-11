@@ -35,8 +35,13 @@ pcnt_unit_handle_t pcnt_unit_alarm = NULL;
 int index_alarm = 0;
 int pulse_count_alarm_prev = 0;
 int pulse_count_alarm_now = 0;
-int array_alarm[SONG_COUNT] = {};
-int array_alarm_max = sizeof(array_alarm) / sizeof(array_alarm[0]);
+int alarm_hour = 0;
+int alarm_min = 0;
+
+int display_alarm_hour;
+char *alarm_ampm;
+int display_clock_hour;
+char *clock_ampm;
 
 //MP3 Player
 bool music_playing = 0;
@@ -44,30 +49,48 @@ int song_playing = 999;
 
 
 void display_task(void *arg){
-    char index_text[32];
+
     char time_text[32];
     char alarm_text[32];
+    char index_text[32];
 
     while(1){
 
+        update_display_info(time_text, alarm_text, index_text);
+/*
         //Time aquisition once per loop
         time_t now;
         struct tm current;
         time(&now);
         localtime_r(&now, &current);
+
+        //Alarm Update
+        alarm_min = index_alarm * 5 % 60; //5 min increments
+        alarm_hour = index_alarm * 5 / 60;
+
+        format_AM_PM(alarm_hour, &display_alarm_hour, &alarm_ampm);
+        format_AM_PM(current.tm_hour, &display_clock_hour, &clock_ampm);
+
         snprintf(time_text, sizeof(time_text),
-                 "%02d:%02d",
-                 current.tm_hour,
-                 current.tm_min);
+                "%2d:%02d %s",
+                display_clock_hour,
+                current.tm_min,
+                clock_ampm);
+
+        snprintf(alarm_text, sizeof(alarm_text),
+                "%2d:%02d %s",
+                display_alarm_hour,
+                alarm_min,
+                alarm_ampm);        
 
         snprintf(index_text, sizeof(index_text), "%d", index_songs);
-        snprintf(alarm_text, sizeof(alarm_text), "%d", index_alarm);
+*/
         ssd1309_clear();
         
-        ssd1309_draw_text(20, 3, "Time:");
-        ssd1309_draw_text(70, 3, time_text);
-        ssd1309_draw_text(20, 4, "Alarm:");
-        ssd1309_draw_text(70, 4, alarm_text);
+        ssd1309_draw_text(12, 3, "Time:");
+        ssd1309_draw_text(54, 3, time_text);
+        ssd1309_draw_text(4, 4, "Alarm: ");
+        ssd1309_draw_text(54, 4, alarm_text);
         ssd1309_draw_text(0, 6, "Song Index:");
         ssd1309_draw_text(90, 6, index_text);
         ssd1309_draw_text(0, 7, songlist[index_songs]);
@@ -78,10 +101,11 @@ void display_task(void *arg){
 
 void rotary_task(void *arg){
     while(1){
-        rotary_index(songs_pb, pcnt_unit_songs, &pulse_count_songs_prev, 
+        rotary_index(pcnt_unit_songs, &pulse_count_songs_prev, 
                         &pulse_count_songs_now, &index_songs, array_songs_max);
-        rotary_index(alarm_pb, pcnt_unit_alarm, &pulse_count_alarm_prev, 
-                        &pulse_count_alarm_now, &index_alarm, array_alarm_max);
+        rotary_index(pcnt_unit_alarm, &pulse_count_alarm_prev, 
+                        &pulse_count_alarm_now, &index_alarm, 287);
+                                                    // 288*5/60 = 24 hours
         vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
@@ -127,17 +151,6 @@ void app_main(void)
 
     wifi_init();
 
-    //Time Aquisition, delete after testing
-    time_t now;
-    struct tm current;
-    time(&now);
-    localtime_r(&now, &current);
-    printf("%02d:%02d:%02d\n",
-       current.tm_hour,
-       current.tm_min,
-       current.tm_sec);
-
-
     mp3_init();
     vTaskDelay(pdMS_TO_TICKS(500)); //delay must be 500<
     mp3_cmd(CMD_SET_VOLUME, 30);
@@ -151,11 +164,5 @@ void app_main(void)
     xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
     
 
-
-
-
-    
-
 }
-
 

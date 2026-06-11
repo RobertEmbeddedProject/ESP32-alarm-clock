@@ -17,5 +17,5 @@ typedef enum
 } rotary_knob_t;
 
 void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out);
-void rotary_index(gpio_config_t rotary_pb, pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
+void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
                     int *pulse_now, int *index_out, int array_size);

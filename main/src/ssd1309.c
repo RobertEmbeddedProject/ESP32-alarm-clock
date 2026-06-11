@@ -20,6 +20,19 @@ static uint8_t oled_buffer[OLED_BUF_SIZE];
 static i2c_master_bus_handle_t bus_handle;
 static i2c_master_dev_handle_t dev_handle;
 
+
+extern int index_songs;
+
+extern int index_alarm;
+extern int alarm_hour;
+extern int alarm_min;
+extern int display_alarm_hour;
+extern char *alarm_ampm;
+
+extern int display_clock_hour;
+extern char *clock_ampm;
+
+
 //From the HAL
 void I2C_init(void){
     i2c_master_bus_config_t i2c_mst_config = {
@@ -182,4 +195,60 @@ void ssd1309_draw_text(int x, int y, const char *text) {
         ssd1309_draw_char(x, y, *text++);
         x += 8;
     }
+}
+
+
+void format_AM_PM(int input_hour, int *display_hour, char **ampm){
+    //Format Time as AM or PM
+
+    if (input_hour == 0)
+    {
+        *display_hour = 12;
+        *ampm = "AM";
+    }
+    else if (input_hour < 12)
+    {
+        *display_hour = input_hour;
+        *ampm = "AM";
+    }
+    else if (input_hour == 12)
+    {
+        *display_hour = 12;
+        *ampm = "PM";
+    }
+    else
+    {
+        *display_hour = input_hour - 12;
+        *ampm = "PM";
+    }
+}
+
+void update_display_info(char *time_text, char *alarm_text, char *index_text){
+    
+    //Time aquisition once per loop
+    time_t now;
+    struct tm current;
+    time(&now);
+    localtime_r(&now, &current);
+
+    //Alarm Update
+    alarm_min = index_alarm * 5 % 60; //5 min increments
+    alarm_hour = index_alarm * 5 / 60;
+
+    format_AM_PM(alarm_hour, &display_alarm_hour, &alarm_ampm);
+    format_AM_PM(current.tm_hour, &display_clock_hour, &clock_ampm);
+
+    snprintf(time_text, 32,
+            "%2d:%02d %s",
+            display_clock_hour,
+            current.tm_min,
+            clock_ampm);
+
+    snprintf(alarm_text, 32,
+            "%2d:%02d %s",
+            display_alarm_hour,
+            alarm_min,
+            alarm_ampm);        
+
+    snprintf(index_text, 32, "%d", index_songs);
 }
