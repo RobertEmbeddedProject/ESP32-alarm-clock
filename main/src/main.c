@@ -19,6 +19,8 @@
 #include "nvs_flash.h"
 #include "esp_err.h"
 
+void display_splash(void);
+
 
 //songs rotary encoder
 gpio_config_t songs_pb;
@@ -38,6 +40,7 @@ int pulse_count_alarm_now = 0;
 int alarm_hour = 0;
 int alarm_min = 0;
 
+//OLED Display Formatting
 int display_alarm_hour;
 char *alarm_ampm;
 int display_clock_hour;
@@ -47,46 +50,21 @@ char *clock_ampm;
 bool music_playing = 0;
 int song_playing = 999;
 
-
 void display_task(void *arg){
 
+    char wifi_text[32];
     char time_text[32];
     char alarm_text[32];
     char index_text[32];
 
     while(1){
 
-        update_display_info(time_text, alarm_text, index_text);
-/*
-        //Time aquisition once per loop
-        time_t now;
-        struct tm current;
-        time(&now);
-        localtime_r(&now, &current);
+        update_display_info(wifi_text, time_text, alarm_text, index_text);
 
-        //Alarm Update
-        alarm_min = index_alarm * 5 % 60; //5 min increments
-        alarm_hour = index_alarm * 5 / 60;
-
-        format_AM_PM(alarm_hour, &display_alarm_hour, &alarm_ampm);
-        format_AM_PM(current.tm_hour, &display_clock_hour, &clock_ampm);
-
-        snprintf(time_text, sizeof(time_text),
-                "%2d:%02d %s",
-                display_clock_hour,
-                current.tm_min,
-                clock_ampm);
-
-        snprintf(alarm_text, sizeof(alarm_text),
-                "%2d:%02d %s",
-                display_alarm_hour,
-                alarm_min,
-                alarm_ampm);        
-
-        snprintf(index_text, sizeof(index_text), "%d", index_songs);
-*/
         ssd1309_clear();
         
+        ssd1309_draw_text(64, 0, "WiFi:");
+        ssd1309_draw_text(104, 0, wifi_text);
         ssd1309_draw_text(12, 3, "Time:");
         ssd1309_draw_text(54, 3, time_text);
         ssd1309_draw_text(4, 4, "Alarm: ");
@@ -110,14 +88,6 @@ void rotary_task(void *arg){
     }
 }
 
-void serial_monitor(void *args){
-    while(1){
-        //ESP_LOGI("test", "Button Value = %d", gpio_get_level(GPIO_NUM_39));
-        //ESP_LOGI("test", "Button Value = %d", gpio_get_level(GPIO_NUM_36));
-
-        vTaskDelay(pdMS_TO_TICKS(300));
-    }
-}
 
 void song_task(void *args){
     ESP_LOGI("SONG", "song_task started");
@@ -146,10 +116,12 @@ void app_main(void)
     ssd1309_clear();
     ssd1309_display();
 
-    rotary_init(ROTARY_KNOB_SONGS, &pcnt_unit_songs);
-    rotary_init(ROTARY_KNOB_ALARM, &pcnt_unit_alarm);
+    display_splash();
 
     wifi_init();
+
+    rotary_init(ROTARY_KNOB_SONGS, &pcnt_unit_songs);
+    rotary_init(ROTARY_KNOB_ALARM, &pcnt_unit_alarm);
 
     mp3_init();
     vTaskDelay(pdMS_TO_TICKS(500)); //delay must be 500<
@@ -158,11 +130,22 @@ void app_main(void)
         array_songs[i] = i*100;
     }
 
-    xTaskCreate(serial_monitor, "serial_monitor", 2048, NULL, 1, NULL);
     xTaskCreate(display_task, "display_task", 4096, NULL, 4, NULL);
     xTaskCreate(song_task, "song_task", 2048, NULL, 6, NULL);
     xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
-    
+
 
 }
 
+void display_splash(void){
+    char wifi_text[32];
+    char empty[32];
+
+    ssd1309_clear();
+    update_display_info(wifi_text, empty, empty, empty);
+
+    ssd1309_draw_text(64, 0, "WiFi:");
+    ssd1309_draw_text(104, 0, wifi_text);
+
+    ssd1309_display();
+}

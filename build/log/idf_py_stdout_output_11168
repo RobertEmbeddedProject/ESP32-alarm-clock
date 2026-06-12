@@ -1,19 +1,87 @@
-Command: ninja all
-[1/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/src/main.c.obj
-FAILED: esp-idf/main/CMakeFiles/__idf_main.dir/src/main.c.obj 
-C:\Espressif\tools\xtensa-esp-elf\esp-14.2.0_20251107\xtensa-esp-elf\bin\xtensa-esp32-elf-gcc.exe -DESP_PLATFORM -DIDF_VER=\"-128-NOTFOUND\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -IC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/config -IC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main -IC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src -IC:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/inc -IC:/esp/release-v5.5/esp-idf/components/newlib/platform_include -IC:/esp/release-v5.5/esp-idf/components/freertos/config/include -IC:/esp/release-v5.5/esp-idf/components/freertos/config/include/freertos -IC:/esp/release-v5.5/esp-idf/components/freertos/config/xtensa/include -IC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/include -IC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -IC:/esp/release-v5.5/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -IC:/esp/release-v5.5/esp-idf/components/freertos/esp_additions/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/include/soc -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/include/soc/esp32 -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/dma/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/ldo/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/debug_probe/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/mspi_timing_tuning/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/mspi_timing_tuning/tuning_scheme_impl/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/power_supply/include -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/port/esp32/. -IC:/esp/release-v5.5/esp-idf/components/esp_hw_support/port/esp32/include -IC:/esp/release-v5.5/esp-idf/components/heap/include -IC:/esp/release-v5.5/esp-idf/components/heap/tlsf -IC:/esp/release-v5.5/esp-idf/components/log/include -IC:/esp/release-v5.5/esp-idf/components/soc/include -IC:/esp/release-v5.5/esp-idf/components/soc/esp32 -IC:/esp/release-v5.5/esp-idf/components/soc/esp32/include -IC:/esp/release-v5.5/esp-idf/components/soc/esp32/register -IC:/esp/release-v5.5/esp-idf/components/hal/platform_port/include -IC:/esp/release-v5.5/esp-idf/components/hal/esp32/include -IC:/esp/release-v5.5/esp-idf/components/hal/include -IC:/esp/release-v5.5/esp-idf/components/esp_rom/include -IC:/esp/release-v5.5/esp-idf/components/esp_rom/esp32/include -IC:/esp/release-v5.5/esp-idf/components/esp_rom/esp32/include/esp32 -IC:/esp/release-v5.5/esp-idf/components/esp_rom/esp32 -IC:/esp/release-v5.5/esp-idf/components/esp_common/include -IC:/esp/release-v5.5/esp-idf/components/esp_system/include -IC:/esp/release-v5.5/esp-idf/components/esp_system/port/soc -IC:/esp/release-v5.5/esp-idf/components/esp_system/port/include/private -IC:/esp/release-v5.5/esp-idf/components/xtensa/esp32/include -IC:/esp/release-v5.5/esp-idf/components/xtensa/include -IC:/esp/release-v5.5/esp-idf/components/xtensa/deprecated_include -IC:/esp/release-v5.5/esp-idf/components/lwip/include -IC:/esp/release-v5.5/esp-idf/components/lwip/include/apps -IC:/esp/release-v5.5/esp-idf/components/lwip/include/apps/sntp -IC:/esp/release-v5.5/esp-idf/components/lwip/lwip/src/include -IC:/esp/release-v5.5/esp-idf/components/lwip/port/include -IC:/esp/release-v5.5/esp-idf/components/lwip/port/freertos/include -IC:/esp/release-v5.5/esp-idf/components/lwip/port/esp32xx/include -IC:/esp/release-v5.5/esp-idf/components/lwip/port/esp32xx/include/arch -IC:/esp/release-v5.5/esp-idf/components/lwip/port/esp32xx/include/sys -IC:/esp/release-v5.5/esp-idf/components/driver/deprecated -IC:/esp/release-v5.5/esp-idf/components/driver/i2c/include -IC:/esp/release-v5.5/esp-idf/components/driver/touch_sensor/include -IC:/esp/release-v5.5/esp-idf/components/driver/twai/include -IC:/esp/release-v5.5/esp-idf/components/driver/touch_sensor/esp32/include -IC:/esp/release-v5.5/esp-idf/components/esp_pm/include -IC:/esp/release-v5.5/esp-idf/components/esp_ringbuf/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_gpio/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_pcnt/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_gptimer/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_spi/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_mcpwm/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_ana_cmpr/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_i2s/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_sdmmc/include -IC:/esp/release-v5.5/esp-idf/components/sdmmc/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_sdspi/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_sdio/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_dac/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_rmt/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_tsens/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_sdm/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_i2c/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_uart/include -IC:/esp/release-v5.5/esp-idf/components/vfs/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_ledc/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_parlio/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_usb_serial_jtag/include -IC:/esp/release-v5.5/esp-idf/components/esp_driver_twai/include -IC:/esp/release-v5.5/esp-idf/components/esp_netif/include -IC:/esp/release-v5.5/esp-idf/components/esp_event/include -IC:/esp/release-v5.5/esp-idf/components/esp_wifi/include -IC:/esp/release-v5.5/esp-idf/components/esp_wifi/include/local -IC:/esp/release-v5.5/esp-idf/components/esp_wifi/wifi_apps/include -IC:/esp/release-v5.5/esp-idf/components/esp_wifi/wifi_apps/nan_app/include -IC:/esp/release-v5.5/esp-idf/components/esp_phy/include -IC:/esp/release-v5.5/esp-idf/components/esp_phy/esp32/include -IC:/esp/release-v5.5/esp-idf/components/esp_timer/include -IC:/esp/release-v5.5/esp-idf/components/nvs_flash/include -IC:/esp/release-v5.5/esp-idf/components/esp_partition/include -mlongcalls -Wno-frame-address  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-error=extra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -fmacro-prefix-map=C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3=. -fmacro-prefix-map=C:/esp/release-v5.5/esp-idf=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -std=gnu17 -Wno-old-style-declaration -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/src/main.c.obj -MF esp-idf\main\CMakeFiles\__idf_main.dir\src\main.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/src/main.c.obj -c C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c
-C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c: In function 'app_main':
-C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c:67:48: error: 'event_count' undeclared (first use in this function)
-   67 |         if (xQueueReceive(queue_rotary_songs, &event_count, pdMS_TO_TICKS(1000))) {
-      |                                                ^~~~~~~~~~~
-C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c:67:48: note: each undeclared identifier is reported only once for each function it appears in
-C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c:50:9: warning: unused variable 'event_count_alarm' [-Wunused-variable]
-   50 |     int event_count_alarm = 0;
-      |         ^~~~~~~~~~~~~~~~~
-C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c:48:9: warning: unused variable 'event_count_songs' [-Wunused-variable]
-   48 |     int event_count_songs = 0;
-      |         ^~~~~~~~~~~~~~~~~
-[2/9] Performing build step for 'bootloader'
+Command: ninja flash
+[1/5] C:\windows\system32\cmd.exe /C "cd /D C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\esp-idf\esptool_py && C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:/esp/release-v5.5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/partition_table/partition-table.bin C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/Alarm_Clock_v3.bin"
+Alarm_Clock_v3.bin binary size 0xcbc60 bytes. Smallest app partition is 0x100000 bytes. 0x343a0 bytes (20%) free.
+[2/5] Performing build step for 'bootloader'
 [1/1] C:\windows\system32\cmd.exe /C "cd /D C:\Users\rfink\Documents\ESP-IDF\AlarmClockv3\build\bootloader\esp-idf\esptool_py && C:\Espressif\tools\python\release-v5.5\venv\Scripts\python.exe C:/esp/release-v5.5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/bootloader/bootloader.bin"
-Bootloader binary size 0x6630 bytes. 0x9d0 bytes (9%) free.
+Bootloader binary size 0x5c90 bytes. 0x1370 bytes (17%) free.
+[3/5] No install step for 'bootloader'
+[4/5] Completed 'bootloader'
+[4/5] C:\windows\system32\cmd.exe /C "cd /D C:\esp\release-v5.5\esp-idf\components\esptool_py && C:\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=C:/esp/release-v5.5/esp-idf -D SERIAL_TOOL=C:/Espressif/tools/python/release-v5.5/venv/Scripts/python.exe;;C:/esp/release-v5.5/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build -P C:/esp/release-v5.5/esp-idf/components/esptool_py/run_serial_tool.cmake"
+esptool.py --chip esp32 -p COM8 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 bootloader/bootloader.bin 0x10000 Alarm_Clock_v3.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.12.dev1
+Serial port COM8
+Connecting.......
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 68:25:dd:46:fa:f8
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00006fff...
+Flash will be erased from 0x00010000 to 0x000dbfff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 23696 bytes to 14905...
+Writing at 0x00001000... (100 %)
+Wrote 23696 bytes (14905 compressed) at 0x00001000 in 0.5 seconds (effective 364.6 kbit/s)...
+Hash of data verified.
+Compressed 834656 bytes to 523011...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001cf16... (6 %)
+Writing at 0x00026450... (9 %)
+Writing at 0x00031189... (12 %)
+Writing at 0x00036aac... (15 %)
+Writing at 0x0003ca1c... (18 %)
+Writing at 0x000429cb... (21 %)
+Writing at 0x000482d9... (25 %)
+Writing at 0x0004dd88... (28 %)
+Writing at 0x0005397e... (31 %)
+Writing at 0x000597aa... (34 %)
+Writing at 0x0005f78e... (37 %)
+Writing at 0x000654b7... (40 %)
+Writing at 0x0006b7dc... (43 %)
+Writing at 0x00070cf4... (46 %)
+Writing at 0x000762cb... (50 %)
+Writing at 0x0007c12d... (53 %)
+Writing at 0x00081abe... (56 %)
+Writing at 0x000871e6... (59 %)
+Writing at 0x0008cbdd... (62 %)
+Traceback (most recent call last):
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\__init__.py", line 1381, in _main
+    main()
+    ~~~~^^
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\__init__.py", line 1085, in main
+    operation_func(esp, args)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\cmds.py", line 668, in write_flash
+    esp.flash_defl_block(block, seq, timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\loader.py", line 127, in inner
+    return func(*args, **kwargs)
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\loader.py", line 1315, in flash_defl_block
+    self.check_command(
+    ~~~~~~~~~~~~~~~~~~^
+        "write compressed data to flash after seq %d" % seq,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        timeout=timeout,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\loader.py", line 547, in check_command
+    val, data = self.command(op, data, chk, timeout=timeout)
+                ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\loader.py", line 477, in command
+    p = self.read()
+  File "C:\Espressif\tools\python\release-v5.5\venv\Lib\site-packages\esptool\loader.py", line 410, in read
+    return next(self._slip_reader)
+StopIteration
+
+A fatal error occurred: The chip stopped responding.
+FAILED: CMakeFiles/flash C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/CMakeFiles/flash 
+C:\windows\system32\cmd.exe /C "cd /D C:\esp\release-v5.5\esp-idf\components\esptool_py && C:\Espressif\tools\cmake\3.30.2\bin\cmake.exe -D IDF_PATH=C:/esp/release-v5.5/esp-idf -D SERIAL_TOOL=C:/Espressif/tools/python/release-v5.5/venv/Scripts/python.exe;;C:/esp/release-v5.5/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build -P C:/esp/release-v5.5/esp-idf/components/esptool_py/run_serial_tool.cmake"
 ninja: build stopped: subcommand failed.

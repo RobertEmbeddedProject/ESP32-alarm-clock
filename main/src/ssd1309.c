@@ -1,4 +1,5 @@
 #include "ssd1309.h"
+#include "wifi.h"
 #include "globals.h"
 #include "driver/gpio.h"
 #include "graphics_smallfonts.h"
@@ -19,7 +20,6 @@ static uint8_t oled_buffer[OLED_BUF_SIZE];
 
 static i2c_master_bus_handle_t bus_handle;
 static i2c_master_dev_handle_t dev_handle;
-
 
 extern int index_songs;
 
@@ -223,7 +223,7 @@ void format_AM_PM(int input_hour, int *display_hour, char **ampm){
     }
 }
 
-void update_display_info(char *time_text, char *alarm_text, char *index_text){
+void update_display_info(char *wifi_text, char *time_text, char *alarm_text, char *index_text){
     
     //Time aquisition once per loop
     time_t now;
@@ -237,6 +237,9 @@ void update_display_info(char *time_text, char *alarm_text, char *index_text){
 
     format_AM_PM(alarm_hour, &display_alarm_hour, &alarm_ampm);
     format_AM_PM(current.tm_hour, &display_clock_hour, &clock_ampm);
+
+    snprintf(wifi_text, 32,"%s",
+            wifi_is_connected() ? "OK " : "Err");
 
     snprintf(time_text, 32,
             "%2d:%02d %s",

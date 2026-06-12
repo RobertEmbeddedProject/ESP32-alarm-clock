@@ -34,6 +34,7 @@ and STA_GOT_IP.
 #define ESP_MAXIMUM_RETRY  5
 
 static void obtain_time_wifi(void);
+static volatile bool s_wifi_connected = false;
 
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
@@ -52,8 +53,10 @@ static void event_handler(void* arg, esp_event_base_t event_base,
                                 int32_t event_id, void* event_data)
 {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+        s_wifi_connected = false;
         esp_wifi_connect();
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+        s_wifi_connected = false;
         if (s_retry_num < ESP_MAXIMUM_RETRY) {
             esp_wifi_connect();
             s_retry_num++;
@@ -69,6 +72,7 @@ static void event_handler(void* arg, esp_event_base_t event_base,
         ESP_LOGI(TAG, "Disconnect reason: %d", disc->reason);
 
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+        s_wifi_connected = true;
         ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
         ESP_LOGI(TAG, "got ip:" IPSTR, IP2STR(&event->ip_info.ip));
         s_retry_num = 0;
@@ -149,6 +153,7 @@ static void obtain_time_wifi(void)
 
     esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
     esp_sntp_setservername(0, "pool.ntp.org");
+    esp_sntp_set_sync_interval(2 * 60 * 60 * 1000); // 2 hours in ms, resync clock drift
     esp_sntp_init();
 
     time_t now = 0;
@@ -194,4 +199,8 @@ void wifi_init(void){
     ESP_LOGI("TAG", "Starting WiFi test");
     wifi_init_sta();
     ESP_LOGI("TAG", "WiFi test complete");
+}
+
+bool wifi_is_connected(void){
+    return s_wifi_connected;
 }
