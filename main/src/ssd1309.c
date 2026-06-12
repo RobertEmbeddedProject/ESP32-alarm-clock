@@ -139,7 +139,7 @@ void ssd1309_draw_pixel(int x, int y, bool on)
 }
 
 
-//hex bitmap helper from Lopaka tool
+//hex bitmap
 void ssd1309_draw_xbm(int x, int y, int w, int h, const uint8_t *bitmap)
 {
     int byte_width = (w + 7) / 8;
