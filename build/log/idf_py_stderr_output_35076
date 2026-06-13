@@ -1,2 +1,0 @@
-Command: ninja all
-fatal: bad config line 2 in file C:/esp/release-v5.5/esp-idf/.git/modules/components/bootloader/subproject/components/micro-ecc/micro-ecc/config

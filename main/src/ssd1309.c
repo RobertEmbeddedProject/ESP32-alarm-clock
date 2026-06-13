@@ -3,6 +3,9 @@
 #include "globals.h"
 #include "driver/gpio.h"
 #include "graphics_smallfonts.h"
+#include "graphics_bitmaps.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h" 
 
 //I2C definitions
 #define I2C_OLED_SDA   GPIO_NUM_21
@@ -155,6 +158,16 @@ void ssd1309_draw_xbm(int x, int y, int w, int h, const uint8_t *bitmap)
         }
     }
 }
+
+void progress_bar_fill(int start, int end, int lag_ms, int post_delay_ms){
+    for(int i = start; i < end; i++){
+        ssd1309_draw_xbm(56+i*2, 40, 2, 8, image_progressbar_fill);
+        ssd1309_display();
+        vTaskDelay(pdMS_TO_TICKS(lag_ms));
+    }
+    vTaskDelay(pdMS_TO_TICKS(post_delay_ms));
+}
+    
 
 void ssd1309_display(void) {
 

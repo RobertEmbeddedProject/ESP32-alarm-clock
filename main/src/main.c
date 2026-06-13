@@ -20,6 +20,12 @@
 #include "graphics_bitmaps.h"
 
 void display_splash(void);
+//task notification, not a semaphore
+static TaskHandle_t progress_bar_t = NULL;
+static TaskHandle_t app_main_t = NULL;
+
+//RTOS Tasks
+void splash_load_task(void *arg);
 void display_task(void *arg);
 void rotary_task(void *arg);
 void alarm_task(void *arg);
@@ -61,13 +67,17 @@ int song_playing = 999;
 
 void app_main(void)
 {
+    app_main_t = xTaskGetCurrentTaskHandle();
+
     OLED_init();
     ssd1309_clear();
     ssd1309_display();
 
     display_splash();
+    xTaskCreate(splash_load_task, "splash load task", 2048, NULL, 5, &progress_bar_t);
 
     wifi_init();
+    xTaskNotifyGive(progress_bar_t);
 
     rotary_init(ROTARY_KNOB_SONGS, &pcnt_unit_songs);
     rotary_init(ROTARY_KNOB_ALARM, &pcnt_unit_alarm);
@@ -79,6 +89,7 @@ void app_main(void)
         array_songs[i] = i*100;
     }
 
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);   // wait until splash task is done
     xTaskCreate(display_task, "display_task", 4096, NULL, 4, NULL);
     xTaskCreate(alarm_task, "alarm_task", 2048, NULL, 5, NULL);
     xTaskCreate(song_task, "song_task", 2048, NULL, 6, NULL);
@@ -93,12 +104,26 @@ void display_splash(void){
     ssd1309_clear();
     update_display_info(wifi_text, blank, blank, blank);
     
-    ssd1309_draw_text(56, 0, "WiFi:");
-    ssd1309_draw_text(104, 0, wifi_text);
-    ssd1309_draw_text(8, 8, "Initializing...");
-    ssd1309_draw_xbm(0, 0, 57, 57, big_clock);
-
+    ssd1309_draw_text(64, 0, "WiFi:");
+    ssd1309_draw_text(49, 1, "Connecting");
+    ssd1309_draw_text(56, 4, "Loading");
+    ssd1309_draw_text(8, 7,  "Wake Up Better!");
+    ssd1309_draw_xbm(0, 0, 49, 49, image_big_clock);
+    ssd1309_draw_xbm(56, 40, 61, 8, image_progressbar);
     ssd1309_display();
+}
+
+void splash_load_task(void *arg){ 
+        progress_bar_fill(0,3,200,800);
+        progress_bar_fill(3,5,60,1200);
+        progress_bar_fill(5,9,50,1500);
+        progress_bar_fill(9,11,80,800);
+        progress_bar_fill(11,17,10,400);
+        progress_bar_fill(17,20,50,1);
+        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        progress_bar_fill(20,30,10,1);
+        xTaskNotifyGive(app_main_t); 
+    vTaskDelete(NULL);
 }
 
 void display_task(void *arg){
@@ -114,19 +139,20 @@ void display_task(void *arg){
 
         ssd1309_clear();
         
-        ssd1309_draw_text(56, 0, "WiFi: ");
+        ssd1309_draw_text(64, 0, "WiFi: ");
         ssd1309_draw_text(104, 0, wifi_text);
-        ssd1309_draw_text(12, 3, "Time:");
-        ssd1309_draw_text(54, 3, time_text);
+        ssd1309_draw_text(12, 2, "Time:");
+        ssd1309_draw_text(54, 2, time_text);
 
-        bool s_blink = (alarm == s_config && ((xTaskGetTickCount() / pdMS_TO_TICKS(250)) % 2) == 0);
+        //invisible for 100ms, visible for 800ms, repeat every (total) 900ms
+        bool s_blink = (alarm == s_config) && ((xTaskGetTickCount() % pdMS_TO_TICKS(600)) < pdMS_TO_TICKS(200));
         if(!s_blink){
             ssd1309_draw_text(4, 4, "Alarm: ");
             ssd1309_draw_text(54, 4, alarm_text);
         }
         if(alarm == s_armed){
             ssd1309_draw_xbm(0, 1, 16, 16, armed_clock_bmp);
-            ssd1309_draw_text(15, 1, "Armed");
+            ssd1309_draw_text(15, 0, "Armed");
         }
 
         ssd1309_draw_text(0, 6, "Song Index:");
@@ -148,7 +174,6 @@ void rotary_task(void *arg){
         vTaskDelay(pdMS_TO_TICKS(5));
     }
 }
-
 
 void song_task(void *args){
     ESP_LOGI("SONG", "song_task started");

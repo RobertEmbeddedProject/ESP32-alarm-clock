@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "Alarm_Clock_v3",
-    "project_version":    "checkpoint-wifi-implement-dirty",
+    "project_version":    "checkpoint-wifi-implement-1-g1ad9af6-dirty",
     "project_path":       "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3",
     "idf_path":           "C:/esp/release-v5.5/esp-idf",
     "build_dir":          "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build",
@@ -865,7 +865,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/state_machines.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/wifi.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/ssd1309.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/songs.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/mp3.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/graphics_smallfonts.c" ],
+            "sources": [ "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/main.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/state_machines.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/wifi.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/ssd1309.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/rotary.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/songs.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/mp3.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/graphics_smallfonts.c", "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/main/src/graphics_bitmaps.c" ],
             "include_dirs": [ ".", "src", "inc" ]
         },
         "mbedtls": {
