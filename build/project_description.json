@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "Alarm_Clock_v3",
-    "project_version":    "checkpoint-wifi-implement-1-g1ad9af6-dirty",
+    "project_version":    "checkpoint-wifi-implement-2-gae47e68-dirty",
     "project_path":       "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3",
     "idf_path":           "C:/esp/release-v5.5/esp-idf",
     "build_dir":          "C:/Users/rfink/Documents/ESP-IDF/AlarmClockv3/build",

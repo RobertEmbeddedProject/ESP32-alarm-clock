@@ -7,8 +7,6 @@
 #include "driver/gpio.h"
 
 #include "mp3.h"        // DFPlayer command IDs
-#include "globals.h"    // alarm_ringing, current_index, AMP_MUTE_GPIO, AMP_MUTE_ACTIVE_LOW
-
 #define DFPLAYER_RESET_GPIO     4
 
 //UART settings

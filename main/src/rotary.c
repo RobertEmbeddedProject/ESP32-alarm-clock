@@ -11,8 +11,6 @@ https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/periph
 */
 
 #include "rotary.h"
-#include "globals.h"
-
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"

@@ -1,11 +1,11 @@
 #include "ssd1309.h"
 #include "wifi.h"
-#include "globals.h"
 #include "driver/gpio.h"
 #include "graphics_smallfonts.h"
 #include "graphics_bitmaps.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h" 
+#include <math.h>
 
 //I2C definitions
 #define I2C_OLED_SDA   GPIO_NUM_21
@@ -21,6 +21,25 @@
 #define OLED_BUF_SIZE               (OLED_WIDTH * OLED_HEIGHT / 8) //1024 total pages
 static uint8_t oled_buffer[OLED_BUF_SIZE];
 
+//-------------------------------------------------------------------------------------------
+//Dimmables Definition
+#define DIM_TIMEOUT_MS   2000   // ms DIM after idle
+#define SLEEP_TIMEOUT_MS 5000  // ms OFF after idle (set 0 to disable)
+#define ALARM_WAKE_SLEEP_MS 5000  // ms OFF-after-5s window when alarm first rings
+#define ALARM_DIM_PULSE_MS 5000
+
+/********   Tunables    ************/
+//Normal Display
+#define VCOMH_BRIGHT      0x34   // ~0.78*VCC (datasheet reset value)
+#define CONTRAST_BRIGHT   0x7F   // try 0x8F,0xFF, etc if needs to be brighter
+//#define PRECHARGE_BRIGHT  0xF1   // phase2=0xF, phase1=0x1
+
+//Dim Display
+#define VCOMH_DIM         0x10   // ~0.64*VCC (darker)
+#define CONTRAST_DIM      0x01   // 0x00..0x04 are very dark
+//#define PRECHARGE_DIM     0x21   // both phases short -> reduces brightness
+//-------------------------------------------------------------------------------------------
+
 static i2c_master_bus_handle_t bus_handle;
 static i2c_master_dev_handle_t dev_handle;
 
@@ -34,6 +53,8 @@ extern char *alarm_ampm;
 
 extern int display_clock_hour;
 extern char *clock_ampm;
+
+extern float display_sleep_hours;
 
 
 //From the HAL
@@ -236,7 +257,7 @@ void format_AM_PM(int input_hour, int *display_hour, char **ampm){
     }
 }
 
-void update_display_info(char *wifi_text, char *time_text, char *alarm_text, char *index_text){
+void update_display_info(char *wifi_text, char *time_text, char *alarm_text, char *sleep_text, char *index_text){
     
     //Time aquisition once per loop
     time_t now;
@@ -248,23 +269,73 @@ void update_display_info(char *wifi_text, char *time_text, char *alarm_text, cha
     alarm_min = index_alarm * 5 % 60; //5 min increments
     alarm_hour = index_alarm * 5 / 60;
 
+    //Sleep hours calculated from alarm
+    int current_total_minutes = current.tm_hour * 60 + current.tm_min;
+    int alarm_total_minutes = alarm_hour * 60 + alarm_min;                 //mins per day
+    int minutes_until_alarm = (alarm_total_minutes - current_total_minutes + 1440) % 1440;
+    display_sleep_hours = floorf(minutes_until_alarm / (float)30) / 2.0f;
+
+display_sleep_hours =
+    floorf(minutes_until_alarm / (float)30) / 2.0f;
+
     format_AM_PM(alarm_hour, &display_alarm_hour, &alarm_ampm);
     format_AM_PM(current.tm_hour, &display_clock_hour, &clock_ampm);
 
     snprintf(wifi_text, 32,"%s",
             wifi_is_connected() ? "OK " : "Err");
-
-    snprintf(time_text, 32,
-            "%2d:%02d %s",
-            display_clock_hour,
-            current.tm_min,
-            clock_ampm);
+    
+    if (wifi_time_is_synced()) {
+        snprintf(time_text, 32,
+                "%2d:%02d %s",
+                display_clock_hour,
+                current.tm_min,
+                clock_ampm);
+        }
+    else{
+        snprintf(time_text, 32, "--:--");
+    }
 
     snprintf(alarm_text, 32,
             "%2d:%02d %s",
             display_alarm_hour,
             alarm_min,
-            alarm_ampm);        
+            alarm_ampm);  
+            
+    snprintf(sleep_text, 32,
+            "%.1f",
+            display_sleep_hours);
 
     snprintf(index_text, 32, "%d", index_songs);
+}
+
+void cmd_display_mode(enum brightness state)
+{
+    switch (state) {
+        case s_off:
+            OLED_cmd(0xAE);   // Display OFF
+            break;
+
+        case s_dim:
+            OLED_cmd(0xAF);   // Display ON
+            OLED_cmd(0xDB);   // Set VCOMH deselect level
+            OLED_cmd(0x00);   // Lowest VCOMH setting
+            OLED_cmd(0xD9);   // Set pre-charge period
+            OLED_cmd(0x01);   // Phase 2 = 0, phase 1 = 1
+            OLED_cmd(0x81);   // Set contrast
+            OLED_cmd(0x01);   // Very low contrast
+            break;
+
+        case s_bright:
+            OLED_cmd(0xAF);   // Display ON
+            OLED_cmd(0xDB);   // Set VCOMH deselect level
+            OLED_cmd(0x3C);   // Bright VCOMH setting
+            OLED_cmd(0xD9);   // Set pre-charge period
+            OLED_cmd(0xF1);   // Phase 2 = 15, phase 1 = 1
+            OLED_cmd(0x81);   // Set contrast
+            OLED_cmd(0x0F);   // Normal contrast from your init sequence
+            break;
+
+        default:
+            break;
+    }
 }

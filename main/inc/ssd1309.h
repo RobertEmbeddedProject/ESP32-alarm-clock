@@ -5,6 +5,20 @@
 //#include "driver/i2c.h" use new v5.5 header per manual
 #include "driver/i2c_master.h"
 
+//OLED Display Brightness Mode
+enum brightness{
+  s_off,
+  s_dim,
+  s_bright
+};
+
+//OLED Display Screen Selection
+enum display_screen{
+  s_splash,
+  s_main,
+  s_idle
+};
+
 void I2C_init(void);
 void OLED_init(void);
 void OLED_cmd(uint8_t cmd);
@@ -19,4 +33,5 @@ void ssd1309_draw_pixel(int x, int y, bool on);
 void ssd1309_draw_char(int x, int y, char c);
 void ssd1309_draw_text(int x, int y, const char *text);
 void format_AM_PM(int input_hour, int *display_hour, char **ampm);
-void update_display_info(char *wifi_text, char *time_text, char *alarm_text, char *index_text);
+void update_display_info(char *wifi_text, char *time_text, char *alarm_text, char *sleep_text, char *index_text);
+void cmd_display_mode(enum display state);

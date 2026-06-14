@@ -48,6 +48,7 @@ static EventGroupHandle_t s_wifi_event_group;
 static const char *TAG = "wifi station";
 
 static int s_retry_num = 0;
+static volatile bool s_time_synced = false;
 
 static void event_handler(void* arg, esp_event_base_t event_base,
                                 int32_t event_id, void* event_data)
@@ -149,7 +150,11 @@ void wifi_init_sta(void)
 
 static void obtain_time_wifi(void)
 {
+    s_time_synced = false; //dont trust value until guaranteed
     ESP_LOGI(TAG, "Initializing SNTP");
+
+    setenv("TZ", "EST5EDT,M3.2.0/2,M11.1.0/2", 1);
+    tzset();
 
     esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
     esp_sntp_setservername(0, "pool.ntp.org");
@@ -174,8 +179,7 @@ static void obtain_time_wifi(void)
     if (timeinfo.tm_year >= (2024 - 1900)) {
         char strftime_buf[64];
 
-        setenv("TZ", "EST5EDT,M3.2.0/2,M11.1.0/2", 1);
-        tzset();
+        s_time_synced = 1;
 
         time(&now);
         localtime_r(&now, &timeinfo);
@@ -203,4 +207,9 @@ void wifi_init(void){
 
 bool wifi_is_connected(void){
     return s_wifi_connected;
+}
+
+bool wifi_time_is_synced(void)
+{
+    return s_time_synced;
 }

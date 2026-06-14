@@ -5,3 +5,4 @@
 void wifi_init_sta(void);
 void wifi_init(void);
 bool wifi_is_connected(void);
+bool wifi_time_is_synced(void);
