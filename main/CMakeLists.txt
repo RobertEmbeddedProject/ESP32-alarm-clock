@@ -1,7 +1,6 @@
 idf_component_register(
   SRCS
     "src/main.c"
-    "src/state_machines.c"
     "src/wifi.c"
     "src/ssd1309.c"
     "src/rotary.c"

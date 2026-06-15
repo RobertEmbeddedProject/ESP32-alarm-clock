@@ -11,15 +11,11 @@ https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/periph
 */
 
 #include "rotary.h"
-#include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "freertos/queue.h"
 #include "esp_log.h"
 #include "driver/pulse_cnt.h"
 #include "driver/gpio.h"
-#include "esp_sleep.h"
-#include <math.h>
 
 #define PCNT_HI_LIM 1000
 #define PCNT_LO_LIM -1000
@@ -129,7 +125,7 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
 }
 
 void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
-                    int *pulse_now, int *index_out, int array_size)
+                    int *pulse_now, volatile int *index_out, int array_size)
 {
     int pulse_raw = 0;
 

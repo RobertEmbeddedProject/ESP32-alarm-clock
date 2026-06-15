@@ -1,7 +1,5 @@
 #include <stdint.h>
 #include <stdbool.h>
-//#include <stdlib.h>
-//#include <math.h>
 #include <string.h>
 #include <esp_log.h>
 #include "esp_err.h"
@@ -19,8 +17,8 @@
 #include "graphics_bitmaps.h"
 
 
-#define DISPLAY_DIM_TIMEOUT_MS    3000
-#define DISPLAY_OFF_TIMEOUT_MS    5000
+#define DISPLAY_DIM_TIMEOUT_MS    4000
+#define DISPLAY_OFF_TIMEOUT_MS    8000
 
 void display_splash(void);
 //task notification, not a semaphore
@@ -36,21 +34,21 @@ void alarm_task(void *arg);
 void song_task(void *arg);
 
 //songs rotary encoder
-pcnt_unit_handle_t pcnt_unit_songs = NULL;
-int index_songs = 0;
-int pulse_count_songs_prev = 0;
-int pulse_count_songs_now = 0;
-int array_songs[SONG_COUNT] = {};
-int array_songs_max = sizeof(array_songs) / sizeof(array_songs[0]);
+static pcnt_unit_handle_t pcnt_unit_songs = NULL;
+volatile int index_songs = 0;
+static int pulse_count_songs_prev = 0;
+static int pulse_count_songs_now = 0;
+static int array_songs[SONG_COUNT] = {};
+static int array_songs_max = sizeof(array_songs) / sizeof(array_songs[0]);
 
 //alarm rotary encoder
-pcnt_unit_handle_t pcnt_unit_alarm = NULL;
-int index_alarm_hour = 6;
-int index_alarm_minute = 30;
-int pulse_count_alarm_prev = 0;
-int pulse_count_alarm_now = 0;
-int alarm_hour = 0;
-int alarm_min = 0;
+static pcnt_unit_handle_t pcnt_unit_alarm = NULL;
+volatile int index_alarm_hour = 6;
+volatile int index_alarm_minute = 30;
+static int pulse_count_alarm_prev = 0;
+static int pulse_count_alarm_now = 0;
+volatile int alarm_hour = 0;
+volatile int alarm_min = 0;
 
 //alarm state
 enum alarm{
@@ -60,8 +58,8 @@ enum alarm{
   ALARM_ARMED,
   ALARM_TRIGGERED,
   ALARM_SNOOZED
-} alarm;
-bool s_acked;
+} volatile alarm_state;
+static bool s_acked;
 
 enum brightness brightness;
 enum display_screen display_screen;
@@ -74,8 +72,8 @@ char *clock_ampm;
 float display_sleep_hours;
 
 //MP3 Player
-bool music_playing = 0;
-int song_playing = 999;
+volatile static bool music_playing = 0;
+static int song_playing = 999;
 
 
 void app_main(void)
@@ -106,10 +104,10 @@ void app_main(void)
     }
 
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);   // wait until splash task is done
-    xTaskCreate(display_task, "display_task", 4096, NULL, 4, NULL);
+    xTaskCreate(display_task, "display_task", 4096, NULL, 4, &display_task_t);
     xTaskCreate(alarm_task, "alarm_task", 2048, NULL, 5, NULL);
     xTaskCreate(song_task, "song_task", 2048, NULL, 6, NULL);
-    xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, &display_task_t);
+    xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
 
 }
 
@@ -154,77 +152,104 @@ void display_task(void *arg){
     TickType_t last_activity_ticks = xTaskGetTickCount();
 
     while(1){
+        enum alarm state = alarm_state; //snapshot for one-scan consistency
 
         if (ulTaskNotifyTake(pdTRUE, 0) > 0) {
             last_activity_ticks = xTaskGetTickCount();
         }
+
+        TickType_t elapsed = xTaskGetTickCount() - last_activity_ticks;
+        enum brightness target;
+        if (elapsed >= pdMS_TO_TICKS(DISPLAY_OFF_TIMEOUT_MS)) {
+            target = DISPLAY_OFF;
+        } 
+        else if (elapsed >= pdMS_TO_TICKS(DISPLAY_DIM_TIMEOUT_MS)) {
+            target = DISPLAY_DIM;
+        } 
+        else {
+            target = DISPLAY_BRIGHT;
+        }
+        if (target != brightness) {
+            brightness = target;
+            cmd_display_mode(brightness);
+        }
+
         
         update_display_info(wifi_text, time_text, alarm_hour_text, alarm_minute_text, sleep_text, index_text);
         ssd1309_clear();
-        
         ssd1309_draw_text(64, 0, "WiFi: ");
         ssd1309_draw_text(104, 0, wifi_text);
         ssd1309_draw_text(20, 2, "Time:");
         ssd1309_draw_text(62, 2, time_text);
-        ssd1309_draw_text(12, 3, "Alarm: ");
-        ssd1309_draw_text(78, 3, ":"); 
-
-        //invisible for 30ms, visible for 100ms, repeat every (total) 130ms
-        bool s_blink_hour = (alarm == ALARM_CONFIG_HOUR) && ((xTaskGetTickCount() % pdMS_TO_TICKS(100)) < pdMS_TO_TICKS(30));
-        if(!s_blink_hour){
-    
-            ssd1309_draw_text(62, 3, alarm_hour_text);
-        }
-        bool s_blink_minute = (alarm == ALARM_CONFIG_MINUTE) && ((xTaskGetTickCount() % pdMS_TO_TICKS(600)) < pdMS_TO_TICKS(200));
-        if(!s_blink_minute){
-            ssd1309_draw_text(86, 3, alarm_minute_text);
-        }
-        if(alarm == ALARM_ARMED){
-            ssd1309_draw_xbm(0, 1, 16, 16, armed_clock_bmp);
-            ssd1309_draw_text(15, 0, "Armed");
-            if(0.0f < display_sleep_hours && display_sleep_hours <= 1.0f){ssd1309_draw_text(12, 4, "Sleep:    hour");}
-            else{ssd1309_draw_text(12, 4, "Sleep:     hrs");}
-            ssd1309_draw_text(62, 4, sleep_text);
-        }
-
+        ssd1309_draw_text(12, 3, "Alarm: "); 
         ssd1309_draw_text(0, 6, "Song Index:");
         ssd1309_draw_text(90, 6, index_text);
         ssd1309_draw_text(0, 7, songlist[index_songs]);
-        ssd1309_display();
+        
+        //invisible for 30ms, visible for 300ms, repeat every (total) 330ms
+        bool blink = (xTaskGetTickCount() % pdMS_TO_TICKS(300)) < pdMS_TO_TICKS(30);
+
+        if(state != ALARM_IDLE){
+            bool s_blink_hour = (state == ALARM_CONFIG_HOUR && blink);
+            if(!s_blink_hour){
+                ssd1309_draw_text(62, 3, alarm_hour_text);
+                ssd1309_draw_text(78, 3, ":");
+            }
+            bool s_blink_minute = (state == ALARM_CONFIG_MINUTE && blink);
+            if(!s_blink_minute){
+                ssd1309_draw_text(86, 3, alarm_minute_text);
+            }
+        }
+        else{ssd1309_draw_text(62, 3, "Not Set");}
+
+        if(state == ALARM_ARMED || state == ALARM_TRIGGERED){
+            ssd1309_draw_xbm(0, 1, 16, 16, armed_clock_bmp);
+            if(display_sleep_hours == 1.0f){ssd1309_draw_text(12, 4, "Sleep:     hour");}
+            else{ssd1309_draw_text(12, 4, "Sleep:     hrs");}
+            ssd1309_draw_text(62, 4, sleep_text);
+            if(state == ALARM_ARMED){ssd1309_draw_text(15, 0, "Armed");}
+        }
+        if(state == ALARM_TRIGGERED && !blink){ssd1309_draw_text(15, 0, "WAKING");}
+        
+        if (brightness != DISPLAY_OFF) {
+            ssd1309_display();
+        }
         vTaskDelay(pdMS_TO_TICKS(50));
     }
 }
 
 
 void rotary_task(void *arg){
+
+    int songs_pulse_raw = 0;
+    int songs_wake_prev = 0;
+    int alarm_pulse_raw = 0;
+    int alarm_wake_prev = 0;
+
     while(1){
         //Songs Rotary
-        int previous_song_index = index_songs;
         rotary_index(pcnt_unit_songs, &pulse_count_songs_prev, 
                         &pulse_count_songs_now, &index_songs, array_songs_max);
-        if (index_songs != previous_song_index) {
-            screen_activity();
-        }
 
         //Alarm Rotary
-        int previous_alarm_index_hour = index_alarm_hour;
-        int previous_alarm_index_minute = index_alarm_minute;
-        if(alarm == ALARM_CONFIG_HOUR){
+        if(alarm_state == ALARM_CONFIG_HOUR){
             rotary_index(pcnt_unit_alarm, &pulse_count_alarm_prev, 
                             &pulse_count_alarm_now, &index_alarm_hour, 24);
             }             
-        else if(alarm == ALARM_CONFIG_MINUTE){
+        else if(alarm_state == ALARM_CONFIG_MINUTE){
         rotary_index(pcnt_unit_alarm, &pulse_count_alarm_prev, 
                         &pulse_count_alarm_now, &index_alarm_minute, 60); 
-        }                               
-        else{ //only start counting when in config mode
-            ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit_alarm));
-            pulse_count_alarm_prev = 0;
-            pulse_count_alarm_now = 0;
+        }  
+
+        pcnt_unit_get_count(pcnt_unit_songs, &songs_pulse_raw);
+        pcnt_unit_get_count(pcnt_unit_alarm, &alarm_pulse_raw);
+        if(alarm_pulse_raw != alarm_wake_prev) {
+            screen_activity();
+            alarm_wake_prev = alarm_pulse_raw;
         }
-        if (index_alarm_hour != previous_alarm_index_hour ||
-                index_alarm_minute != previous_alarm_index_minute) {
-                screen_activity();
+        if(songs_pulse_raw != songs_wake_prev) {
+            screen_activity();
+            songs_wake_prev = songs_pulse_raw;
         }
 
         vTaskDelay(pdMS_TO_TICKS(20));
@@ -249,7 +274,7 @@ void song_task(void *args){
             vTaskDelay(pdMS_TO_TICKS(500));
        }
 
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(20));
     }
 }
 
@@ -267,35 +292,35 @@ void alarm_task(void *args){
         }
 
         if(gpio_get_level(GPIO_NUM_36) == 0){
-            //screen_activity();
-            switch (alarm){
+            screen_activity();
+            switch (alarm_state){
                 case ALARM_IDLE:
-                    alarm = ALARM_CONFIG_HOUR;
+                    alarm_state = ALARM_CONFIG_HOUR;
                     pcnt_unit_clear_count(pcnt_unit_alarm);
                     pulse_count_alarm_prev = 0;
                     pulse_count_alarm_now  = 0;
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
                 case ALARM_CONFIG_HOUR:
-                    alarm = ALARM_CONFIG_MINUTE;
+                    alarm_state = ALARM_CONFIG_MINUTE;
                     pcnt_unit_clear_count(pcnt_unit_alarm);
                     pulse_count_alarm_prev = 0;
                     pulse_count_alarm_now  = 0;
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
                 case ALARM_CONFIG_MINUTE:
-                    alarm = ALARM_ARMED;
+                    alarm_state = ALARM_ARMED;
                     s_acked = 0;
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
                 case ALARM_ARMED:
-                    alarm = ALARM_IDLE;
+                    alarm_state = ALARM_IDLE;
+                    s_acked = 1;
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
                 case ALARM_TRIGGERED:
-                    alarm = ALARM_IDLE;
+                    alarm_state = ALARM_IDLE;
                     s_acked = 1;
-                    alarm_min--; //prevent immediate re-trigger
                     mp3_cmd(CMD_STOP, 0);
                     music_playing = 0;
                     vTaskDelay(pdMS_TO_TICKS(500));
@@ -304,9 +329,10 @@ void alarm_task(void *args){
             }
         }
 
-        if(alarm == ALARM_ARMED && s_acked == 0 &&
+        if(alarm_state == ALARM_ARMED && s_acked == 0 &&
                     current.tm_hour == alarm_hour && current.tm_min == alarm_min){
-                alarm = ALARM_TRIGGERED;
+                alarm_state = ALARM_TRIGGERED;
+                screen_activity();
                 mp3_cmd(CMD_PLAY_W_INDEX, index_songs+1);
                 music_playing = 1;
             }

@@ -277,7 +277,7 @@ void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text
     int current_total_minutes = current.tm_hour * 60 + current.tm_min;
     int alarm_total_minutes = alarm_hour * 60 + alarm_min;                 //mins per day
     int minutes_until_alarm = (alarm_total_minutes - current_total_minutes + 1440) % 1440;
-    display_sleep_hours = floorf(minutes_until_alarm / (float)30) / 2.0f;
+    display_sleep_hours = floorf(minutes_until_alarm / 6.0f) / 10.0f;
 
 display_sleep_hours =
     floorf(minutes_until_alarm / (float)30) / 2.0f;
