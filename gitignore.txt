@@ -1,8 +1,8 @@
 
-.gitignore
-
 # Ignore unwanted shares
 main/inc/passwords.h
+.gitignore
+CLAUDE.md
 
 # Ignore unused implementations
 main/src/range_sensor.c

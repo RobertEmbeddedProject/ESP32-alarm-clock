@@ -158,7 +158,8 @@ static void obtain_time_wifi(void)
 
     esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
     esp_sntp_setservername(0, "pool.ntp.org");
-    esp_sntp_set_sync_interval(2 * 60 * 60 * 1000); // 2 hours in ms, resync clock drift
+    esp_sntp_set_sync_interval(1 * 60 * 60 * 1000); // 1 hours in ms, resync clock drift
+                                                    // this also helps with initial wi-fi failure
     esp_sntp_init();
 
     time_t now = 0;

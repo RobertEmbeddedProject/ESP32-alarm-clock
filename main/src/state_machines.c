@@ -3,7 +3,7 @@
 
 //alarm clock system
 typedef enum{
-    s_idle,
+    SCREEN_IDLE,
     s_music_mode,
     s_alarm_armed,
 } system_t;

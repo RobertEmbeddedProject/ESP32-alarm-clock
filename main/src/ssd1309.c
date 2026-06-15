@@ -45,7 +45,8 @@ static i2c_master_dev_handle_t dev_handle;
 
 extern int index_songs;
 
-extern int index_alarm;
+extern int index_alarm_hour;
+extern int index_alarm_minute;
 extern int alarm_hour;
 extern int alarm_min;
 extern int display_alarm_hour;
@@ -56,6 +57,7 @@ extern char *clock_ampm;
 
 extern float display_sleep_hours;
 
+extern TaskHandle_t display_task_t;
 
 //From the HAL
 void I2C_init(void){
@@ -182,7 +184,7 @@ void ssd1309_draw_xbm(int x, int y, int w, int h, const uint8_t *bitmap)
 
 void progress_bar_fill(int start, int end, int lag_ms, int post_delay_ms){
     for(int i = start; i < end; i++){
-        ssd1309_draw_xbm(56+i*2, 40, 2, 8, image_progressbar_fill);
+        ssd1309_draw_xbm(1+i*2, 57, 2, 7, image_progressbar_fill);
         ssd1309_display();
         vTaskDelay(pdMS_TO_TICKS(lag_ms));
     }
@@ -196,6 +198,7 @@ void ssd1309_display(void) {
         OLED_cmd(0xB0 + page);
         OLED_cmd(0x00);
         OLED_cmd(0x10);
+        
 
         uint8_t tx[OLED_WIDTH + 1];
         tx[0] = 0x40;  // SSD1309 control byte: following bytes are display data
@@ -257,7 +260,8 @@ void format_AM_PM(int input_hour, int *display_hour, char **ampm){
     }
 }
 
-void update_display_info(char *wifi_text, char *time_text, char *alarm_text, char *sleep_text, char *index_text){
+void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text,
+                            char *alarm_minute_text, char *sleep_text, char *index_text){
     
     //Time aquisition once per loop
     time_t now;
@@ -266,8 +270,8 @@ void update_display_info(char *wifi_text, char *time_text, char *alarm_text, cha
     localtime_r(&now, &current);
 
     //Alarm Update
-    alarm_min = index_alarm * 5 % 60; //5 min increments
-    alarm_hour = index_alarm * 5 / 60;
+    alarm_hour = index_alarm_hour;
+    alarm_min = index_alarm_minute;
 
     //Sleep hours calculated from alarm
     int current_total_minutes = current.tm_hour * 60 + current.tm_min;
@@ -295,14 +299,17 @@ display_sleep_hours =
         snprintf(time_text, 32, "--:--");
     }
 
-    snprintf(alarm_text, 32,
-            "%2d:%02d %s",
-            display_alarm_hour,
-            alarm_min,
-            alarm_ampm);  
+    snprintf(alarm_hour_text, 32,
+            "%2d",
+            display_alarm_hour);
+    
+    snprintf(alarm_minute_text, 32,
+        "%02d %s",
+        alarm_min,
+        alarm_ampm);
             
     snprintf(sleep_text, 32,
-            "%.1f",
+            "%4.1f",
             display_sleep_hours);
 
     snprintf(index_text, 32, "%d", index_songs);
@@ -311,11 +318,11 @@ display_sleep_hours =
 void cmd_display_mode(enum brightness state)
 {
     switch (state) {
-        case s_off:
+        case DISPLAY_OFF:
             OLED_cmd(0xAE);   // Display OFF
             break;
 
-        case s_dim:
+        case DISPLAY_DIM:
             OLED_cmd(0xAF);   // Display ON
             OLED_cmd(0xDB);   // Set VCOMH deselect level
             OLED_cmd(0x00);   // Lowest VCOMH setting
@@ -325,7 +332,7 @@ void cmd_display_mode(enum brightness state)
             OLED_cmd(0x01);   // Very low contrast
             break;
 
-        case s_bright:
+        case DISPLAY_BRIGHT:
             OLED_cmd(0xAF);   // Display ON
             OLED_cmd(0xDB);   // Set VCOMH deselect level
             OLED_cmd(0x3C);   // Bright VCOMH setting
@@ -337,5 +344,11 @@ void cmd_display_mode(enum brightness state)
 
         default:
             break;
+    }
+}
+
+void screen_activity(void){
+    if (display_task_t != NULL) {
+        xTaskNotifyGive(display_task_t);
     }
 }

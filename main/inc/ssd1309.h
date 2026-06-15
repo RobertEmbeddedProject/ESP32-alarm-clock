@@ -7,16 +7,16 @@
 
 //OLED Display Brightness Mode
 enum brightness{
-  s_off,
-  s_dim,
-  s_bright
+  DISPLAY_OFF,
+  DISPLAY_DIM,
+  DISPLAY_BRIGHT
 };
 
 //OLED Display Screen Selection
 enum display_screen{
-  s_splash,
-  s_main,
-  s_idle
+  SCREEN_SPLASH,
+  SCREEN_MAIN,
+  SCREEN_IDLE
 };
 
 void I2C_init(void);
@@ -33,5 +33,6 @@ void ssd1309_draw_pixel(int x, int y, bool on);
 void ssd1309_draw_char(int x, int y, char c);
 void ssd1309_draw_text(int x, int y, const char *text);
 void format_AM_PM(int input_hour, int *display_hour, char **ampm);
-void update_display_info(char *wifi_text, char *time_text, char *alarm_text, char *sleep_text, char *index_text);
-void cmd_display_mode(enum display state);
+void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text,char *alarm_minute_text, char *sleep_text, char *index_text);
+void cmd_display_mode(enum brightness state);
+void screen_activity(void);

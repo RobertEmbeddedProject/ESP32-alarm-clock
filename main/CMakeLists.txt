@@ -8,6 +8,7 @@ idf_component_register(
     "src/songs.c"
     "src/mp3.c"
     "src/graphics_smallfonts.c"
+    "src/graphics_bigfonts.c"
     "src/graphics_bitmaps.c"
   INCLUDE_DIRS
     "."
