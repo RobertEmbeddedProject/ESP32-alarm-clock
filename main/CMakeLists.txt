@@ -1,8 +1,10 @@
 idf_component_register(
   SRCS
     "src/main.c"
+    "src/display_ssd1309.c"
+    "src/display_graphics.c"
+    "src/display_application.c"
     "src/wifi.c"
-    "src/ssd1309.c"
     "src/rotary.c"
     "src/songs.c"
     "src/mp3.c"

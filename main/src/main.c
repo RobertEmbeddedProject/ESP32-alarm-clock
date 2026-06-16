@@ -7,7 +7,9 @@
 #include "freertos/task.h"     //Task management API xTaskCreate(), vTaskDelete(), vTaskDelay()
 #include "driver/gpio.h"
 #include "main.h"
-#include "ssd1309.h"
+#include "display_ssd1309.h"
+#include "display_graphics.h"
+#include "display_application.h"
 #include "graphics_bitmaps.h"
 #include "rotary.h"
 #include "songs.h"
@@ -32,8 +34,6 @@ void song_task(void *arg);
 //Master Alarm
 volatile enum alarm alarm_state;
 #define SNOOZETIMER_MS 12000 //snooze time until re-trigger
-#define WAKE_PARTIAL 1
-#define WAKE_FULL 2
 static uint32_t wake_type; //screen wake command selection
 
 //songs rotary encoder
@@ -55,7 +55,6 @@ volatile int alarm_min = 0;
 static bool s_acked; //Actual alarm acknowledgement; disable and go back to idle
 
 enum brightness brightness;
-enum display_screen display_screen;
 
 //OLED Display Formatting
 int display_alarm_hour;
@@ -108,7 +107,6 @@ void display_splash(void){
     char wifi_text[32];
     char blank[32];
 
-    display_screen = SCREEN_SPLASH;
     ssd1309_clear();
     update_display_info(wifi_text, blank, blank, blank, blank, blank, blank);
     
@@ -159,7 +157,7 @@ void display_task(void *arg){
 
         if (wake_type == WAKE_PARTIAL) {
             ssd1309_draw_big_text(4, 8, large_time_text);
-            ssd1309_draw_text(56, 55, alarm_ampm_text);
+            ssd1309_draw_text(56, 57, alarm_ampm_text);
         }
 
         else{
@@ -296,12 +294,13 @@ void song_task(void *args){
         if (gpio_get_level(GPIO_NUM_39) == 0) {  
             if(alarm_state == ALARM_TRIGGERED){
                 alarm_state = ALARM_SNOOZED;
+                screen_wake(WAKE_FULL);
                 mp3_cmd(CMD_STOP, 0);
                 music_playing = 0;
                 snooze_timeout = false;
                 last_time_check = xTaskGetTickCount();
             }
-            else{
+            else if(brightness == DISPLAY_OFF){
                 screen_wake(WAKE_PARTIAL);
             }
             vTaskDelay(pdMS_TO_TICKS(500));
