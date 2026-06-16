@@ -23,8 +23,8 @@ static uint8_t oled_buffer[OLED_BUF_SIZE];
 
 //-------------------------------------------------------------------------------------------
 //Dimmables Definition
-#define DIM_TIMEOUT_MS   2000   // ms DIM after idle
-#define SLEEP_TIMEOUT_MS 5000  // ms OFF after idle (set 0 to disable)
+#define DISPLAY_DIM_TIMEOUT_MS   3000   // ms DIM after idle
+#define DISPLAY_OFF_TIMEOUT_MS 7000  // ms OFF after idle (set 0 to disable)
 #define ALARM_WAKE_SLEEP_MS 5000  // ms OFF-after-5s window when alarm first rings
 #define ALARM_DIM_PULSE_MS 5000
 
@@ -44,6 +44,11 @@ static i2c_master_bus_handle_t bus_handle;
 static i2c_master_dev_handle_t dev_handle;
 
 extern int index_songs;
+
+//Alarm States and Properties
+extern enum brightness brightness;
+static bool screen_saver_initialized;
+static TickType_t last_activity_ticks;
 
 extern int index_alarm_hour;
 extern int index_alarm_minute;
@@ -279,7 +284,7 @@ void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text
     int minutes_until_alarm = (alarm_total_minutes - current_total_minutes + 1440) % 1440;
     display_sleep_hours = floorf(minutes_until_alarm / 6.0f) / 10.0f;
 
-display_sleep_hours =
+    display_sleep_hours =
     floorf(minutes_until_alarm / (float)30) / 2.0f;
 
     format_AM_PM(alarm_hour, &display_alarm_hour, &alarm_ampm);
@@ -344,6 +349,35 @@ void cmd_display_mode(enum brightness state)
 
         default:
             break;
+    }
+}
+
+void screen_saver(enum alarm *state){
+    *state = alarm_state; //snapshot for one-scan consistency
+    TickType_t now = xTaskGetTickCount();
+
+    if (!screen_saver_initialized) {
+        last_activity_ticks = now;
+        screen_saver_initialized = true;
+    }
+    if (ulTaskNotifyTake(pdTRUE, 0) > 0) {
+        last_activity_ticks = now;
+    }
+
+    TickType_t elapsed = now - last_activity_ticks;
+    enum brightness target;
+    if (elapsed >= pdMS_TO_TICKS(DISPLAY_OFF_TIMEOUT_MS)) {
+        target = DISPLAY_OFF;
+    } 
+    else if (elapsed >= pdMS_TO_TICKS(DISPLAY_DIM_TIMEOUT_MS)) {
+        target = DISPLAY_DIM;
+    } 
+    else {
+        target = DISPLAY_BRIGHT;
+    }
+    if (target != brightness) {
+        brightness = target;
+        cmd_display_mode(brightness);
     }
 }
 

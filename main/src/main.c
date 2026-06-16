@@ -16,10 +16,6 @@
 #include "nvs_flash.h"
 #include "graphics_bitmaps.h"
 
-
-#define DISPLAY_DIM_TIMEOUT_MS    4000
-#define DISPLAY_OFF_TIMEOUT_MS    8000
-
 void display_splash(void);
 //task notification, not a semaphore
 static TaskHandle_t progress_bar_t = NULL;
@@ -32,6 +28,9 @@ void display_task(void *arg);
 void rotary_task(void *arg);
 void alarm_task(void *arg);
 void song_task(void *arg);
+
+//Master Alarm
+volatile enum alarm alarm_state;
 
 //songs rotary encoder
 static pcnt_unit_handle_t pcnt_unit_songs = NULL;
@@ -49,16 +48,6 @@ static int pulse_count_alarm_prev = 0;
 static int pulse_count_alarm_now = 0;
 volatile int alarm_hour = 0;
 volatile int alarm_min = 0;
-
-//alarm state
-enum alarm{
-  ALARM_IDLE,
-  ALARM_CONFIG_HOUR,
-  ALARM_CONFIG_MINUTE,
-  ALARM_ARMED,
-  ALARM_TRIGGERED,
-  ALARM_SNOOZED
-} volatile alarm_state;
 static bool s_acked;
 
 enum brightness brightness;
@@ -122,7 +111,7 @@ void display_splash(void){
     ssd1309_draw_text(64, 0, "WiFi:");
     ssd1309_draw_text(49, 1, "Connecting");
     ssd1309_draw_text(48, 6, "Loading");
-    ssd1309_draw_xbm(0, 0, 49, 49, image_big_clock);
+    ssd1309_draw_xbm(0, 0, 49, 49, image_splash_clock);
     ssd1309_draw_xbm(1, 57, 126, 8, image_progressbar);
     ssd1309_display();
 }
@@ -149,32 +138,8 @@ void display_task(void *arg){
     char sleep_text[32];
     char index_text[32];
 
-    TickType_t last_activity_ticks = xTaskGetTickCount();
-
     while(1){
-        enum alarm state = alarm_state; //snapshot for one-scan consistency
-
-        if (ulTaskNotifyTake(pdTRUE, 0) > 0) {
-            last_activity_ticks = xTaskGetTickCount();
-        }
-
-        TickType_t elapsed = xTaskGetTickCount() - last_activity_ticks;
-        enum brightness target;
-        if (elapsed >= pdMS_TO_TICKS(DISPLAY_OFF_TIMEOUT_MS)) {
-            target = DISPLAY_OFF;
-        } 
-        else if (elapsed >= pdMS_TO_TICKS(DISPLAY_DIM_TIMEOUT_MS)) {
-            target = DISPLAY_DIM;
-        } 
-        else {
-            target = DISPLAY_BRIGHT;
-        }
-        if (target != brightness) {
-            brightness = target;
-            cmd_display_mode(brightness);
-        }
-
-        
+        //Display Template Push to Buffer
         update_display_info(wifi_text, time_text, alarm_hour_text, alarm_minute_text, sleep_text, index_text);
         ssd1309_clear();
         ssd1309_draw_text(64, 0, "WiFi: ");
@@ -185,9 +150,13 @@ void display_task(void *arg){
         ssd1309_draw_text(0, 6, "Song Index:");
         ssd1309_draw_text(90, 6, index_text);
         ssd1309_draw_text(0, 7, songlist[index_songs]);
-        
+
         //invisible for 30ms, visible for 300ms, repeat every (total) 330ms
         bool blink = (xTaskGetTickCount() % pdMS_TO_TICKS(300)) < pdMS_TO_TICKS(30);
+
+        //verify timeout for screensaver
+        enum alarm state = alarm_state;
+        screen_saver(&state);
 
         if(state != ALARM_IDLE){
             bool s_blink_hour = (state == ALARM_CONFIG_HOUR && blink);
@@ -203,13 +172,23 @@ void display_task(void *arg){
         else{ssd1309_draw_text(62, 3, "Not Set");}
 
         if(state == ALARM_ARMED || state == ALARM_TRIGGERED){
-            ssd1309_draw_xbm(0, 1, 16, 16, armed_clock_bmp);
+            ssd1309_draw_xbm(0, 1, 16, 16, image_clock_armed);
             if(display_sleep_hours == 1.0f){ssd1309_draw_text(12, 4, "Sleep:     hour");}
             else{ssd1309_draw_text(12, 4, "Sleep:     hrs");}
             ssd1309_draw_text(62, 4, sleep_text);
             if(state == ALARM_ARMED){ssd1309_draw_text(15, 0, "Armed");}
         }
-        if(state == ALARM_TRIGGERED && !blink){ssd1309_draw_text(15, 0, "WAKING");}
+        if(state == ALARM_TRIGGERED){
+            ssd1309_draw_xbm(0, 1, 16, 16, image_clock_triggered);
+            if(!blink){
+                ssd1309_draw_text(16, 0, "WAKE");
+            }
+        }
+        if(state == ALARM_SNOOZED){
+            ssd1309_draw_xbm(0, 1, 16, 16, image_clock_triggered);
+            ssd1309_draw_text(16, 0, "SNOOZ");
+            //Draw countdown timer of remaining snooze
+        }
         
         if (brightness != DISPLAY_OFF) {
             ssd1309_display();

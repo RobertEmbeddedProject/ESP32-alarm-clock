@@ -1,9 +1,20 @@
 
 #include <string.h>
 #include <time.h>
+#include "freertos/FreeRTOS.h"
 
 //#include "driver/i2c.h" use new v5.5 header per manual
 #include "driver/i2c_master.h"
+
+//Master Alarm States
+enum alarm{
+  ALARM_IDLE,
+  ALARM_CONFIG_HOUR,
+  ALARM_CONFIG_MINUTE,
+  ALARM_ARMED,
+  ALARM_TRIGGERED,
+  ALARM_SNOOZED
+} extern volatile alarm_state;
 
 //OLED Display Brightness Mode
 enum brightness{
@@ -35,4 +46,6 @@ void ssd1309_draw_text(int x, int y, const char *text);
 void format_AM_PM(int input_hour, int *display_hour, char **ampm);
 void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text,char *alarm_minute_text, char *sleep_text, char *index_text);
 void cmd_display_mode(enum brightness state);
+void screen_saver(enum alarm *state);
 void screen_activity(void);
+
