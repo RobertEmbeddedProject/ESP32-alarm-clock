@@ -106,7 +106,7 @@ void display_splash(void){
 
     display_screen = SCREEN_SPLASH;
     ssd1309_clear();
-    update_display_info(wifi_text, blank, blank, blank, blank, blank);
+    update_display_info(wifi_text, blank, blank, blank, blank, blank, blank);
     
     ssd1309_draw_text(64, 0, "WiFi:");
     ssd1309_draw_text(49, 1, "Connecting");
@@ -135,12 +135,14 @@ void display_task(void *arg){
     char time_text[32];
     char alarm_hour_text[32];
     char alarm_minute_text[32];
+    char alarm_ampm_text[32];
     char sleep_text[32];
     char index_text[32];
 
     while(1){
         //Display Template Push to Buffer
-        update_display_info(wifi_text, time_text, alarm_hour_text, alarm_minute_text, sleep_text, index_text);
+        update_display_info(wifi_text, time_text, alarm_hour_text, alarm_minute_text,
+                                alarm_ampm_text, sleep_text, index_text);
         ssd1309_clear();
         ssd1309_draw_text(64, 0, "WiFi: ");
         ssd1309_draw_text(104, 0, wifi_text);
@@ -158,38 +160,45 @@ void display_task(void *arg){
         enum alarm state = alarm_state;
         screen_saver(&state);
 
-        if(state != ALARM_IDLE){
-            bool s_blink_hour = (state == ALARM_CONFIG_HOUR && blink);
-            if(!s_blink_hour){
+        switch (state){
+            case ALARM_IDLE:
+                ssd1309_draw_text(62, 3, "Not Set");
+                break;
+            case  ALARM_CONFIG_HOUR:
+                ssd1309_draw_text(78, 3, ":");
+                if(!blink){ssd1309_draw_text(62, 3, alarm_hour_text);}
+                ssd1309_draw_text(104, 3, alarm_ampm_text);
+                break;
+            case  ALARM_CONFIG_MINUTE:
                 ssd1309_draw_text(62, 3, alarm_hour_text);
                 ssd1309_draw_text(78, 3, ":");
-            }
-            bool s_blink_minute = (state == ALARM_CONFIG_MINUTE && blink);
-            if(!s_blink_minute){
+                if(!blink){ssd1309_draw_text(86, 3, alarm_minute_text);}
+                ssd1309_draw_text(104, 3, alarm_ampm_text);
+                break;
+            case  ALARM_ARMED:
+                ssd1309_draw_xbm(0, 1, 16, 16, image_clock_armed);
+                ssd1309_draw_text(18, 0, "Armed");
+                ssd1309_draw_text(62, 3, alarm_hour_text);
+                ssd1309_draw_text(78, 3, ":");
                 ssd1309_draw_text(86, 3, alarm_minute_text);
-            }
+                ssd1309_draw_text(104, 3, alarm_ampm_text);
+                if(display_sleep_hours == 1.0f){ssd1309_draw_text(12, 4, "Sleep:     hour");}
+                else{ssd1309_draw_text(12, 4, "Sleep:     hrs");}
+                ssd1309_draw_text(62, 4, sleep_text);
+                break;
+            case  ALARM_TRIGGERED:
+                ssd1309_draw_xbm(0, 1, 16, 16, image_clock_triggered);
+                if(!blink){ssd1309_draw_text(18, 0, "WAKE");}
+                break;
+            case  ALARM_SNOOZED:
+                ssd1309_draw_xbm(0, 1, 16, 16, image_clock_snoozed);
+                ssd1309_draw_text(16, 0, "SNOOZ");
+                //Draw countdown timer of remaining snooze
+                break;
+            default:
         }
-        else{ssd1309_draw_text(62, 3, "Not Set");}
 
-        if(state == ALARM_ARMED || state == ALARM_TRIGGERED){
-            ssd1309_draw_xbm(0, 1, 16, 16, image_clock_armed);
-            if(display_sleep_hours == 1.0f){ssd1309_draw_text(12, 4, "Sleep:     hour");}
-            else{ssd1309_draw_text(12, 4, "Sleep:     hrs");}
-            ssd1309_draw_text(62, 4, sleep_text);
-            if(state == ALARM_ARMED){ssd1309_draw_text(15, 0, "Armed");}
-        }
-        if(state == ALARM_TRIGGERED){
-            ssd1309_draw_xbm(0, 1, 16, 16, image_clock_triggered);
-            if(!blink){
-                ssd1309_draw_text(16, 0, "WAKE");
-            }
-        }
-        if(state == ALARM_SNOOZED){
-            ssd1309_draw_xbm(0, 1, 16, 16, image_clock_triggered);
-            ssd1309_draw_text(16, 0, "SNOOZ");
-            //Draw countdown timer of remaining snooze
-        }
-        
+
         if (brightness != DISPLAY_OFF) {
             ssd1309_display();
         }

@@ -266,7 +266,7 @@ void format_AM_PM(int input_hour, int *display_hour, char **ampm){
 }
 
 void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text,
-                            char *alarm_minute_text, char *sleep_text, char *index_text){
+                            char *alarm_minute_text, char *alarm_ampm_text, char *sleep_text, char *index_text){
     
     //Time aquisition once per loop
     time_t now;
@@ -309,9 +309,10 @@ void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text
             display_alarm_hour);
     
     snprintf(alarm_minute_text, 32,
-        "%02d %s",
-        alarm_min,
-        alarm_ampm);
+        "%02d", alarm_min);
+    
+    snprintf(alarm_ampm_text, 32,
+        "%s", alarm_ampm);
             
     snprintf(sleep_text, 32,
             "%4.1f",

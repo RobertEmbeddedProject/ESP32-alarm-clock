@@ -44,7 +44,8 @@ void ssd1309_draw_pixel(int x, int y, bool on);
 void ssd1309_draw_char(int x, int y, char c);
 void ssd1309_draw_text(int x, int y, const char *text);
 void format_AM_PM(int input_hour, int *display_hour, char **ampm);
-void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text,char *alarm_minute_text, char *sleep_text, char *index_text);
+void update_display_info(char *wifi_text, char *time_text, char *alarm_hour_text,
+            char *alarm_minute_text, char *alarm_ampm_text, char *sleep_text, char *index_text);
 void cmd_display_mode(enum brightness state);
 void screen_saver(enum alarm *state);
 void screen_activity(void);
