@@ -1,92 +1,202 @@
+# ESP32 Smart Alarm Clock
 
-# ESP32 Alarm Clock Project
+A modular embedded alarm clock implemented in C with ESP-IDF and FreeRTOS. The system combines deterministic alarm control, two rotary quadrature encoder inputs, OLED graphics on a 128x64p display (SSD1309), MP3 playback, Wi-Fi time synchronization, and radar-based snooze detection on an ESP32.
 
-## Hardware
-### Components
-- SSD1306 OLED display
-- KY-040	Rotary Encoders
-- YX5200 	MP3 Module
-- PAM8406	Amplifier
-- Speaker 3W 4ohm Speakers (generic)
-            5-15W Consumption 88dB, 108Hz~18KHz±3dB
-- LD2410C Radar Sensor
+## Project Status
 
-**Pontentially Implement Later**
-- LM2596   Buck Converter        (24v->5v)
-- TXS0108E Logic Level Shifter (5v->3.3v)
-- DS3231   Clock Preservation Module
+Active development. Core alarm, display, rotary input, audio playback, screen-dimming, and network time-synchronization features are functional.
 
-### IO Assignment
-- GPIO 1  = Radar Snooze Consumed Data (UART)
-- GPIO 4  = MP3 Module Power (Transistor Circuit)
-- GPIO 17 = MP3 Module Produced Data   (UART)
-- GPIO 21 = SSD1309 SDA (I2C)
-- GPIO 22 = SSD1309 SCL (I2C)
-- GPIO 23 = SSD1309 RESET
-- GPIO 25 = Alarm Rotary CLK
-- GPIO 26 = Alarm Rotary DATA
-- GPIO 36 = Alarm Rotary SW (vp)
-- GPIO 32 = Songs Rotary CLK
-- GPIO 33 = Songs Rotary DATA
-- GPIO 39 = Songs Rotary SW (vn)
+Radar snoozing still in testing
 
-**Reserved for Debugging**
-- JTAG TCK  -> ESP32 GPIO13
-- JTAG TMS  -> ESP32 GPIO14
-- JTAG TDI  -> ESP32 GPIO12
-- JTAG TDO  -> ESP32 GPIO15
-- JTAG GND  -> ESP32 GND
-- JTAG 3V3 sense/reference -> ESP32 3V3
+## Key Features
 
-### Firmware Notes
-**SSD1309 Display**
-- 128 x 64 pixels
-- 128 columns by 8 pages (1 page = 8 bits)
-- Each byte sent represents one vertical column of 8 pixels, starting from the bottom of the byte
-- Over I2C, you select page (B0...B7) and the column (C0...C127)
-    - SSD1309 automatically updates column after each byte, so a full display refresh simplifies transactions
-- Use 0x3C for device address
-- 0x00 sets display to accept commands, 0x40 sets display to accept incoming pixel data
+- Configurable alarm with explicit application states:
+  - `ALARM_IDLE`
+  - `ALARM_CONFIG_HOUR`
+  - `ALARM_CONFIG_MINUTE`
+  - `ALARM_ARMED`
+  - `ALARM_TRIGGERED`
+  - `ALARM_SNOOZED`
+- Left-hand Rotary Encoder Switch for song selection and start/stopping MP3 playback
+- Right-hand Rotary Encoder Switch for alarm hour and minute configuration, as well as enabling the alarm
+- ESP32 PCNT-based quadrature decoding for fast and accurate scrolling, while also preventing the need for extra input polling
+- SSD1309 128 × 64 monochrome OLED with framebuffer rendering
+- Configurable display brightness, dimming, and automatic shutoff of the display depending on Alarm state.
+- MP3 playback through a YX5200 (third party)/DFPlayer-compatible module with micro SD card
+- LD2410C radar input for presence-based snooze behavior
+- Wi-Fi connection and SNTP time synchronization
+- JTAG debugging with ESP-PROG-2, OpenOCD, and GDB
+- FreeRTOS task notifications and periodic task execution
 
-### JTAG Debugging Setup
-Initial Windows Setup
-- With the ESP-PROG-2, may need to use Zadig software to change
-    driver to WinUSB
+## Firmware Architecture
 
-**Using the Debugger**
-Open Terminal App as admin, and in ESP-IDF tab:
-- cd "Project directory"
-- idf.py openocd --openocd-commands "-f board/esp32-bridge.cfg"
-- OpenOCD is now running in the background.
+The firmware is divided by responsibility rather than implemented as a single monolithic control loop.
 
-In VScode:
-- CTRL+SHFT+D (or Run and Debug)
-- Press Fn+F5 (launch.json command)
-- WAIT several seconds for OpenOCD to halt target
-- VScode now connects GDB to OpenOCD
+ Module Breakdown
 
-- Can now set breakpoints (while CPU halted)
-    and step through program via debug commands
+ `main.c`  Application startup, task creation, shared application state, and system-level orchestration 
 
-- keep an eye on OpenOCD terminal-- will sometimes
-    disconnect if commands are invalid or connect fails.
-- Use xtensa-esp32-elf-gdb build/Alarm_Clock_v3.elf
-    to launch GDB terminal through the idf.py if neccessary
+ `display_ssd1309.c`  OLED initialization, framebuffer management
 
-## Troubleshooting
+ `display_graphics.c` drawing primitives and formatting 
+ 
+ `display_application.c`display refresh, screen-saver behavior, and general features
 
-###Use GDB:
-- From Debug Console, type
-     -exec monitor reset halt
+ `rotary.c`  Rotary encoder initialization, PCNT count processing, direction handling, index updates, and button input 
 
+ `mp3.c`  UART communication with the MP3 module, playback control, and amplifier/module control 
 
-if ESP32 halts without debugger, try reflashing
-- idf.py monitor
-    check if panics are occuring
+ `wifi.c`  Wi-Fi initialization and SNTP time synchronization 
 
-Clear memory completely:
+ `songs.c`  Song metadata and track-selection support 
+
+### State-Driven Design
+
+Alarm behavior is represented by a finite-state machine instead of loosely coupled flags. This keeps configuration, armed, triggered, and snoozed behavior mutually understandable and easier to extend.
+
+The display renders from the current alarm state rather than owning alarm behavior. This separation prevents the UI task from becoming the authority for application control.
+
+### FreeRTOS Responsibilities
+
+The project uses multiple FreeRTOS execution contexts for independent responsibilities such as:
+
+- display rendering and refresh
+- rotary input processing
+- alarm-state evaluation
+- audio control
+- network time synchronization
+- radar-based snooze detection
+
+Task notifications are used for lightweight event signaling where appropriate. For example, rotary activity can notify the display task to reset its inactivity timer without requiring continuous cross-task polling.
+
+## Peripheral Interfaces
+
+| Peripheral | Interface | ESP32 Assignment |
+|---|---|---|
+| SSD1309 OLED | I2C | SDA: GPIO21, SCL: GPIO22, RESET: GPIO23 |
+| LD2410C radar | UART receive | GPIO1 |
+| YX5200 MP3 module | UART transmit/control | GPIO17 |
+| MP3/amp control transistor | GPIO | GPIO4 |
+| Alarm encoder | PCNT + GPIO | CLK: GPIO25, DATA: GPIO26, SW: GPIO36 |
+| Music encoder | PCNT + GPIO | CLK: GPIO32, DATA: GPIO33, SW: GPIO39 |
+
+### Reserved JTAG Pins
+
+- Signal     ESP32 Pin 
+- TCK         GPIO13 
+- TMS         GPIO14 
+- TDI         GPIO12 
+- TDO         GPIO15 
+- GND         GND 
+- Target reference  3.3 V 
+
+## Display Driver Notes
+
+The SSD1309 display is organized as 128 columns by 8 pages. Each page contains 8 vertical pixels per byte.
+
+- Resolution: 128 × 64
+- I2C address: `0x3C`
+- Command-control byte: `0x00`
+- Display-data control byte: `0x40`
+- Page addressing: `B0` through `B7`
+- The controller automatically increments the column address while display data is written
+
+The driver maintains a framebuffer and performs full or controlled display updates over I2C. Application-level drawing code writes into the framebuffer before `ssd1309_display()` transfers the completed frame.
+
+## Rotary Encoder Processing
+
+Both rotary encoders use the ESP32 pulse counter peripheral rather than relying only on software polling.
+
+The PCNT peripheral captures quadrature transitions, while firmware converts count changes into application-level index updates. Alarm configuration and music browsing can use different indexing policies so that precise time entry does not require the same response profile as navigating a song list.
+
+## Alarm and Snooze Behavior
+
+The alarm state machine controls transitions among configuration, armed, triggered, and snoozed operation.
+
+When the alarm is triggered:
+
+1. The selected audio track is started.
+2. The display changes to the triggered presentation.
+3. Presence information from the LD2410C can request a snooze.
+4. Snooze logic stops playback and schedules the next trigger.
+5. A user acknowledgement returns the system to its non-triggered state.
+
+## Time Synchronization
+
+The ESP32 connects to Wi-Fi and initializes system time through SNTP. After synchronization, the alarm and display logic use the ESP32 system clock rather than repeatedly coupling UI behavior to the network layer.
+
+Network time and local runtime behavior are intentionally separated so that normal alarm-clock operation does not depend on continuous Wi-Fi traffic.
+
+## Build and Flash
+
+### Prerequisites
+
+- ESP-IDF 5.5
+- ESP32 toolchain
+- CMake and Ninja as installed by ESP-IDF
+- USB serial connection to the target
+
+### Build
+
+idf.py set-target esp32
+idf.py build
+
+### Flash and Monitor
+
+idf.py -p COMx flash monitor
+
+### Clean Rebuild
+
 idf.py fullclean
 idf.py build
+
+
+### Erase and Reflash
+
 idf.py erase-flash
 idf.py flash
 idf.py monitor
+
+
+## JTAG Debugging
+
+The project supports source-level debugging through ESP-PROG-2, OpenOCD, and the ESP-IDF GDB toolchain.
+
+Typical workflow:
+
+1. Connect ESP-PROG-2 to the reserved JTAG pins.
+2. Start OpenOCD from an ESP-IDF terminal.
+3. Launch the VS Code debug configuration.
+4. Set breakpoints, inspect task state, and step through firmware.
+5. Use the OpenOCD console for reset and halt commands when required.
+
+Example monitor command:
+
+monitor reset halt
+
+On Windows, the ESP-PROG-2 interface may require the WinUSB driver. I used Zadig to install the correct ones, which was WIN-USB-32
+
+
+## Planned Improvements
+
+- White Noise Feature
+- Volume ramping during wakeup alarm
+- DFPlayer acknowledgement (RX)
+- Hand-Wave song change feature
+- Persistent timekeeping with a DS3231 RTC
+- Additional separation between UI rendering and SSD1309 driver internals
+
+## Hardware
+
+Current major components:
+
+- ESP32 ESP-WROOM-32 development board
+- SSD1309 128 × 64 OLED
+- Two KY-040 rotary encoders
+- "YX5200"/DFPlayer-compatible MP3 module
+    NOTE: the breakout board is a YX5200 clone and uses
+            the same commands on the YX5200 datasheet
+- PAM8406 audio amplifier
+- 3 W, 4 Ω speakers
+- LD2410C radar sensor
+
