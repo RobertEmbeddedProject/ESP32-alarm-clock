@@ -18,6 +18,10 @@
 #include <time.h>
 #include "nvs_flash.h"
 
+/*       Developer Testing Options       */
+#define SKIP_SPLASH 0 //bypass splash screen
+//-----------------------------------------
+
 void display_splash(void);
 //task notification, not a semaphore
 static TaskHandle_t progress_bar_t = NULL;
@@ -30,10 +34,12 @@ void display_task(void *arg);
 void rotary_task(void *arg);
 void alarm_task(void *arg);
 void song_task(void *arg);
+void snooze_task(void *arg);
 
 //Master Alarm
 volatile enum alarm alarm_state;
 #define SNOOZETIMER_MS 12000 //snooze time until re-trigger
+static bool snooze_radar_detected = false;
 static uint32_t wake_type; //screen wake command selection
 
 //songs rotary encoder
@@ -76,15 +82,20 @@ void app_main(void)
     ssd1309_clear();
     ssd1309_display();
 
+    #if !SKIP_SPLASH
     display_splash();
     xTaskCreate(splash_load_task, "splash load task", 2048, NULL, 5, &progress_bar_t);
+    #endif
 
     wifi_init();
+    xTaskCreate(wifi_reconnect_task, "wifi_reconnect", 2048, NULL, 3, NULL);
+    #if !SKIP_SPLASH
     xTaskNotifyGive(progress_bar_t);
-
+    #endif
+    
     alarm_min = index_alarm_minute;
     alarm_hour = index_alarm_hour;
-
+    
     rotary_init(ROTARY_KNOB_SONGS, &pcnt_unit_songs);
     rotary_init(ROTARY_KNOB_ALARM, &pcnt_unit_alarm);
 
@@ -96,10 +107,12 @@ void app_main(void)
     }
 
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);   // wait until splash task is done
+    xTaskCreate(song_task, "snooze_task", 2048, NULL, 3, NULL);
     xTaskCreate(display_task, "display_task", 4096, NULL, 4, &display_task_t);
     xTaskCreate(alarm_task, "alarm_task", 2048, NULL, 5, NULL);
     xTaskCreate(song_task, "song_task", 2048, NULL, 6, NULL);
     xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
+    
 
 }
 
@@ -157,7 +170,7 @@ void display_task(void *arg){
 
         if (wake_type == WAKE_PARTIAL) {
             ssd1309_draw_big_text(4, 8, large_time_text);
-            ssd1309_draw_text(56, 57, alarm_ampm_text);
+            ssd1309_draw_text(80, 6, alarm_ampm_text);
         }
 
         else{
@@ -267,12 +280,7 @@ void rotary_task(void *arg){
 void song_task(void *args){
     ESP_LOGI("SONG", "song_task started");
 
-    //for snooze testing only
-    TickType_t last_time_check = 0;
-    bool snooze_timeout = true;
-
     while (1) {
-        /*
         if (gpio_get_level(GPIO_NUM_39) == 0 && song_playing != index_songs) {
             mp3_cmd(CMD_PLAY_W_INDEX, index_songs+1);
             music_playing = 1;
@@ -287,11 +295,20 @@ void song_task(void *args){
             screen_wake(WAKE_FULL);
             vTaskDelay(pdMS_TO_TICKS(500));
        }
-        */
-        
-        //Move this all to a separate Snooze Task
+
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+
+void snooze_task(void *args){
+    ESP_LOGI("SNOOZE", "snooze_task started");
+
+    TickType_t last_time_check = 0;
+    bool snooze_timeout = true;
+
+    while (1) {
         //Snooze feature
-        if (gpio_get_level(GPIO_NUM_39) == 0) {  
+        if (snooze_radar_detected) {  
             if(alarm_state == ALARM_TRIGGERED){
                 alarm_state = ALARM_SNOOZED;
                 screen_wake(WAKE_FULL);

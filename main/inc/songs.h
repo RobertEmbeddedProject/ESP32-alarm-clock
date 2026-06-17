@@ -1,4 +1,4 @@
 #pragma once
-#define SONG_COUNT 69
+#define SONG_COUNT 79
 extern const char *songlist[SONG_COUNT];
 

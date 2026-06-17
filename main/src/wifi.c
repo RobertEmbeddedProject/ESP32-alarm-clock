@@ -30,6 +30,7 @@ and STA_GOT_IP.
 
 static void obtain_time_wifi(void);
 static volatile bool s_wifi_connected = false;
+static bool s_sntp_initialized = false;
 
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
@@ -141,21 +142,26 @@ static void wifi_init_sta(void)
     }
 }
 
-
+static void sntp_sync_cb(struct timeval *tv)
+{
+    s_time_synced = true;
+}
 
 static void obtain_time_wifi(void)
 {
-    s_time_synced = false; //dont trust value until guaranteed
     ESP_LOGI(TAG, "Initializing SNTP");
 
-    setenv("TZ", "EST5EDT,M3.2.0/2,M11.1.0/2", 1);
-    tzset();
-
-    esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
-    esp_sntp_setservername(0, "pool.ntp.org");
-    esp_sntp_set_sync_interval(1 * 60 * 60 * 1000); // 1 hours in ms, resync clock drift
-                                                    // this also helps with initial wi-fi failure
-    esp_sntp_init();
+    if (!s_sntp_initialized) {
+        setenv("TZ", "EST5EDT,M3.2.0/2,M11.1.0/2", 1);
+        s_time_synced = false; //dont trust value until guaranteed
+        tzset();
+        esp_sntp_setoperatingmode(SNTP_OPMODE_POLL);
+        esp_sntp_setservername(0, "pool.ntp.org");
+        esp_sntp_set_sync_interval(2 * 60 * 1000); // 2 minutes (was 1 hour)
+        esp_sntp_set_time_sync_notification_cb(sntp_sync_cb);
+        esp_sntp_init();
+        s_sntp_initialized = true;
+    }
 
     time_t now = 0;
     struct tm timeinfo = {0};
@@ -208,4 +214,20 @@ bool wifi_is_connected(void){
 bool wifi_time_is_synced(void)
 {
     return s_time_synced;
+}
+
+void wifi_reconnect_task(void *arg) {
+    while (1) {
+        if (s_wifi_connected && s_sntp_initialized) {
+            vTaskDelay(pdMS_TO_TICKS(24UL * 60 * 60 * 1000)); // all good, check again tomorrow
+        } else if (s_wifi_connected && !s_sntp_initialized) {
+            obtain_time_wifi(); // connected but SNTP never started (boot failure case)
+        } else {
+            vTaskDelay(pdMS_TO_TICKS(10000));
+            if (s_retry_num >= ESP_MAXIMUM_RETRY) {
+                s_retry_num = 0;
+                esp_wifi_connect();
+            }
+        }
+    }
 }

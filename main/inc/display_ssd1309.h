@@ -19,7 +19,8 @@ enum alarm{
   ALARM_CONFIG_MINUTE,
   ALARM_ARMED,
   ALARM_TRIGGERED,
-  ALARM_SNOOZED
+  ALARM_SNOOZED,
+  ALARM_ERROR
 } extern volatile alarm_state;
 
 //OLED Display Brightness Mode
