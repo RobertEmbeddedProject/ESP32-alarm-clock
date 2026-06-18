@@ -28,16 +28,6 @@ https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/periph
 #define ROTARY_ALARM_GPIO_B 26
 #define ROTARY_ALARM_SW 36
 
-/*
-static bool pcnt_on_reach(pcnt_unit_handle_t unit, const pcnt_watch_event_data_t *edata, void *user_ctx)
-{
-    BaseType_t high_task_wakeup = pdFALSE;
-    QueueHandle_t queue_rotary = (QueueHandle_t)user_ctx;
-    // send event data to queue, from this interrupt callback
-    xQueueSendFromISR(queue_rotary, &(edata->watch_point_value), &high_task_wakeup);
-    return (high_task_wakeup == pdTRUE);
-}
-*/
 
 void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
 {
@@ -124,7 +114,7 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
     *pcnt_unit_out = pcnt_unit_in;
 }
 
-void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
+void rotary_index_rollover(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
                     int *pulse_now, volatile int *index_out, int array_size)
 {
     int pulse_raw = 0;
@@ -154,7 +144,38 @@ void rotary_index(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
         *pulse_prev = 0;
         *pulse_now = 0;
     }
-
-
 }
     
+
+void rotary_index_clamp(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
+                    int *pulse_now, volatile int *index_out, int array_size,
+                    int min_val, int max_val)
+{
+    int pulse_raw = 0;
+
+    *pulse_prev = *pulse_now;
+    ESP_ERROR_CHECK(pcnt_unit_get_count(pcnt_unit_out, &pulse_raw));
+    *pulse_now = pulse_raw;
+
+    int delta = (*pulse_now / 4) - (*pulse_prev / 4);
+
+    if (delta == 0) {
+        return;
+    }
+
+    *index_out += delta;
+
+    while (*index_out > max_val) {
+        *index_out = max_val;
+    }
+
+    while (*index_out < min_val) {
+        *index_out = min_val;
+    }
+
+    if (abs(pulse_raw) > 1000) {
+        ESP_ERROR_CHECK(pcnt_unit_clear_count(pcnt_unit_out));
+        *pulse_prev = 0;
+        *pulse_now = 0;
+    }
+}

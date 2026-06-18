@@ -65,14 +65,6 @@ void OLED_cmd(uint8_t cmd){
     uint8_t buffer[2] = {0x00, cmd}; // 0x00 = command stream (not data)
 
     ESP_ERROR_CHECK(i2c_master_transmit(dev_handle, buffer, 2, -1));
-    //RF from HAL i2c_master_transmit(i2c_master_dev_handle_t i2c_dev, const uint8_t *write_buffer, size_t write_size, int xfer_timeout_ms)
-    /*RF Notes:
-
-    buffer[2] becomes &buffer[0] when passed in, which is type uint8_t *
-
-    Array variable:               Pointer:
-    owns storage                  references storage
-    */
 }
 
 void OLED_init(void){

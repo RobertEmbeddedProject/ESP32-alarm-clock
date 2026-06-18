@@ -59,7 +59,8 @@ void screen_saver(enum alarm state, uint32_t *wake_type){
     bool s_display_view_timeout = (elapsed >= pdMS_TO_TICKS(DISPLAY_VIEW_TIMEOUT_MS));
     bool s_display_dim_timeout = (elapsed >= pdMS_TO_TICKS(DISPLAY_DIM_TIMEOUT_MS));
     bool s_alarm_not_triggered = (state != ALARM_TRIGGERED);
-    bool s_alarm_configuring = (state == ALARM_CONFIG_HOUR || state == ALARM_CONFIG_MINUTE);
+    bool s_alarm_configuring = (state == ALARM_CONFIG_HOUR || state == ALARM_CONFIG_MINUTE || 
+                                state == ALARM_CONFIG_WHITENOISE);
     bool s_partial_wakeup = (*wake_type == WAKE_PARTIAL);
 
     //Unless alarm is sounding or in config mode, turn off display after long amount of time
@@ -87,11 +88,7 @@ void screen_saver(enum alarm state, uint32_t *wake_type){
     }
 }
 
-void screen_wake(uint32_t wake_type){
-    if (display_task_t != NULL) {
-        xTaskNotify(display_task_t, wake_type, eSetValueWithOverwrite);
-    }
-}
+
 
 void format_AM_PM(int input_hour, int *display_hour, char **ampm){
     //Format Time as AM or PM

@@ -1,12 +1,10 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
+#include "main.h"
+#include <time.h>
 #include <esp_log.h>
 #include "esp_err.h"
 #include "freertos/FreeRTOS.h" //RTOS implement for time vTaskDelay commands
 #include "freertos/task.h"     //Task management API xTaskCreate(), vTaskDelete(), vTaskDelay()
 #include "driver/gpio.h"
-#include "main.h"
 #include "display_ssd1309.h"
 #include "display_graphics.h"
 #include "display_application.h"
@@ -15,7 +13,6 @@
 #include "songs.h"
 #include "mp3.h"
 #include "wifi.h"
-#include <time.h>
 #include "nvs_flash.h"
 
 /*       Developer Testing Options       */
@@ -23,17 +20,19 @@
 //-----------------------------------------
 
 void display_splash(void);
-//task notification, not a semaphore
-static TaskHandle_t progress_bar_t = NULL;
+
+//task notifications
 static TaskHandle_t app_main_t = NULL;
-TaskHandle_t display_task_t = NULL;
+static TaskHandle_t splash_task_t = NULL;
+static TaskHandle_t wake_screen_t = NULL;
+static TaskHandle_t song_playback_t = NULL;
 
 //RTOS Tasks
 void splash_load_task(void *arg);
 void display_task(void *arg);
 void rotary_task(void *arg);
 void alarm_task(void *arg);
-void song_task(void *arg);
+void song_playback_task(void *arg);
 void snooze_task(void *arg);
 
 //Master Alarm
@@ -49,6 +48,8 @@ static int pulse_count_songs_prev = 0;
 static int pulse_count_songs_now = 0;
 static int array_songs[SONG_COUNT] = {};
 static int array_songs_max = sizeof(array_songs) / sizeof(array_songs[0]);
+volatile int whitenoise_selection = 0;
+volatile bool whitenoise_option_show;
 
 //alarm rotary encoder
 static pcnt_unit_handle_t pcnt_unit_alarm = NULL;
@@ -84,13 +85,13 @@ void app_main(void)
 
     #if !SKIP_SPLASH
     display_splash();
-    xTaskCreate(splash_load_task, "splash load task", 2048, NULL, 5, &progress_bar_t);
+    xTaskCreate(splash_load_task, "splash load task", 2048, NULL, 5, &splash_task_t);
     #endif
 
     wifi_init();
     xTaskCreate(wifi_reconnect_task, "wifi_reconnect", 2048, NULL, 3, NULL);
     #if !SKIP_SPLASH
-    xTaskNotifyGive(progress_bar_t);
+    xTaskNotifyGive(splash_task_t);
     #endif
     
     alarm_min = index_alarm_minute;
@@ -107,28 +108,13 @@ void app_main(void)
     }
 
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);   // wait until splash task is done
-    xTaskCreate(song_task, "snooze_task", 2048, NULL, 3, NULL);
-    xTaskCreate(display_task, "display_task", 4096, NULL, 4, &display_task_t);
+    xTaskCreate(snooze_task, "snooze_task", 2048, NULL, 3, NULL);
+    xTaskCreate(display_task, "display_task", 4096, NULL, 4, &wake_screen_t);
     xTaskCreate(alarm_task, "alarm_task", 2048, NULL, 5, NULL);
-    xTaskCreate(song_task, "song_task", 2048, NULL, 6, NULL);
+    xTaskCreate(song_playback_task, "song_playback_task", 2048, NULL, 6, &song_playback_t);
     xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
     
 
-}
-
-void display_splash(void){
-    char wifi_text[32];
-    char blank[32];
-
-    ssd1309_clear();
-    update_display_info(wifi_text, blank, blank, blank, blank, blank, blank);
-    
-    ssd1309_draw_text(64, 0, "WiFi:");
-    ssd1309_draw_text(49, 1, "Connecting");
-    ssd1309_draw_text(48, 6, "Loading");
-    ssd1309_draw_xbm(0, 0, 49, 49, image_splash_clock);
-    ssd1309_draw_xbm(1, 57, 126, 8, image_progressbar);
-    ssd1309_display();
 }
 
 void splash_load_task(void *arg){ 
@@ -180,29 +166,48 @@ void display_task(void *arg){
             ssd1309_draw_text(62, 2, time_text);
             ssd1309_draw_text(12, 3, "Alarm: "); 
             ssd1309_draw_text(0, 6, "Song Index:");
-            ssd1309_draw_text(90, 6, index_text);
-            ssd1309_draw_text(0, 7, songlist[index_songs]);
+            if(alarm_state != ALARM_CONFIG_WHITENOISE){
+                ssd1309_draw_text(90, 6, index_text);
+                ssd1309_draw_text(0, 7, songlist[index_songs]);
+            }
 
             //invisible for 30ms, visible for 300ms, repeat every (total) 330ms
             bool blink = (xTaskGetTickCount() % pdMS_TO_TICKS(300)) < pdMS_TO_TICKS(30);
-
-            
 
             switch (alarm_state_snapshot){
                 case ALARM_IDLE:
                     ssd1309_draw_text(62, 3, "Not Set");
                     break;
+                    
                 case  ALARM_CONFIG_HOUR:
                     ssd1309_draw_text(78, 3, ":");
                     if(!blink){ssd1309_draw_text(62, 3, alarm_hour_text);}
                     ssd1309_draw_text(110, 3, alarm_ampm_text);
                     break;
+
                 case  ALARM_CONFIG_MINUTE:
                     ssd1309_draw_text(62, 3, alarm_hour_text);
                     ssd1309_draw_text(78, 3, ":");
                     if(!blink){ssd1309_draw_text(86, 3, alarm_minute_text);}
                     ssd1309_draw_text(110, 3, alarm_ampm_text);
                     break;
+
+                case  ALARM_CONFIG_WHITENOISE:
+                    //first scan of config mode lets you pick no whitenoise, 
+                    //otherwise the selection process of whitenoise_config begins
+                    if(whitenoise_option_show == true){
+                        ssd1309_draw_text(90, 6, "  ");
+                        if(!blink){ssd1309_draw_text(0, 7, "NO WHITENOISE");}
+                        if(index_songs != 69){whitenoise_option_show = false;} // escape on movement
+                    }
+                    else{
+                        if(!blink){
+                            ssd1309_draw_text(90, 6, index_text);
+                            ssd1309_draw_text(0, 7, songlist[index_songs]);
+                        }
+                    }
+                    break;
+
                 case  ALARM_ARMED:
                     ssd1309_draw_xbm(0, 1, 16, 16, image_clock_armed);
                     ssd1309_draw_text(18, 0, "Armed");
@@ -214,30 +219,130 @@ void display_task(void *arg){
                     else{ssd1309_draw_text(12, 4, "Sleep:     hrs");}
                     ssd1309_draw_text(62, 4, sleep_text);
                     break;
+
                 case  ALARM_TRIGGERED:
                     ssd1309_draw_xbm(0, 1, 16, 16, image_clock_triggered);
                     if(!blink){ssd1309_draw_text(18, 0, "WAKE");}
                     break;
+
                 case  ALARM_SNOOZED:
                     ssd1309_draw_xbm(0, 1, 16, 16, image_clock_snoozed);
                     ssd1309_draw_text(16, 0, "SNOOZ");
-                    //Draw countdown timer of remaining snooze
+                    //rfink add draw countdown timer of remaining snooze
                     break;
+
                 default:
             }
-            if(music_playing){
-                ssd1309_draw_xbm(110, 42, 15, 14, image_speaker_sound_on);
-            }
-            else{
-                ssd1309_draw_xbm(110, 42, 15, 14, image_speaker_sound_off);
+            if(music_playing){ssd1309_draw_xbm(110, 42, 15, 14, image_speaker_sound_on);}
+                         else{ssd1309_draw_xbm(110, 42, 15, 14, image_speaker_sound_off);}
+        }
+
+        if (brightness != DISPLAY_OFF) {ssd1309_display();}
+        
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+
+void alarm_task(void *args){
+    ESP_LOGI("ALARM", "alarm_task started");
+
+    time_t now;
+    struct tm current;
+    TickType_t last_time_check = 0;
+
+    volatile int index_songs_snapshot = 0;
+
+
+    while (1) {
+        //only check time once per second
+        if ((xTaskGetTickCount() - last_time_check) >= pdMS_TO_TICKS(1000)) {
+            last_time_check = xTaskGetTickCount();
+            time(&now);
+            localtime_r(&now, &current);
+        }
+
+        if(alarm_state != ALARM_ARMED){
+            whitenoise_selection = 0;
+        }
+
+        //Rotary pushbutton progresses the alarm states
+        if(gpio_get_level(GPIO_NUM_36) == 0){
+            screen_wake(WAKE_FULL);
+            switch (alarm_state){
+                case ALARM_IDLE:
+                    alarm_state = ALARM_CONFIG_HOUR;
+                    pcnt_unit_clear_count(pcnt_unit_alarm);
+                    pulse_count_alarm_prev = 0;
+                    pulse_count_alarm_now  = 0;
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                    break;
+
+                case ALARM_CONFIG_HOUR:
+                    alarm_state = ALARM_CONFIG_MINUTE;
+                    pcnt_unit_clear_count(pcnt_unit_alarm);
+                    pulse_count_alarm_prev = 0;
+                    pulse_count_alarm_now  = 0;
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                    break;
+
+                case ALARM_CONFIG_MINUTE:
+                    alarm_state = ALARM_CONFIG_WHITENOISE;
+                    index_songs_snapshot = index_songs;
+                    whitenoise_option_show = true;
+                    index_songs = 69; //set up white noise selection for next state
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                    break;
+
+                case ALARM_CONFIG_WHITENOISE:
+                    alarm_state = ALARM_ARMED;
+                    pulse_count_songs_prev = 0; //rink do we need this?
+                    pulse_count_songs_now  = 0;
+                    if(whitenoise_option_show == 0){
+                        whitenoise_selection = index_songs;
+                        mp3_cmd(CMD_PLAY_W_INDEX, whitenoise_selection+1);
+                        music_playing = 1;
+                    }  
+                    index_songs = index_songs_snapshot;
+                    s_acked = 0;
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                    break;
+
+                case ALARM_ARMED:
+                    alarm_state = ALARM_IDLE;
+                    s_acked = 1;
+                    mp3_cmd(CMD_STOP, 0);
+                    music_playing = 0;
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                    break;
+
+                case ALARM_TRIGGERED:
+                    alarm_state = ALARM_IDLE;
+                    s_acked = 1;
+                    mp3_cmd(CMD_STOP, 0);
+                    music_playing = 0;
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                    break;
+
+                case ALARM_SNOOZED:
+                    alarm_state = ALARM_IDLE;
+                    mp3_cmd(CMD_STOP, 0);
+                    music_playing = 0;
+                    vTaskDelay(pdMS_TO_TICKS(500));
+                    break;
+
+                default:
             }
         }
 
-        if (brightness != DISPLAY_OFF) {
-            ssd1309_display();
-        }
-        
-        vTaskDelay(pdMS_TO_TICKS(50));
+        //Alarm trigger
+        if(((alarm_state == ALARM_ARMED) 
+                && (current.tm_hour == alarm_hour && current.tm_min == alarm_min)) 
+                && (s_acked == 0))     // not acked by user 
+                    {
+                        xTaskNotifyGive(song_playback_t); 
+                    }
+
+        vTaskDelay(pdMS_TO_TICKS(20));
     }
 }
 
@@ -251,23 +356,36 @@ void rotary_task(void *arg){
 
     while(1){
         //Songs Rotary
-        rotary_index(pcnt_unit_songs, &pulse_count_songs_prev, 
+        if (alarm_state != ALARM_CONFIG_WHITENOISE
+         && alarm_state != ALARM_TRIGGERED){
+            rotary_index_rollover(pcnt_unit_songs, &pulse_count_songs_prev, 
                         &pulse_count_songs_now, &index_songs, array_songs_max);
+        }
+
         //Alarm Rotary
         if(alarm_state == ALARM_CONFIG_HOUR){
-            rotary_index(pcnt_unit_alarm, &pulse_count_alarm_prev, 
+            rotary_index_rollover(pcnt_unit_alarm, &pulse_count_alarm_prev, 
                             &pulse_count_alarm_now, &index_alarm_hour, 24);
-        }             
+        }           
+
         else if(alarm_state == ALARM_CONFIG_MINUTE){
-        rotary_index(pcnt_unit_alarm, &pulse_count_alarm_prev, 
+            rotary_index_rollover(pcnt_unit_alarm, &pulse_count_alarm_prev, 
                         &pulse_count_alarm_now, &index_alarm_minute, 60); 
-        }  
+        } 
+
+        else if (alarm_state == ALARM_CONFIG_WHITENOISE) {
+            rotary_index_clamp(pcnt_unit_alarm, &pulse_count_alarm_prev,
+                    &pulse_count_alarm_now, &index_songs, array_songs_max, 69, 78);
+        }
+
         pcnt_unit_get_count(pcnt_unit_songs, &songs_pulse_raw);
         pcnt_unit_get_count(pcnt_unit_alarm, &alarm_pulse_raw);
+
         if(alarm_pulse_raw != alarm_wake_prev) {
             screen_wake(WAKE_FULL);
             alarm_wake_prev = alarm_pulse_raw;
         }
+        
         if(songs_pulse_raw != songs_wake_prev) {
             screen_wake(WAKE_FULL);
             songs_wake_prev = songs_pulse_raw;
@@ -277,11 +395,13 @@ void rotary_task(void *arg){
     }
 }
 
-void song_task(void *args){
-    ESP_LOGI("SONG", "song_task started");
+void song_playback_task(void *args){
+    ESP_LOGI("SONG", "song_playback_task started");
 
     while (1) {
-        if (gpio_get_level(GPIO_NUM_39) == 0 && song_playing != index_songs) {
+
+        //Normal playback for listening to music
+        if (gpio_get_level(GPIO_NUM_39) == 0 && song_playing != index_songs && alarm_state != ALARM_TRIGGERED) {
             mp3_cmd(CMD_PLAY_W_INDEX, index_songs+1);
             music_playing = 1;
             song_playing = index_songs;
@@ -291,9 +411,23 @@ void song_task(void *args){
        else if (gpio_get_level(GPIO_NUM_39) == 0 && music_playing == 1 && index_songs == song_playing){
             mp3_cmd(CMD_STOP, 0);
             music_playing = 0;
-            song_playing  = 999;
+            song_playing  = 999; //rfink make proper check
             screen_wake(WAKE_FULL);
             vTaskDelay(pdMS_TO_TICKS(500));
+       }
+
+       //Next song automatically if casually listening to music
+       if(true){}
+
+       //White Noise repeats until alarm is triggered
+
+       
+       //Alarm Triggered playback
+       if(ulTaskNotifyTake(pdTRUE, 0) > 0){
+            alarm_state = ALARM_TRIGGERED;
+            screen_wake(WAKE_FULL);
+            mp3_cmd(CMD_PLAY_W_INDEX, index_songs+1);
+            music_playing = 1;
        }
 
         vTaskDelay(pdMS_TO_TICKS(20));
@@ -336,77 +470,24 @@ void snooze_task(void *args){
     }
 }
 
-void alarm_task(void *args){
-    ESP_LOGI("ALARM", "alarm_task started");
-
-    time_t now;
-    struct tm current;
-    TickType_t last_time_check = 0;
-    while (1) {
-        //only check time once per second
-        if ((xTaskGetTickCount() - last_time_check) >= pdMS_TO_TICKS(1000)) {
-            last_time_check = xTaskGetTickCount();
-            time(&now);
-            localtime_r(&now, &current);
-        }
-
-        if(gpio_get_level(GPIO_NUM_36) == 0){
-            screen_wake(WAKE_FULL);
-            switch (alarm_state){
-                case ALARM_IDLE:
-                    alarm_state = ALARM_CONFIG_HOUR;
-                    pcnt_unit_clear_count(pcnt_unit_alarm);
-                    pulse_count_alarm_prev = 0;
-                    pulse_count_alarm_now  = 0;
-                    vTaskDelay(pdMS_TO_TICKS(500));
-                    break;
-                case ALARM_CONFIG_HOUR:
-                    alarm_state = ALARM_CONFIG_MINUTE;
-                    pcnt_unit_clear_count(pcnt_unit_alarm);
-                    pulse_count_alarm_prev = 0;
-                    pulse_count_alarm_now  = 0;
-                    vTaskDelay(pdMS_TO_TICKS(500));
-                    break;
-                case ALARM_CONFIG_MINUTE:
-                    alarm_state = ALARM_ARMED;
-                    s_acked = 0;
-                    vTaskDelay(pdMS_TO_TICKS(500));
-                    break;
-                case ALARM_ARMED:
-                    alarm_state = ALARM_IDLE;
-                    s_acked = 1;
-                    vTaskDelay(pdMS_TO_TICKS(500));
-                    break;
-                case ALARM_TRIGGERED:
-                    alarm_state = ALARM_IDLE;
-                    s_acked = 1;
-                    mp3_cmd(CMD_STOP, 0);
-                    music_playing = 0;
-                    vTaskDelay(pdMS_TO_TICKS(500));
-                    break;
-                case ALARM_SNOOZED:
-                    alarm_state = ALARM_IDLE;
-                    mp3_cmd(CMD_STOP, 0);
-                    music_playing = 0;
-                    vTaskDelay(pdMS_TO_TICKS(500));
-                    break;
-                default:
-            }
-        }
-
-
-        //consider moving to Songs_Task, and also renaming Audio_Task
-        if(((alarm_state == ALARM_ARMED) 
-                            && (current.tm_hour == alarm_hour && current.tm_min == alarm_min)) 
-                            && (s_acked == 0))     // not acked by user 
-            {
-                alarm_state = ALARM_TRIGGERED;
-                screen_wake(WAKE_FULL);
-                mp3_cmd(CMD_PLAY_W_INDEX, index_songs+1);
-                music_playing = 1;
-            }
-
-        vTaskDelay(pdMS_TO_TICKS(20));
+void screen_wake(uint32_t wake_type){
+    if (wake_screen_t != NULL) {
+        xTaskNotify(wake_screen_t, wake_type, eSetValueWithOverwrite);
     }
+}
+
+void display_splash(void){
+    char wifi_text[32];
+    char blank[32];
+
+    ssd1309_clear();
+    update_display_info(wifi_text, blank, blank, blank, blank, blank, blank);
+    
+    ssd1309_draw_text(64, 0, "WiFi:");
+    ssd1309_draw_text(49, 1, "Connecting");
+    ssd1309_draw_text(48, 6, "Loading");
+    ssd1309_draw_xbm(0, 0, 49, 49, image_splash_clock);
+    ssd1309_draw_xbm(1, 57, 126, 8, image_progressbar);
+    ssd1309_display();
 }
 
