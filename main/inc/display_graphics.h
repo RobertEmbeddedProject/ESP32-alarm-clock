@@ -8,4 +8,4 @@ void ssd1309_draw_char(int x, int y, char c);
 void ssd1309_draw_text(int x, int y, const char *text);
 void ssd1309_draw_big_char(int x, int y, char c);
 void ssd1309_draw_big_text(int x, int y, const char *text);
-void progress_bar_fill(int start, int end, int lag_ms, int post_delay_ms);
+

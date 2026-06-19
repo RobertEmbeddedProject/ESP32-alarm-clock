@@ -1,15 +1,16 @@
 #pragma once
 #include <stdint.h>
+#include <stdbool.h>
+
+void song_playback_task(void *arg);
 
 void mp3_init(void);
 void init_dfplayer_and_pam();
-void mp3_start_alarm_with_ramp(void);
 void mp3_play_now(void);
 void mp3_stop(void);
-bool mp3_is_playing(void);
 void mp3_cmd(int8_t command, int16_t dat);
-int  mp3_last_played_index(void);
-bool mp3_can_play_index(int idx);
+bool mp3_player_get_state(void);
+void mp3_player_set_state(bool state);
 
 //DF_Player Commands, used by rotary and in general..
 #define CMD_PLAY_NEXT      0x01

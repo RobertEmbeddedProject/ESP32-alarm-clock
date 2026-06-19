@@ -97,11 +97,4 @@ void ssd1309_draw_big_text(int x, int y, const char *text){
     }
 }
 
-void progress_bar_fill(int start, int end, int lag_ms, int post_delay_ms){
-    for(int i = start; i < end; i++){
-        ssd1309_draw_xbm(1+i*2, 57, 2, 7, image_progressbar_fill);
-        ssd1309_display();
-        vTaskDelay(pdMS_TO_TICKS(lag_ms));
-    }
-    vTaskDelay(pdMS_TO_TICKS(post_delay_ms));
-}
+

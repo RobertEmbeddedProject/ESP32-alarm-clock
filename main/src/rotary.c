@@ -1,3 +1,13 @@
+#include "rotary.h"
+#include "display_application.h"
+#include "songs.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_log.h"
+#include "driver/pulse_cnt.h"
+#include "driver/gpio.h"
+
+
 /*
 KY-040 Rotary Encoder User Inputs, 4x quadrature decoding.
 A B
@@ -10,13 +20,6 @@ reference PCNT guide from ESP-IDF HAL
 https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/pcnt.html
 */
 
-#include "rotary.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-#include "driver/pulse_cnt.h"
-#include "driver/gpio.h"
-
 #define PCNT_HI_LIM 1000
 #define PCNT_LO_LIM -1000
 
@@ -27,6 +30,70 @@ https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/periph
 #define ROTARY_ALARM_GPIO_A 25
 #define ROTARY_ALARM_GPIO_B 26
 #define ROTARY_ALARM_SW 36
+
+static pcnt_unit_handle_t pcnt_unit_songs = NULL;
+static volatile int index_songs = 0;
+static int pulse_count_songs_prev = 0;
+static int pulse_count_songs_now = 0;
+
+static pcnt_unit_handle_t pcnt_unit_alarm = NULL;
+static volatile int index_alarm;
+static int pulse_count_alarm_prev = 0;
+static int pulse_count_alarm_now = 0;
+static volatile int index_alarm_hour = 6;
+static volatile int index_alarm_minute = 30;
+
+void rotary_task(void *arg){
+
+    int songs_pulse_raw = 0;
+    int songs_wake_prev = 0;
+    int alarm_pulse_raw = 0;
+    int alarm_wake_prev = 0;
+    int array_songs_max = get_songs_max();
+
+    while(1){
+
+        enum alarm alarm_state = alarm_get_state();
+
+        //Songs Rotary
+        if (alarm_state != ALARM_CONFIG_WHITENOISE
+         && alarm_state != ALARM_TRIGGERED){
+            rotary_index_rollover(pcnt_unit_songs, &pulse_count_songs_prev, 
+                        &pulse_count_songs_now, &index_songs, array_songs_max);
+        }
+
+        //Alarm Rotary
+        if(alarm_state == ALARM_CONFIG_HOUR){
+            rotary_index_rollover(pcnt_unit_alarm, &pulse_count_alarm_prev, 
+                            &pulse_count_alarm_now, &index_alarm_hour, 24);
+        }           
+
+        else if(alarm_state == ALARM_CONFIG_MINUTE){
+            rotary_index_rollover(pcnt_unit_alarm, &pulse_count_alarm_prev, 
+                        &pulse_count_alarm_now, &index_alarm_minute, 60); 
+        } 
+
+        else if (alarm_state == ALARM_CONFIG_WHITENOISE) {
+            rotary_index_clamp(pcnt_unit_alarm, &pulse_count_alarm_prev,
+                    &pulse_count_alarm_now, &index_songs, array_songs_max, 69, 78);
+        }
+
+        pcnt_unit_get_count(pcnt_unit_songs, &songs_pulse_raw);
+        pcnt_unit_get_count(pcnt_unit_alarm, &alarm_pulse_raw);
+
+        if(alarm_pulse_raw != alarm_wake_prev) {
+            screen_wake(WAKE_FULL);
+            alarm_wake_prev = alarm_pulse_raw;
+        }
+        
+        if(songs_pulse_raw != songs_wake_prev) {
+            screen_wake(WAKE_FULL);
+            songs_wake_prev = songs_pulse_raw;
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
 
 
 void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
@@ -114,6 +181,11 @@ void rotary_init(rotary_knob_t rotary_knob, pcnt_unit_handle_t *pcnt_unit_out)
     *pcnt_unit_out = pcnt_unit_in;
 }
 
+void rotary_init_songs_and_alarm(void){
+    rotary_init(ROTARY_KNOB_SONGS, &pcnt_unit_songs);
+    rotary_init(ROTARY_KNOB_ALARM, &pcnt_unit_alarm);
+}
+
 void rotary_index_rollover(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
                     int *pulse_now, volatile int *index_out, int array_size)
 {
@@ -145,7 +217,6 @@ void rotary_index_rollover(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
         *pulse_now = 0;
     }
 }
-    
 
 void rotary_index_clamp(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
                     int *pulse_now, volatile int *index_out, int array_size,
@@ -179,3 +250,47 @@ void rotary_index_clamp(pcnt_unit_handle_t pcnt_unit_out, int *pulse_prev,
         *pulse_now = 0;
     }
 }
+
+int songs_get_index(void)
+{
+    return index_songs;
+}
+
+void songs_set_index(int index)
+{
+    index_songs = index;
+}
+
+int alarm_hour_get_index(void)
+{
+    return index_alarm_hour;
+}
+
+void alarm_hour_set_index(int index)
+{
+    index_alarm_hour = index;
+}
+
+int alarm_minute_get_index(void)
+{
+    return index_alarm_minute;
+}
+
+void alarm_minute_set_index(int index)
+{
+    index_alarm_minute = index;
+}
+
+void clear_pulse_count_songs(void){
+    pulse_count_songs_now = 0;
+    pulse_count_songs_prev = 0;
+    pcnt_unit_clear_count(pcnt_unit_songs);
+}
+
+void clear_pulse_count_alarm(void){
+    pulse_count_alarm_now = 0;
+    pulse_count_alarm_prev = 0;
+    pcnt_unit_clear_count(pcnt_unit_alarm);
+}
+
+

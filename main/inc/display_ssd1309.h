@@ -12,18 +12,6 @@
 #define OLED_BUF_SIZE               (OLED_WIDTH * OLED_HEIGHT / 8) //1024 total pages
 extern uint8_t oled_buffer[OLED_BUF_SIZE];
 
-//Master Alarm States
-enum alarm{
-  ALARM_IDLE,
-  ALARM_CONFIG_HOUR,
-  ALARM_CONFIG_MINUTE,
-  ALARM_CONFIG_WHITENOISE,
-  ALARM_ARMED,
-  ALARM_TRIGGERED,
-  ALARM_SNOOZED,
-  ALARM_ERROR
-} extern volatile alarm_state;
-
 //OLED Display Brightness Mode
 enum brightness{
   DISPLAY_OFF,

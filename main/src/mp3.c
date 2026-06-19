@@ -2,16 +2,24 @@
 #include "freertos/task.h"
 #include "driver/uart.h"
 #include "driver/gpio.h"
+#include <esp_log.h>
+#include "mp3.h"
+#include "rotary.h"
+#include "master_alarm.h"
+#include "display_application.h"
 
-#include "mp3.h"        // DFPlayer command IDs
 #define DFPLAYER_RESET_GPIO     4
 
 //UART settings
 #define UART_PORT_NUM      UART_NUM_2
 #define UART_TX_PIN        17
-#define UART_RX_PIN        UART_PIN_NO_CHANGE //RX not used for DFplayer, used for Radar instead
+#define UART_RX_PIN        16
 #define UART_BUF_SIZE      1024
 #define UART_BAUD          9600
+
+//MP3 Player
+static volatile bool music_playing = 0;
+static volatile int song_playing = 999;
 
 // DFPlayer protocol frame: 0x7E FF 06 <cmd> 00 <hi> <lo> <chkH> <chkL> 0xEF
 static void df_send_packet(uint8_t cmd, uint16_t param)
@@ -75,7 +83,55 @@ void mp3_init(void){
     mp3_cmd(CMD_SET_PRESET, 2);
 }
 
+void song_playback_task(void *args){
+    ESP_LOGI("SONG", "song_playback_task started");
+
+    while (1) {
+
+        int index_songs = songs_get_index();
+
+        //Normal playback for listening to music
+        if (gpio_get_level(GPIO_NUM_39) == 0 && song_playing != index_songs && alarm_get_state() != ALARM_TRIGGERED) {
+            mp3_cmd(CMD_PLAY_W_INDEX, index_songs+1);
+            music_playing = 1;
+            song_playing = index_songs;
+            screen_wake(WAKE_FULL);
+            vTaskDelay(pdMS_TO_TICKS(500));
+        }
+       else if (gpio_get_level(GPIO_NUM_39) == 0 && music_playing == 1 && index_songs == song_playing){
+            mp3_cmd(CMD_STOP, 0);
+            music_playing = 0;
+            song_playing  = 999; 
+            screen_wake(WAKE_FULL);
+            vTaskDelay(pdMS_TO_TICKS(500));
+       }
+
+       //Next song automatically if casually listening to music
+       if(true){}
+
+       //White Noise repeats until alarm is triggered
 
 
+       //Alarm Triggered playback
+       if(ulTaskNotifyTake(pdTRUE, 0) > 0){
+            alarm_set_state(ALARM_TRIGGERED);
+            screen_wake(WAKE_FULL);
+            mp3_cmd(CMD_PLAY_W_INDEX, index_songs+1);
+            music_playing = 1;
+       }
+
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+
+bool mp3_player_get_state(void)
+{
+    return music_playing;
+}
+
+void mp3_player_set_state(bool state)
+{
+    music_playing = state;
+}
 
 

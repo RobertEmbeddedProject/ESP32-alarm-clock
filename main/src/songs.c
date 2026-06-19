@@ -1,5 +1,11 @@
 #include "songs.h"
 
+static int array_songs[SONG_COUNT] = {};
+static int array_songs_max = sizeof(array_songs) / sizeof(array_songs[0]);
+int get_songs_max(void){
+    return array_songs_max;
+}
+
 const char *songlist[SONG_COUNT]={
     /*0000*/ "Its Been Awhile",
     /*0001*/ "Interstate Love",
