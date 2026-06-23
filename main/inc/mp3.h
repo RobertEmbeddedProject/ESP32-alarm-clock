@@ -3,16 +3,15 @@
 #include <stdbool.h>
 
 void song_playback_task(void *arg);
+void mp3_task(void *arg);
 
 void mp3_init(void);
-void init_dfplayer_and_pam();
-void mp3_play_now(void);
-void mp3_stop(void);
 void mp3_cmd(int8_t command, int16_t dat);
-bool mp3_player_get_state(void);
-void mp3_player_set_state(bool state);
+bool mp3_track_finished(uint16_t *track_out);
+bool mp3_is_music_playing(void);
+void mp3_set_music_playing(bool state);
 
-//DF_Player Commands, used by rotary and in general..
+//TX to DF_Player Commands
 #define CMD_PLAY_NEXT      0x01
 #define CMD_PLAY_PREV      0x02
 #define CMD_PLAY_W_INDEX   0x03
@@ -28,3 +27,26 @@ void mp3_player_set_state(bool state);
 #define CMD_SLEEP_MODE     0x0A  
 #define CMD_SEL_DEV        0x09  
 #define DEV_TF             0x02  
+
+//RX FROM DFPLAYER
+#define DFPLAYER_FRAME_SIZE      10
+//responds with track number, which also indicates that the track has finished:
+#define DFPLAYER_TF_FINISHED_CMD 0x3D   
+
+
+//For Command Queue, Requests from other Tasks
+typedef enum {
+    MP3_REQ_PLAY_INDEX,
+    MP3_REQ_STOP,
+    MP3_REQ_SET_VOLUME,
+    MP3_REQ_START_ALARM,
+    MP3_REQ_SNOOZE_STOP
+} mp3_req_type_t;
+
+typedef struct {
+    mp3_req_type_t type;
+    uint16_t value;
+} mp3_request_t;
+
+bool mp3_request(mp3_req_type_t type, uint16_t value);
+void mp3_task(void *args);

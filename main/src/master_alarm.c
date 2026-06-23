@@ -76,8 +76,7 @@ void alarm_task(void *args){
                     clear_pulse_count_songs();
                     if(whitenoise_option_show == 0){
                         whitenoise_selection = index_songs;
-                        mp3_cmd(CMD_PLAY_W_INDEX, whitenoise_selection+1);
-                        mp3_player_set_state(true);
+                        mp3_request(MP3_REQ_PLAY_INDEX, whitenoise_selection+1);
                     }  
                     songs_set_index(index_songs_snapshot);
                     s_acked = 0;
@@ -85,32 +84,31 @@ void alarm_task(void *args){
                     break;
 
                 case ALARM_ARMED:
-                    alarm_state = ALARM_IDLE;
+                    alarm_state = ALARM_IDLE; 
                     s_acked = 1;
-                    mp3_cmd(CMD_STOP, 0);
-                    mp3_player_set_state(false);
+                    //only stop music if white noise was playing, not casual listening
+                    if(whitenoise_selection !=0 ){
+                        mp3_request(MP3_REQ_STOP, 0);
+                    }
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
 
                 case ALARM_TRIGGERED:
                     alarm_state = ALARM_IDLE;
                     s_acked = 1;
-                    mp3_cmd(CMD_STOP, 0);
-                    mp3_player_set_state(false);
+                    mp3_request(MP3_REQ_STOP, 0);
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
 
                 case ALARM_SNOOZED:
                     alarm_state = ALARM_IDLE;
-                    mp3_cmd(CMD_STOP, 0);
-                    mp3_player_set_state(false);
+                    mp3_request(MP3_REQ_STOP, 0);
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
 
                 default:
             }
         }
-
         //Alarm trigger
         if(((alarm_state == ALARM_ARMED) 
                 && (current.tm_hour == alarm_hour && current.tm_min == alarm_min)) 
@@ -118,7 +116,7 @@ void alarm_task(void *args){
                     {
                         xTaskNotifyGive(song_playback_t); 
                     }
-
+        
         vTaskDelay(pdMS_TO_TICKS(50));
     }
 }

@@ -42,17 +42,30 @@ void app_main(void)
 
     rotary_init_songs_and_alarm();
 
-    mp3_init();
-    radar_snooze_init();
 
-    vTaskDelay(pdMS_TO_TICKS(500)); //delay must be 500<
-    mp3_cmd(CMD_SET_VOLUME, 30);
+    
+    //temp snooze button init
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << GPIO_NUM_18),
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    gpio_config(&io_conf);
+
+
+    mp3_init();
+    xTaskCreate(mp3_task, "mp3_task", 3072, NULL, 3, NULL);
+    xTaskCreate(song_playback_task, "song_playback_task", 3072, NULL, 2, &song_playback_t);
+
+    radar_snooze_init();
 
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);   // wait until splash task is done
     xTaskCreate(snooze_task, "snooze_task", 2048, NULL, 3, NULL);
     xTaskCreate(display_task, "display_task", 4096, NULL, 4, &display_task_t);
     xTaskCreate(alarm_task, "alarm_task", 2048, NULL, 5, NULL);
-    xTaskCreate(song_playback_task, "song_playback_task", 2048, NULL, 6, &song_playback_t);
-    xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
+   xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
+    ESP_LOGI("HEAP", "Heap Remaining: %lu", esp_get_free_heap_size());
 
 }
