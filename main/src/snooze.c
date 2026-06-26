@@ -40,19 +40,12 @@ void snooze_task(void *args){
         still_counts = radar_get_stationary() ? still_counts + 1 : 0;
         if (still_counts >= (RADAR_HOLD_MS / 20) &&
             (now_ticks - radar_last_trigger) >= pdMS_TO_TICKS(RADAR_COOLDOWN_MS)) {
-            radar_last_trigger = now_ticks;
-            still_counts = 0;
-        }
-
-        //rfink temp snooze pushbutton testing
-        if(!gpio_get_level(GPIO_NUM_18)){
+            
             snooze_radar_detected = true;
             radar_last_trigger = now_ticks;
             still_counts = 0;
-            vTaskDelay(pdMS_TO_TICKS(300));
         }
-        else{snooze_radar_detected = false;}
-
+        
         //Snooze feature
         if (snooze_radar_detected) {  
             if(alarm_state == ALARM_TRIGGERED){

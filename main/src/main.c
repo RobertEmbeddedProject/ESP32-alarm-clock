@@ -17,6 +17,7 @@
 #include "mp3.h"
 #include "wifi.h"
 #include "radar_snooze.h"
+#include "nvs_state.h"
 
 //task notifications
 static TaskHandle_t splash_task_t = NULL;
@@ -28,6 +29,34 @@ TaskHandle_t song_playback_t = NULL;
 void app_main(void)
 {
     app_main_t = xTaskGetCurrentTaskHandle();
+
+/**************************//////////////////////////////////////////
+    //Output for unmuting the Pam amplifier; 0 = unmute
+    gpio_config_t io_conf = {
+        .pin_bit_mask = (1ULL << GPIO_NUM_19),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+    gpio_config(&io_conf);
+    gpio_set_level(GPIO_NUM_19, 0);  // PAM8620 unmuted
+
+    // DFPlayer RESET GPIO only (no PAM_ENABLE pin)
+    gpio_config_t io_rst = {
+        .pin_bit_mask = (1ULL << GPIO_NUM_4),
+        .mode         = GPIO_MODE_OUTPUT,
+        .pull_up_en   = 0,
+        .pull_down_en = 0,
+        .intr_type    = GPIO_INTR_DISABLE
+    };
+    gpio_config(&io_rst);
+      // Hardware reset pulse (optional, depends on wiring)
+    gpio_set_level(GPIO_NUM_4, 0);
+    vTaskDelay(pdMS_TO_TICKS(50));
+    gpio_set_level(GPIO_NUM_4, 1);
+    vTaskDelay(pdMS_TO_TICKS(500)); // let it boot
+/*////////////////////////////////////////////////////////////*/
 
     OLED_init();
     ssd1309_clear();
@@ -42,8 +71,9 @@ void app_main(void)
 
     rotary_init_songs_and_alarm();
 
-
+    nvs_state_load(); 
     
+    /*rfink delete, for test board only
     //temp snooze button init
     gpio_config_t io_conf = {
         .pin_bit_mask = (1ULL << GPIO_NUM_18),
@@ -53,8 +83,9 @@ void app_main(void)
         .intr_type = GPIO_INTR_DISABLE
     };
     gpio_config(&io_conf);
+    */
 
-
+    
     mp3_init();
     xTaskCreate(mp3_task, "mp3_task", 3072, NULL, 3, NULL);
     xTaskCreate(song_playback_task, "song_playback_task", 3072, NULL, 2, &song_playback_t);
@@ -62,10 +93,10 @@ void app_main(void)
     radar_snooze_init();
 
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);   // wait until splash task is done
-    xTaskCreate(snooze_task, "snooze_task", 2048, NULL, 3, NULL);
+    xTaskCreate(snooze_task, "snooze_task", 4096, NULL, 3, NULL);
     xTaskCreate(display_task, "display_task", 4096, NULL, 4, &display_task_t);
     xTaskCreate(alarm_task, "alarm_task", 2048, NULL, 5, NULL);
-   xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
+    xTaskCreate(rotary_task, "rotary_task", 2048, NULL, 7, NULL);
     ESP_LOGI("HEAP", "Heap Remaining: %lu", esp_get_free_heap_size());
 
 }

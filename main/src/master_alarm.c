@@ -8,6 +8,7 @@
 #include "freertos/task.h" 
 #include <esp_log.h>
 #include "driver/pulse_cnt.h"
+#include "nvs_state.h"
 
 //Master Alarm
 static volatile enum alarm alarm_state = ALARM_IDLE;
@@ -80,12 +81,14 @@ void alarm_task(void *args){
                     }  
                     songs_set_index(index_songs_snapshot);
                     s_acked = 0;
+                    nvs_state_save();
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
 
                 case ALARM_ARMED:
                     alarm_state = ALARM_IDLE; 
                     s_acked = 1;
+                    nvs_state_save();
                     //only stop music if white noise was playing, not casual listening
                     if(whitenoise_selection !=0 ){
                         mp3_request(MP3_REQ_STOP, 0);
@@ -96,6 +99,7 @@ void alarm_task(void *args){
                 case ALARM_TRIGGERED:
                     alarm_state = ALARM_IDLE;
                     s_acked = 1;
+                    nvs_state_save();
                     mp3_request(MP3_REQ_STOP, 0);
                     vTaskDelay(pdMS_TO_TICKS(500));
                     break;
@@ -137,4 +141,11 @@ bool check_whitenoise_config(void){
 
 void set_whitenoise_config(bool state){
     whitenoise_option_show = state;
+}
+
+//restore alarm state on power cycle using NVS
+void alarm_restore_armed(void)
+{
+    alarm_state = ALARM_ARMED;
+    s_acked = 0;
 }

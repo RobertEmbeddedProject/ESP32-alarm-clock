@@ -17,3 +17,4 @@ enum alarm alarm_get_state(void);
 void alarm_set_state(enum alarm state);
 bool check_whitenoise_config(void);
 void set_whitenoise_config(bool state);
+void alarm_restore_armed(void);

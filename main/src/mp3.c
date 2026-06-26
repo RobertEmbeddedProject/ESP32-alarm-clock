@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 //delete for mini alarm clock
-//#define DFPLAYER_RESET_GPIO     4
+#define DFPLAYER_RESET_GPIO     4
 
 //UART settings
 #define UART_PORT_NUM      UART_NUM_2

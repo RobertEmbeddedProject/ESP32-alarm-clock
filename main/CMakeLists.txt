@@ -11,6 +11,7 @@ idf_component_register(
     "src/mp3.c"
     "src/radar_snooze.c"
     "src/snooze.c"
+    "src/nvs_state.c"
     "src/graphics_smallfonts.c"
     "src/graphics_bigfonts.c"
     "src/graphics_bitmaps.c"
