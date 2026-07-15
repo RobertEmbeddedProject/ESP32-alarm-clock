@@ -1,6 +1,5 @@
 # ESP32 Smart Alarm Clock
 
-<img width="300" alt="IMG_9422" src="https://github.com/user-attachments/assets/d3170d9b-854a-4959-b9c6-8a35de7f3770" />
 <img width="300" alt="IMG_9421" src="https://github.com/user-attachments/assets/38f6c3b8-cd97-4740-95fa-4170a6198552" />
 <img width="300" alt="IMG_9406" src="https://github.com/user-attachments/assets/fa39614f-9b8e-476e-bbb9-5750494e83aa" />
 <img width="300" alt="IMG_9405" src="https://github.com/user-attachments/assets/28c94b84-5e6c-4f55-9022-159bbc630e2d" />
