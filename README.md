@@ -11,8 +11,6 @@ A modular embedded alarm clock implemented in C with ESP-IDF and FreeRTOS. The s
 
 Active development. Core alarm, display, rotary input, audio playback, screen-dimming, and network time-synchronization features are functional.
 
-Radar snoozing still in testing
-
 ## Key Features
 
 - Configurable alarm with explicit application states:
